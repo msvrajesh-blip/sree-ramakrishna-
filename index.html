@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sree Ramakrishna Public School — Angara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#17264a;
+    --ink-soft:#3a4a72;
+    --paper:#f6f3ea;
+    --paper-dim:#eee9db;
+    --gold:#c69a2e;
+    --field:#3f6b4f;
+    --line: rgba(23,38,74,0.18);
+    --text:#232017;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+
+  /* ---------- header ---------- */
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 32px;
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; background:var(--paper);
+    z-index:10;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .crest{
+    width:42px; height:42px; border-radius:50%;
+    background:var(--ink);
+    color:var(--gold);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:700; font-size:18px;
+  }
+  .brand-text .name{font-size:15px; font-weight:600; color:var(--ink); line-height:1.2;}
+  .brand-text .place{font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.08em;}
+  nav{display:flex; gap:28px; font-size:14px; font-weight:500;}
+  nav a{text-decoration:none; color:var(--ink-soft); transition:color .2s;}
+  nav a:hover{color:var(--ink);}
+  .portal-btn{
+    background:var(--ink); color:var(--paper);
+    padding:10px 20px; border-radius:3px;
+    text-decoration:none; font-size:13.5px; font-weight:600;
+    letter-spacing:0.02em;
+  }
+  @media(max-width:760px){ nav{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:88px 32px 64px;
+    max-width:920px; margin:0 auto;
+    text-align:left;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px;
+    color:var(--field); text-transform:uppercase; letter-spacing:0.14em;
+    margin-bottom:18px; display:block;
+  }
+  .hero h1{
+    font-size:clamp(34px, 5.4vw, 58px);
+    line-height:1.06;
+    max-width:760px;
+  }
+  .hero p{
+    margin-top:22px; font-size:17px; color:var(--ink-soft); max-width:520px;
+  }
+  .hero-actions{margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;}
+  .btn-primary, .btn-ghost{
+    padding:13px 24px; border-radius:3px; font-size:14.5px; font-weight:600;
+    text-decoration:none; display:inline-block;
+  }
+  .btn-primary{background:var(--gold); color:var(--ink);}
+  .btn-ghost{border:1px solid var(--line); color:var(--ink);}
+
+  /* ---------- ledger (signature element) ---------- */
+  .ledger{
+    max-width:920px; margin:0 auto 96px; padding:0 32px;
+  }
+  .ledger-card{
+    background:var(--ink); color:var(--paper);
+    border-radius:6px; padding:32px;
+    display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; gap:0;
+    position:relative; overflow:hidden;
+  }
+  .ledger-card::before{
+    content:"STUDENT PORTAL — LIVE PREVIEW";
+    position:absolute; top:14px; right:20px;
+    font-family:'IBM Plex Mono',monospace; font-size:10px;
+    letter-spacing:0.12em; color:rgba(246,243,234,0.4);
+  }
+  .ledger-col{padding:6px 22px;}
+  .ledger-col:first-child{padding-left:2px;}
+  .ledger-rule{background:rgba(246,243,234,0.16);}
+  .ledger-label{
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    text-transform:uppercase; letter-spacing:0.1em;
+    color:var(--gold); margin-bottom:10px;
+  }
+  .ledger-value{font-family:'Fraunces',serif; font-size:30px; font-weight:600;}
+  .ledger-sub{font-size:12.5px; color:rgba(246,243,234,0.6); margin-top:4px;}
+  @media(max-width:640px){
+    .ledger-card{grid-template-columns:1fr; gap:20px;}
+    .ledger-rule{display:none;}
+  }
+
+  /* ---------- sections ---------- */
+  section.block{
+    max-width:920px; margin:0 auto; padding:56px 32px;
+    border-top:1px solid var(--line);
+  }
+  .block-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:32px; flex-wrap:wrap; gap:8px;}
+  .block-head h2{font-size:26px;}
+  .block-head .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.1em;}
+
+  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media(max-width:700px){ .grid3{grid-template-columns:1fr;} }
+  .feature{
+    border:1px solid var(--line); border-radius:5px; padding:24px;
+    background:var(--paper-dim);
+  }
+  .feature .mark{color:var(--field); font-family:'IBM Plex Mono',monospace; font-size:12px; margin-bottom:10px; display:block;}
+  .feature h3{font-size:17px; margin-bottom:8px;}
+  .feature p{font-size:14px; color:var(--ink-soft);}
+
+  .about-row{display:flex; gap:40px; flex-wrap:wrap;}
+  .about-row .col{flex:1; min-width:240px;}
+  .about-row h3{font-size:15px; margin-bottom:10px; color:var(--field);}
+  .about-row p{font-size:14.5px; color:var(--ink-soft);}
+
+  footer{
+    max-width:920px; margin:0 auto; padding:36px 32px 56px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-size:13px; color:var(--ink-soft);
+    border-top:1px solid var(--line);
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .hero h1, .hero p, .hero-actions, .ledger{
+      animation: rise .7s ease both;
+    }
+    .hero p{animation-delay:.08s;}
+    .hero-actions{animation-delay:.16s;}
+    .ledger{animation-delay:.24s;}
+    @keyframes rise{
+      from{opacity:0; transform:translateY(14px);}
+      to{opacity:1; transform:translateY(0);}
+    }
+  }
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
+
+  /* ---------- announcements ---------- */
+  .announce-list{display:flex; flex-direction:column; gap:0;}
+  .announce-item{
+    display:flex; gap:20px; padding:16px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .announce-item:last-child{border-bottom:none;}
+  .announce-date{
+    font-family:'IBM Plex Mono',monospace; font-size:12px;
+    color:var(--field); white-space:nowrap; padding-top:2px; min-width:88px;
+  }
+  .announce-title{font-size:15px; font-weight:600; color:var(--ink); margin-bottom:3px;}
+  .announce-msg{font-size:13.5px; color:var(--ink-soft);}
+  .announce-empty, .announce-error{font-size:13.5px; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="crest">SR</div>
+    <div class="brand-text">
+      <div class="name">Sree Ramakrishna Public School</div>
+      <div class="place">West Kandrika · Angara</div>
+    </div>
+  </div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#academics">Academics</a>
+    <a href="#fees">Fees</a>
+  </nav>
+  <a href="#portal" class="portal-btn">Student Portal</a>
+</header>
+
+<section class="hero">
+  <span class="eyebrow">Angara, West Godavari</span>
+  <h1>Every student's record, in one place — attendance, marks, and fees.</h1>
+  <p>A simple portal for Sree Ramakrishna Public School: parents and students sign in with their PIN to check results, attendance, and fee status — no office visit needed.</p>
+  <div class="hero-actions">
+    <a href="#portal" class="btn-primary">Open student portal</a>
+    <a href="#about" class="btn-ghost">About the school</a>
+  </div>
+</section>
+
+<div class="ledger" id="portal">
+  <div class="ledger-card">
+    <div class="ledger-col">
+      <div class="ledger-label">Attendance</div>
+      <div class="ledger-value">92%</div>
+      <div class="ledger-sub">This term</div>
+    </div>
+    <div class="ledger-rule"></div>
+    <div class="ledger-col">
+      <div class="ledger-label">Marks</div>
+      <div class="ledger-value">A Grade</div>
+      <div class="ledger-sub">Latest exam</div>
+    </div>
+    <div class="ledger-rule"></div>
+    <div class="ledger-col">
+      <div class="ledger-label">Fees</div>
+      <div class="ledger-value">Paid</div>
+      <div class="ledger-sub">Term 2 of 3</div>
+    </div>
+  </div>
+</div>
+
+<section class="block" id="academics">
+  <div class="block-head">
+    <h2>What the portal shows</h2>
+    <span class="tag">PIN + password login</span>
+  </div>
+  <div class="grid3">
+    <div class="feature">
+      <span class="mark">01</span>
+      <h3>Marks</h3>
+      <p>Subject-wise scores for every exam, updated as soon as results are entered.</p>
+    </div>
+    <div class="feature">
+      <span class="mark">02</span>
+      <h3>Attendance</h3>
+      <p>Daily attendance percentage by term, so parents can spot patterns early.</p>
+    </div>
+    <div class="feature">
+      <span class="mark">03</span>
+      <h3>Fees</h3>
+      <p>Paid and pending amounts by term, with receipts for completed payments.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="announcements">
+  <div class="block-head">
+    <h2>Announcements</h2>
+    <span class="tag">Updated from school office</span>
+  </div>
+  <div class="announce-list" id="announceList">
+    <div class="announce-empty">Loading announcements…</div>
+  </div>
+</section>
+
+<section class="block" id="about">
+  <div class="block-head">
+    <h2>About the school</h2>
+    <span class="tag">Est. Angara</span>
+  </div>
+  <div class="about-row">
+    <div class="col">
+      <h3>Our school</h3>
+      <p>Sree Ramakrishna Public School serves students from Angara and the surrounding villages, with a focus on strong academics and personal attention.</p>
+    </div>
+    <div class="col">
+      <h3>Principal</h3>
+      <p>Torati Veerannababu leads the school and its academic staff.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Sree Ramakrishna Public School, West Kandrika, Angara</span>
+  <span class="mono">Portal access is provided to enrolled students only</span>
+</footer>
+
+<script>
+/*
+  ANNOUNCEMENTS — pulled from a Google Sheet, published as CSV.
+
+  Setup (one time):
+  1. In your Google Sheet, add a tab named e.g. "Announcements"
+     with columns in this exact order:  Date | Title | Message
+  2. File → Share → Publish to web → choose that sheet/tab → CSV → Publish
+  3. Copy the CSV link Google gives you and paste it below as SHEET_CSV_URL
+  4. Re-publish this HTML file. From then on, editing the Sheet updates
+     the site automatically — no re-publish needed for new announcements.
+*/
+const SHEET_CSV_URL = "PASTE_YOUR_PUBLISHED_CSV_LINK_HERE";
+
+async function loadAnnouncements(){
+  const list = document.getElementById('announceList');
+  if(SHEET_CSV_URL.includes("PASTE_YOUR")){
+    list.innerHTML = '<div class="announce-empty">Add your Google Sheet CSV link in the code to show announcements here.</div>';
+    return;
+  }
+  try{
+    const res = await fetch(SHEET_CSV_URL);
+    if(!res.ok) throw new Error("fetch failed");
+    const csvText = await res.text();
+    const rows = csvText.trim().split("\n").map(r => r.split(","));
+    const dataRows = rows.slice(1).filter(r => r.length >= 3 && r[0].trim() !== "");
+
+    if(dataRows.length === 0){
+      list.innerHTML = '<div class="announce-empty">No announcements yet.</div>';
+      return;
+    }
+
+    list.innerHTML = "";
+    dataRows.reverse().forEach(row => {
+      const [date, title, ...messageParts] = row;
+      const message = messageParts.join(",");
+      const item = document.createElement("div");
+      item.className = "announce-item";
+      item.innerHTML = `
+        <div class="announce-date">${date.trim()}</div>
+        <div>
+          <div class="announce-title">${title.trim()}</div>
+          <div class="announce-msg">${message.trim()}</div>
+        </div>`;
+      list.appendChild(item);
+    });
+  }catch(err){
+    list.innerHTML = '<div class="announce-error">Could not load announcements right now.</div>';
+  }
+}
+loadAnnouncements();
+</script>
+
+</body>
+</html>
