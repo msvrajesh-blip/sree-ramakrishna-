@@ -37,20 +37,20 @@
   /* ---------- header ---------- */
   header{
     display:flex; align-items:center; justify-content:space-between;
-    padding:20px 32px;
+    padding:16px 32px;
     border-bottom:1px solid var(--line);
     position:sticky; top:0; background:var(--paper);
     z-index:10;
   }
-  .brand{display:flex; align-items:center; gap:12px;}
-  .crest{
-    width:42px; height:42px; border-radius:50%;
-    background:var(--ink);
-    color:var(--gold);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Fraunces',serif; font-weight:700; font-size:18px;
+  .brand{display:flex; align-items:center; gap:14px;}
+  .crest-logo{
+    width:52px; height:52px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--gold);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   }
-  .brand-text .name{font-size:15px; font-weight:600; color:var(--ink); line-height:1.2;}
+  .brand-text .name{font-size:16px; font-weight:600; color:var(--ink); line-height:1.2;}
   .brand-text .place{font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.08em;}
   nav{display:flex; gap:28px; font-size:14px; font-weight:500;}
   nav a{text-decoration:none; color:var(--ink-soft); transition:color .2s;}
@@ -65,7 +65,7 @@
 
   /* ---------- hero ---------- */
   .hero{
-    padding:88px 32px 64px;
+    padding:64px 32px 48px;
     max-width:920px; margin:0 auto;
     text-align:left;
   }
@@ -90,35 +90,30 @@
   .btn-primary{background:var(--gold); color:var(--ink);}
   .btn-ghost{border:1px solid var(--line); color:var(--ink);}
 
-  /* ---------- ledger (signature element) ---------- */
-  .ledger{
-    max-width:920px; margin:0 auto 96px; padding:0 32px;
+  /* ---------- student portal login ---------- */
+  .portal-section{
+    max-width:520px; margin:0 auto 64px; padding:32px;
+    background:#ffffff; border-radius:8px;
+    border:1px solid var(--line);
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
   }
-  .ledger-card{
-    background:var(--ink); color:var(--paper);
-    border-radius:6px; padding:32px;
-    display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; gap:0;
-    position:relative; overflow:hidden;
+  .portal-section h2{font-size:22px; text-align:center; margin-bottom:8px;}
+  .portal-section p.sub{font-size:13.5px; text-align:center; color:var(--ink-soft); margin-bottom:24px;}
+  .form-group{margin-bottom:16px;}
+  .form-group label{display:block; font-size:13px; font-weight:600; color:var(--ink); margin-bottom:6px;}
+  .form-group input{
+    width:100%; padding:11px; border:1px solid var(--line);
+    border-radius:4px; font-size:14px; font-family:'Inter', sans-serif;
   }
-  .ledger-card::before{
-    content:"STUDENT PORTAL — LIVE PREVIEW";
-    position:absolute; top:14px; right:20px;
-    font-family:'IBM Plex Mono',monospace; font-size:10px;
-    letter-spacing:0.12em; color:rgba(246,243,234,0.4);
+  .login-btn{
+    width:100%; padding:12px; background:var(--ink); color:var(--paper);
+    border:none; border-radius:4px; font-weight:600; font-size:14.5px;
+    cursor:pointer; transition:background .2s;
   }
-  .ledger-col{padding:6px 22px;}
-  .ledger-col:first-child{padding-left:2px;}
-  .ledger-rule{background:rgba(246,243,234,0.16);}
-  .ledger-label{
-    font-family:'IBM Plex Mono',monospace; font-size:11px;
-    text-transform:uppercase; letter-spacing:0.1em;
-    color:var(--gold); margin-bottom:10px;
-  }
-  .ledger-value{font-family:'Fraunces',serif; font-size:30px; font-weight:600;}
-  .ledger-sub{font-size:12.5px; color:rgba(246,243,234,0.6); margin-top:4px;}
-  @media(max-width:640px){
-    .ledger-card{grid-template-columns:1fr; gap:20px;}
-    .ledger-rule{display:none;}
+  .login-btn:hover{background:var(--ink-soft);}
+  .result-card{
+    display:none; margin-top:20px; padding:18px;
+    background:var(--paper); border-radius:6px; border:1px solid var(--gold);
   }
 
   /* ---------- sections ---------- */
@@ -147,24 +142,10 @@
 
   footer{
     max-width:920px; margin:0 auto; padding:36px 32px 56px;
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
     font-size:13px; color:var(--ink-soft);
     border-top:1px solid var(--line);
   }
-
-  @media (prefers-reduced-motion: no-preference){
-    .hero h1, .hero p, .hero-actions, .ledger{
-      animation: rise .7s ease both;
-    }
-    .hero p{animation-delay:.08s;}
-    .hero-actions{animation-delay:.16s;}
-    .ledger{animation-delay:.24s;}
-    @keyframes rise{
-      from{opacity:0; transform:translateY(14px);}
-      to{opacity:1; transform:translateY(0);}
-    }
-  }
-  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
 
   /* ---------- announcements ---------- */
   .announce-list{display:flex; flex-direction:column; gap:0;}
@@ -194,7 +175,7 @@
 
 <header>
   <div class="brand">
-    <div class="crest">SR</div>
+    <img src="logo.jpg" alt="Sree Ramakrishna Public School Logo" class="crest-logo">
     <div class="brand-text">
       <div class="name">Sree Ramakrishna Public School</div>
       <div class="place">West Kandrika · Angara</div>
@@ -203,7 +184,7 @@
   <nav>
     <a href="#about">About</a>
     <a href="#academics">Academics</a>
-    <a href="#fees">Fees</a>
+    <a href="#announcements">Announcements</a>
   </nav>
   <a href="#portal" class="portal-btn">Student Portal</a>
 </header>
@@ -211,32 +192,35 @@
 <section class="hero">
   <span class="eyebrow">Angara, West Godavari</span>
   <h1>Every student's record, in one place — attendance, marks, and fees.</h1>
-  <p>A simple portal for Sree Ramakrishna Public School: parents and students sign in with their PIN to check results, attendance, and fee status — no office visit needed.</p>
+  <p>A simple portal for Sree Ramakrishna Public School: parents and students sign in with their ID to check results, attendance, and fee status — no office visit needed.</p>
   <div class="hero-actions">
     <a href="#portal" class="btn-primary">Open student portal</a>
     <a href="#about" class="btn-ghost">About the school</a>
   </div>
 </section>
 
-<div class="ledger" id="portal">
-  <div class="ledger-card">
-    <div class="ledger-col">
-      <div class="ledger-label">Attendance</div>
-      <div class="ledger-value">92%</div>
-      <div class="ledger-sub">This term</div>
+<!-- Student Portal Login Section -->
+<div class="portal-section" id="portal">
+  <h2>Student Portal Login</h2>
+  <p class="sub">Enter your Student ID and PIN to view your academic records</p>
+  
+  <form id="studentLoginForm" onsubmit="handleLogin(event)">
+    <div class="form-group">
+      <label>Student ID / Roll No:</label>
+      <input type="text" id="studentId" placeholder="e.g. 101" required>
     </div>
-    <div class="ledger-rule"></div>
-    <div class="ledger-col">
-      <div class="ledger-label">Marks</div>
-      <div class="ledger-value">A Grade</div>
-      <div class="ledger-sub">Latest exam</div>
+    <div class="form-group">
+      <label>PIN / Password:</label>
+      <input type="password" id="studentPin" placeholder="Enter Password" required>
     </div>
-    <div class="ledger-rule"></div>
-    <div class="ledger-col">
-      <div class="ledger-label">Fees</div>
-      <div class="ledger-value">Paid</div>
-      <div class="ledger-sub">Term 2 of 3</div>
-    </div>
+    <button type="submit" class="login-btn">View Marks & Results</button>
+  </form>
+
+  <div id="resultCard" class="result-card">
+    <h3 id="resName" style="color: var(--ink); font-size: 18px; margin-bottom: 10px;"></h3>
+    <p><strong>Marks:</strong> <span id="resMarks"></span></p>
+    <p><strong>Attendance:</strong> <span id="resAttendance"></span></p>
+    <p><strong>Fee Status:</strong> <span id="resFee"></span></p>
   </div>
 </div>
 
@@ -285,29 +269,24 @@
       <p>Sree Ramakrishna Public School serves students from Angara and the surrounding villages, with a focus on strong academics and personal attention.</p>
     </div>
     <div class="col">
-      <h3>Principal</h3>
-      <p>Torati Veerannababu leads the school and its academic staff.</p>
+      <h3>Motto</h3>
+      <p><strong>Knowledge is Power</strong> — Inspiring young minds toward holistic education and wisdom.</p>
     </div>
   </div>
 </section>
 
 <footer>
-  <span>Sree Ramakrishna Public School, West Kandrika, Angara</span>
-  <span class="mono">Portal access is provided to enrolled students only</span>
+  <div>
+    <span>Sree Ramakrishna Public School, West Kandrika, Angara</span>
+  </div>
+  <!-- Visitor Counter Badge -->
+  <div>
+    <img src="https://api.visitorbadge.io/api/visitors?path=msvrajesh-blip.github.io.sree-ramakrishna-&label=VISITORS&labelColor=%2317264a&countColor=%23c69a2e" alt="Total Visitors" />
+  </div>
 </footer>
 
 <script>
-/*
-  ANNOUNCEMENTS — pulled from a Google Sheet, published as CSV.
-
-  Setup (one time):
-  1. In your Google Sheet, add a tab named e.g. "Announcements"
-     with columns in this exact order:  Date | Title | Message
-  2. File → Share → Publish to web → choose that sheet/tab → CSV → Publish
-  3. Copy the CSV link Google gives you and paste it below as SHEET_CSV_URL
-  4. Re-publish this HTML file. From then on, editing the Sheet updates
-     the site automatically — no re-publish needed for new announcements.
-*/
+/* ANNOUNCEMENTS - FETCH FROM GOOGLE SHEET CSV */
 const SHEET_CSV_URL = "PASTE_YOUR_PUBLISHED_CSV_LINK_HERE";
 
 async function loadAnnouncements(){
@@ -347,6 +326,24 @@ async function loadAnnouncements(){
   }
 }
 loadAnnouncements();
+
+/* DEMO STUDENT LOGIN HANDLER */
+function handleLogin(event){
+  event.preventDefault();
+  const id = document.getElementById('studentId').value;
+  const pin = document.getElementById('studentPin').value;
+  const card = document.getElementById('resultCard');
+
+  if(id === "101" && pin === "1234"){
+    document.getElementById('resName').innerText = "Student: Sree Ram (Roll #101)";
+    document.getElementById('resMarks').innerText = "95% (Grade A+)";
+    document.getElementById('resAttendance').innerText = "94%";
+    document.getElementById('resFee').innerText = "Paid (Term 1 & 2)";
+    card.style.display = "block";
+  } else {
+    alert("Invalid Student ID or PIN. Try ID: 101 and PIN: 1234");
+  }
+}
 </script>
 
 </body>
