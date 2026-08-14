@@ -468,20 +468,113 @@
 </div>
 
 <script>
-/*
-  ANNOUNCEMENTS — pulled from a Google Sheet, published as CSV.
+  // 1. Hamburger Menu Toggle Logic
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const dropdownMenu = document.getElementById('dropdownMenu');
 
-  Setup (one time):
-  1. In your Google Sheet, add a tab named e.g. "Announcements"
-     with columns in this exact order:  Date | Title | Message
-  2. File → Share → Publish to web → choose that sheet/tab → CSV → Publish
-  3. Copy the CSV link Google gives you and paste it below as SHEET_CSV_URL
-  4. Re-publish this HTML file. From then on, editing the Sheet updates
-     the site automatically — no re-publish needed for new announcements.
-*/
-const SHEET_CSV_URL = "PASTE_YOUR_PUBLISHED_CSV_LINK_HERE";
+  if (hamburgerBtn && dropdownMenu) {
+    hamburgerBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = hamburgerBtn.classList.toggle('open');
+      dropdownMenu.classList.toggle('open');
+      hamburgerBtn.setAttribute('aria-expanded', isOpen);
+    });
 
-async function loadAnnouncements(){
-  const list = document.getElementById('announceList');
-  if(SHEET_CSV_URL.includes("PASTE_YOUR")){
-    list.innerHTML = '<div class="announce
+    // Close dropdown when clicking anywhere outside
+    document.addEventListener('click', (e) => {
+      if (!hamburgerBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        hamburgerBtn.classList.remove('open');
+        dropdownMenu.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close dropdown when clicking a link inside it
+    dropdownMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('open');
+        dropdownMenu.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // 2. Page Navigation (Switching between Home & Student Login)
+  function showLogin() {
+    document.getElementById('homeView').style.display = 'none';
+    document.getElementById('loginView').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function showHome() {
+    document.getElementById('loginView').style.display = 'none';
+    document.getElementById('homeView').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  // 3. Password Visibility Eye Button
+  const toggleEye = document.getElementById('toggleEye');
+  const passwordInput = document.getElementById('password');
+
+  if (toggleEye && passwordInput) {
+    toggleEye.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+    });
+  }
+
+  // 4. Student Login Form Submission
+  const loginForm = document.getElementById('loginForm');
+  const errorMsg = document.getElementById('errorMsg');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (errorMsg) {
+        errorMsg.classList.add('show');
+      }
+    });
+  }
+
+  // 5. Google Sheets Announcements Loader
+  const SHEET_CSV_URL = "PASTE_YOUR_PUBLISHED_CSV_LINK_HERE";
+
+  async function loadAnnouncements() {
+    const list = document.getElementById('announceList');
+    if (!list) return;
+
+    if (SHEET_CSV_URL.includes("PASTE_YOUR")) {
+      list.innerHTML = '<div class="announce-empty">No new announcements at this time.</div>';
+      return;
+    }
+
+    try {
+      const res = await fetch(SHEET_CSV_URL);
+      const data = await res.text();
+      const rows = data.split('\n').slice(1);
+      
+      let html = '';
+      rows.forEach(row => {
+        const [date, title, msg] = row.split(',').map(c => c ? c.trim().replace(/^"|"$/g, '') : '');
+        if (title) {
+          html += `
+            <div class="announce-item">
+              <div class="announce-date">${date || ''}</div>
+              <div>
+                <div class="announce-title">${title}</div>
+                <div class="announce-msg">${msg || ''}</div>
+              </div>
+            </div>`;
+        }
+      });
+      
+      list.innerHTML = html || '<div class="announce-empty">No new announcements at this time.</div>';
+    } catch (e) {
+      list.innerHTML = '<div class="announce-error">Unable to load announcements.</div>';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadAnnouncements);
+</script>
+</body>
+</html>
