@@ -488,4 +488,78 @@
   }
 
   // Hamburger menu toggle
-  const hamburgerBtn = doc
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const dropdownMenu = document.getElementById('dropdownMenu');
+  if (hamburgerBtn && dropdownMenu) {
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('open');
+      dropdownMenu.classList.toggle('open');
+    });
+  }
+
+  // Password visibility toggle
+  const toggleEye = document.getElementById('toggleEye');
+  const passwordInput = document.getElementById('password');
+  if (toggleEye && passwordInput) {
+    toggleEye.addEventListener('click', () => {
+      const isPassword = passwordInput.type === 'password';
+      passwordInput.type = isPassword ? 'text' : 'password';
+    });
+  }
+
+  // Form submit handler
+  const loginForm = document.getElementById('loginForm');
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      document.getElementById('errorMsg').classList.add('show');
+    });
+  }
+
+  // Fetch announcements from Google Sheet
+  function fetchAnnouncements() {
+    Papa.parse(SHEET_CSV_URL, {
+      download: true,
+      header: true,
+      transformHeader: function(header) {
+        return header.trim(); // Removes accidental trailing spaces like 'Title '
+      },
+      complete: function(results) {
+        const container = document.getElementById('announceList');
+        if (!container || !results.data) return;
+
+        const validRows = results.data.filter(row => row.Date && row.Title);
+        
+        if (validRows.length === 0) {
+          container.innerHTML = '<p style="font-size:14px; color:var(--ink-soft);">No announcements at this time.</p>';
+          return;
+        }
+
+        container.innerHTML = '';
+        validRows.forEach(row => {
+          const item = document.createElement('div');
+          item.className = 'announce-item';
+          item.innerHTML = `
+            <div class="announce-date">${row.Date}</div>
+            <div>
+              <div class="announce-title">${row.Title}</div>
+              <div class="announce-msg">${row.Message || ''}</div>
+            </div>
+          `;
+          container.appendChild(item);
+        });
+      },
+      error: function(err) {
+        console.error('Failed to load announcements:', err);
+        const container = document.getElementById('announceList');
+        if (container) {
+          container.innerHTML = '<p style="font-size:14px; color:#c0392b;">Unable to load announcements.</p>';
+        }
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', fetchAnnouncements);
+</script>
+</body>
+</html>
