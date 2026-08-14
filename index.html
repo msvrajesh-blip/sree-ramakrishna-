@@ -353,38 +353,14 @@
   </div>
 </section>
 
-<!-- ANNOUNCEMENTS SECTION (DIRECTLY IN HTML) -->
+<!-- DYNAMIC ANNOUNCEMENTS SECTION -->
 <section class="block" id="announcements">
   <div class="block-head">
     <h2>Announcements</h2>
-    <span class="tag">Updated from school office</span>
+    <span class="tag">Live Google Sheet Sync</span>
   </div>
-  <div class="announce-list">
-
-    <div class="announce-item">
-      <div class="announce-date">15 AUG 2026</div>
-      <div>
-        <div class="announce-title">Independence Day Celebrations</div>
-        <div class="announce-msg">Flag hoisting ceremony will begin at 8:00 AM in the school ground. All students are requested to attend in full uniform.</div>
-      </div>
-    </div>
-
-    <div class="announce-item">
-      <div class="announce-date">20 AUG 2026</div>
-      <div>
-        <div class="announce-title">Unit Test-I Schedule</div>
-        <div class="announce-msg">Unit Test-I starts from next Monday. Detailed timetable has been posted on the main notice board.</div>
-      </div>
-    </div>
-
-    <div class="announce-item">
-      <div class="announce-date">01 SEP 2026</div>
-      <div>
-        <div class="announce-title">Parent-Teacher Meeting (PTM)</div>
-        <div class="announce-msg">PTM for Classes 1 to 10 will be held from 9:30 AM to 12:30 PM to discuss academic progress.</div>
-      </div>
-    </div>
-
+  <div class="announce-list" id="announceList">
+    <p style="font-size: 14px; color: var(--ink-soft);">Loading announcements...</p>
   </div>
 </section>
 
@@ -483,4 +459,33 @@
       <div class="login-divider">or</div>
       <a href="#" class="alt-login">
         <span class="cap-icon">
-          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11 11 13.5 16 11"/></svg>
+        </span>
+        Login with Access Code
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- PAPAPARSE CSV PARSER LIBRARY -->
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<script>
+  // Google Sheet CSV Link (Pre-configured with your Spreadsheet ID)
+  const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1JFkmCSJJe7CzDPqWGsAtDBvcDB89Bin8_kOMx2E6X6Y/gviz/tq?tqx=out:csv&sheet=Sheet1";
+
+  // Navigation functions
+  function showLogin() {
+    document.getElementById('homeView').style.display = 'none';
+    document.getElementById('loginView').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function showHome() {
+    document.getElementById('loginView').style.display = 'none';
+    document.getElementById('homeView').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  // Hamburger menu toggle
+  const hamburgerBtn = doc
