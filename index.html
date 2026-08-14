@@ -177,7 +177,6 @@
   }
   .announce-title{font-size:15px; font-weight:600; color:var(--ink); margin-bottom:3px;}
   .announce-msg{font-size:13.5px; color:var(--ink-soft);}
-  .announce-empty, .announce-error{font-size:13.5px; color:var(--ink-soft);}
 
   /* ---------- student login view ---------- */
   #loginView{
@@ -354,13 +353,38 @@
   </div>
 </section>
 
+<!-- ANNOUNCEMENTS SECTION (DIRECTLY IN HTML) -->
 <section class="block" id="announcements">
   <div class="block-head">
     <h2>Announcements</h2>
     <span class="tag">Updated from school office</span>
   </div>
-  <div class="announce-list" id="announceList">
-    <div class="announce-empty">Loading announcements…</div>
+  <div class="announce-list">
+
+    <div class="announce-item">
+      <div class="announce-date">15 AUG 2026</div>
+      <div>
+        <div class="announce-title">Independence Day Celebrations</div>
+        <div class="announce-msg">Flag hoisting ceremony will begin at 8:00 AM in the school ground. All students are requested to attend in full uniform.</div>
+      </div>
+    </div>
+
+    <div class="announce-item">
+      <div class="announce-date">20 AUG 2026</div>
+      <div>
+        <div class="announce-title">Unit Test-I Schedule</div>
+        <div class="announce-msg">Unit Test-I starts from next Monday. Detailed timetable has been posted on the main notice board.</div>
+      </div>
+    </div>
+
+    <div class="announce-item">
+      <div class="announce-date">01 SEP 2026</div>
+      <div>
+        <div class="announce-title">Parent-Teacher Meeting (PTM)</div>
+        <div class="announce-msg">PTM for Classes 1 to 10 will be held from 9:30 AM to 12:30 PM to discuss academic progress.</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -459,122 +483,4 @@
       <div class="login-divider">or</div>
       <a href="#" class="alt-login">
         <span class="cap-icon">
-          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
-        </span>
-        Login with College Account
-      </a>
-    </div>
-  </div>
-</div>
-
-<script>
-  // 1. Hamburger Menu Toggle Logic
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const dropdownMenu = document.getElementById('dropdownMenu');
-
-  if (hamburgerBtn && dropdownMenu) {
-    hamburgerBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = hamburgerBtn.classList.toggle('open');
-      dropdownMenu.classList.toggle('open');
-      hamburgerBtn.setAttribute('aria-expanded', isOpen);
-    });
-
-    // Close dropdown when clicking anywhere outside
-    document.addEventListener('click', (e) => {
-      if (!hamburgerBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
-        hamburgerBtn.classList.remove('open');
-        dropdownMenu.classList.remove('open');
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    // Close dropdown when clicking a link inside it
-    dropdownMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburgerBtn.classList.remove('open');
-        dropdownMenu.classList.remove('open');
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
-      });
-    });
-  }
-
-  // 2. Page Navigation (Switching between Home & Student Login)
-  function showLogin() {
-    document.getElementById('homeView').style.display = 'none';
-    document.getElementById('loginView').style.display = 'block';
-    window.scrollTo(0, 0);
-  }
-
-  function showHome() {
-    document.getElementById('loginView').style.display = 'none';
-    document.getElementById('homeView').style.display = 'block';
-    window.scrollTo(0, 0);
-  }
-
-  // 3. Password Visibility Eye Button
-  const toggleEye = document.getElementById('toggleEye');
-  const passwordInput = document.getElementById('password');
-
-  if (toggleEye && passwordInput) {
-    toggleEye.addEventListener('click', () => {
-      const isPassword = passwordInput.type === 'password';
-      passwordInput.type = isPassword ? 'text' : 'password';
-    });
-  }
-
-  // 4. Student Login Form Submission
-  const loginForm = document.getElementById('loginForm');
-  const errorMsg = document.getElementById('errorMsg');
-
-  if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (errorMsg) {
-        errorMsg.classList.add('show');
-      }
-    });
-  }
-
-  // 5. Google Sheets Announcements Loader
-  const SHEET_CSV_URL = "PASTE_YOUR_PUBLISHED_CSV_LINK_HERE";
-
-  async function loadAnnouncements() {
-    const list = document.getElementById('announceList');
-    if (!list) return;
-
-    if (SHEET_CSV_URL.includes("PASTE_YOUR")) {
-      list.innerHTML = '<div class="announce-empty">No new announcements at this time.</div>';
-      return;
-    }
-
-    try {
-      const res = await fetch(SHEET_CSV_URL);
-      const data = await res.text();
-      const rows = data.split('\n').slice(1);
-      
-      let html = '';
-      rows.forEach(row => {
-        const [date, title, msg] = row.split(',').map(c => c ? c.trim().replace(/^"|"$/g, '') : '');
-        if (title) {
-          html += `
-            <div class="announce-item">
-              <div class="announce-date">${date || ''}</div>
-              <div>
-                <div class="announce-title">${title}</div>
-                <div class="announce-msg">${msg || ''}</div>
-              </div>
-            </div>`;
-        }
-      });
-      
-      list.innerHTML = html || '<div class="announce-empty">No new announcements at this time.</div>';
-    } catch (e) {
-      list.innerHTML = '<div class="announce-error">Unable to load announcements.</div>';
-    }
-  }
-
-  document.addEventListener('DOMContentLoaded', loadAnnouncements);
-</script>
-</body>
-</html>
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11
