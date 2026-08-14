@@ -61,6 +61,38 @@
   }
   @media(max-width:760px){ nav{display:none;} }
 
+  /* ---------- hamburger menu ---------- */
+  .menu-wrap{position:relative; display:flex; align-items:center; gap:14px;}
+  .hamburger{
+    width:38px; height:38px; border-radius:4px;
+    border:1px solid var(--line); background:var(--paper);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    cursor:pointer;
+  }
+  .hamburger span{width:18px; height:2px; background:var(--ink); display:block; transition:transform .2s, opacity .2s;}
+  .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+  .hamburger.open span:nth-child(2){opacity:0;}
+  .hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+  .dropdown{
+    position:absolute; top:calc(100% + 10px); right:0;
+    background:var(--paper); border:1px solid var(--line); border-radius:6px;
+    min-width:220px; padding:8px; box-shadow:0 10px 30px rgba(23,38,74,0.12);
+    display:none; flex-direction:column; gap:2px;
+  }
+  .dropdown.open{display:flex;}
+  .dropdown a{
+    padding:10px 12px; border-radius:4px; text-decoration:none;
+    color:var(--ink-soft); font-size:14px; font-weight:500;
+  }
+  .dropdown a:hover{background:var(--paper-dim); color:var(--ink);}
+  .dropdown .submenu-label{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--field); padding:8px 12px 2px;
+  }
+  .dropdown .sub-item{padding-left:22px; position:relative;}
+  .dropdown .sub-item::before{content:"—"; position:absolute; left:10px; color:var(--line);}
+  .dropdown hr{border:none; border-top:1px solid var(--line); margin:6px 4px;}
+
   /* ---------- hero ---------- */
   .hero{
     padding:88px 32px 64px;
@@ -146,10 +178,119 @@
   .announce-title{font-size:15px; font-weight:600; color:var(--ink); margin-bottom:3px;}
   .announce-msg{font-size:13.5px; color:var(--ink-soft);}
   .announce-empty, .announce-error{font-size:13.5px; color:var(--ink-soft);}
+
+  /* ---------- student login view ---------- */
+  #loginView{
+    display:none;
+    min-height:100vh;
+    font-family:'Inter', sans-serif;
+    background:
+      radial-gradient(circle at 8% 10%, rgba(108,92,231,0.18), transparent 40%),
+      radial-gradient(circle at 95% 85%, rgba(108,92,231,0.22), transparent 45%),
+      #f6f4ff;
+    padding:40px 16px 60px;
+    color:#1c1440;
+  }
+  #loginView .login-back{
+    display:inline-block; margin:0 auto 24px; max-width:400px; width:100%;
+  }
+  #loginView .login-back span{
+    font-size:13px; color:#6b6491; text-decoration:none;
+    background:#fff; padding:8px 14px; border-radius:20px;
+    border:1px solid rgba(28,20,64,0.12); cursor:pointer; display:inline-block;
+  }
+  .login-card{
+    width:100%; max-width:400px; margin:0 auto;
+    background:#fff; border-radius:28px; overflow:hidden;
+    box-shadow:0 30px 60px rgba(75,59,212,0.18);
+  }
+  .login-illustration{
+    position:relative;
+    background:linear-gradient(160deg, #efeaff 0%, #e2dbff 100%);
+    padding:34px 24px 46px; overflow:hidden;
+  }
+  .login-illustration svg{position:relative; z-index:2; display:block; margin:0 auto;}
+  .login-dots{
+    position:absolute; width:70px; height:44px; top:14px; left:14px;
+    background-image:radial-gradient(#6c5ce7 1.4px, transparent 1.4px);
+    background-size:9px 9px; opacity:0.35;
+  }
+  .login-badge{
+    position:absolute; bottom:-1px; left:0; right:0; height:34px;
+    background:#fff; border-radius:50% 50% 0 0 / 100% 100% 0 0;
+  }
+  .login-content{padding:8px 34px 34px; text-align:center;}
+  .login-content h1{
+    font-family:'Fraunces', serif; font-size:26px; font-weight:700; color:#1c1440;
+    margin-bottom:6px;
+  }
+  .login-content .login-sub{font-size:13.5px; color:#6b6491; margin-bottom:14px;}
+  .login-dash{display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:26px;}
+  .login-dash span{width:16px; height:2px; background:rgba(28,20,64,0.12); border-radius:2px;}
+  .login-dash .login-dot{width:6px; height:6px; border-radius:50%; background:#6c5ce7;}
+  #loginForm{text-align:left;}
+  .login-field{
+    display:flex; align-items:center; gap:0;
+    border:1px solid rgba(28,20,64,0.12); border-radius:12px; overflow:hidden;
+    margin-bottom:14px;
+  }
+  .login-field .login-icon{
+    width:46px; height:46px; flex:none;
+    background:linear-gradient(135deg, #4b3bd4, #6c5ce7);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .login-field .login-icon svg{width:18px; height:18px; stroke:#fff; fill:none;}
+  .login-field input{
+    border:none; outline:none; flex:1;
+    padding:12px 14px; font-size:14px; font-family:'Inter',sans-serif; color:#1c1440;
+    background:#fff;
+  }
+  .login-field input::placeholder{color:#a7a1c4;}
+  .login-field .toggle-eye{
+    background:none; border:none; padding:0 14px; cursor:pointer;
+    color:#a7a1c4; display:flex; align-items:center;
+  }
+  .login-field .toggle-eye svg{width:18px; height:18px; stroke:currentColor; fill:none;}
+  .login-row{
+    display:flex; align-items:center; justify-content:space-between;
+    font-size:12.5px; margin-bottom:22px;
+  }
+  .login-remember{display:flex; align-items:center; gap:7px; color:#6b6491;}
+  .login-remember input{width:14px; height:14px; accent-color:#6c5ce7;}
+  .login-forgot{color:#6c5ce7; text-decoration:none; font-weight:500;}
+  .login-btn{
+    width:100%; border:none; border-radius:12px;
+    padding:14px; font-size:15px; font-weight:600; color:#fff;
+    background:linear-gradient(90deg, #4b3bd4, #6c5ce7);
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    cursor:pointer; box-shadow:0 12px 24px rgba(108,92,231,0.35);
+  }
+  .login-btn svg{width:17px; height:17px; stroke:#fff; fill:none;}
+  .login-divider{
+    display:flex; align-items:center; gap:12px;
+    margin:24px 0 18px; font-size:11.5px; color:#6b6491;
+    text-transform:uppercase; letter-spacing:0.08em;
+  }
+  .login-divider::before, .login-divider::after{content:""; flex:1; height:1px; background:rgba(28,20,64,0.12);}
+  .alt-login{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    text-decoration:none; font-size:13.5px; color:#6c5ce7; font-weight:500;
+  }
+  .alt-login .cap-icon{
+    width:30px; height:30px; border-radius:50%; border:1px solid rgba(28,20,64,0.12);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .alt-login svg{width:15px; height:15px; stroke:#6c5ce7; fill:none;}
+  .login-error{
+    display:none; background:#fdecec; color:#c0392b; font-size:12.5px;
+    padding:10px 12px; border-radius:8px; margin-bottom:14px;
+  }
+  .login-error.show{display:block;}
 </style>
 </head>
 <body>
 
+<div id="homeView">
 <header>
   <div class="brand">
     <img class="crest" src="https://i.postimg.cc/FKHc4dP8/IMG-20260806-210223.jpg" alt="Sree Ramakrishna Public School logo">
@@ -161,9 +302,22 @@
   <nav>
     <a href="#about">About</a>
     <a href="#academics">Academics</a>
-    <a href="#fees">Fees</a>
+    <a href="#announcements">Announcements</a>
   </nav>
-  <a href="#academics" class="portal-btn">Student Portal</a>
+  <div class="menu-wrap">
+    <a href="#" class="portal-btn" onclick="showLogin(); return false;">Student Portal</a>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="dropdown" id="dropdownMenu">
+      <a href="#about">About</a>
+      <a href="#academics">Academics</a>
+      <a href="#announcements">Announcements</a>
+      <hr>
+      <div class="submenu-label">Student Portal</div>
+      <a href="#" class="sub-item" onclick="showLogin(); return false;">Student Login</a>
+    </div>
+  </div>
 </header>
 
 <section class="hero">
@@ -171,7 +325,7 @@
   <h1>Every student's record, in one place — attendance, marks, and fees.</h1>
   <p>A simple portal for Sree Ramakrishna Public School: parents and students sign in with their PIN to check results, attendance, and fee status — no office visit needed.</p>
   <div class="hero-actions">
-    <a href="#academics" class="btn-primary">Open student portal</a>
+    <a href="#" class="btn-primary" onclick="showLogin(); return false;">Open student portal</a>
     <a href="#about" class="btn-ghost">About the school</a>
   </div>
 </section>
@@ -231,6 +385,87 @@
   <span>Sree Ramakrishna Public School, West Kandrika, Angara</span>
   <span class="mono">Portal access is provided to enrolled students only</span>
 </footer>
+</div>
+
+<div id="loginView">
+  <div class="login-back">
+    <span onclick="showHome()">← Back to school site</span>
+  </div>
+
+  <div class="login-card">
+    <div class="login-illustration">
+      <div class="login-dots"></div>
+      <svg width="220" height="150" viewBox="0 0 220 150">
+        <path d="M18 20 l6 -5 6 5 M32 24 l5 -4 5 4" stroke="#8c7fd6" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+        <circle cx="110" cy="70" r="52" fill="#ffffff" opacity="0.55"/>
+        <rect x="45" y="78" width="130" height="48" rx="2" fill="#a79bea"/>
+        <rect x="95" y="58" width="30" height="22" fill="#8c7fd6"/>
+        <circle cx="110" cy="66" r="5" fill="#efeaff" stroke="#5c4fc7" stroke-width="1.4"/>
+        <rect x="60" y="90" width="10" height="30" fill="#efeaff" opacity="0.8"/>
+        <rect x="78" y="90" width="10" height="30" fill="#efeaff" opacity="0.8"/>
+        <rect x="132" y="90" width="10" height="30" fill="#efeaff" opacity="0.8"/>
+        <rect x="150" y="90" width="10" height="30" fill="#efeaff" opacity="0.8"/>
+        <rect x="102" y="94" width="16" height="26" fill="#5c4fc7"/>
+        <circle cx="35" cy="95" r="16" fill="#8c7fd6"/>
+        <rect x="32" y="105" width="4" height="18" fill="#6c5ce7"/>
+        <circle cx="188" cy="92" r="18" fill="#7566dd"/>
+        <rect x="185" y="104" width="4" height="20" fill="#6c5ce7"/>
+        <path d="M0 126 Q110 108 220 126 L220 150 L0 150 Z" fill="#efeaff"/>
+        <g transform="translate(110,26)">
+          <path d="M0 -22 L22 -14 L22 4 Q22 24 0 34 Q-22 24 -22 4 L-22 -14 Z" fill="#1c1440"/>
+          <path d="M-11 0 L0 -6 L11 0 L0 6 Z" fill="#fff"/>
+          <rect x="-3" y="0" width="6" height="10" fill="#fff"/>
+        </g>
+      </svg>
+      <div class="login-badge"></div>
+    </div>
+
+    <div class="login-content">
+      <h1>Student Login</h1>
+      <p class="login-sub">Sree Ramakrishna Public School, Angara</p>
+      <div class="login-dash"><span></span><span class="login-dot"></span><span></span></div>
+
+      <div class="login-error" id="errorMsg">Login isn't connected to student records yet — backend setup needed.</div>
+
+      <form id="loginForm">
+        <div class="login-field">
+          <div class="login-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+          </div>
+          <input type="text" id="studentId" placeholder="Student ID" autocomplete="username" required>
+        </div>
+
+        <div class="login-field">
+          <div class="login-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          </div>
+          <input type="password" id="password" placeholder="Password" autocomplete="current-password" required>
+          <button type="button" class="toggle-eye" id="toggleEye" aria-label="Show password">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+
+        <div class="login-row">
+          <label class="login-remember"><input type="checkbox"> Remember me</label>
+          <a href="#" class="login-forgot">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="login-btn">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+          Login
+        </button>
+      </form>
+
+      <div class="login-divider">or</div>
+      <a href="#" class="alt-login">
+        <span class="cap-icon">
+          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        </span>
+        Login with College Account
+      </a>
+    </div>
+  </div>
+</div>
 
 <script>
 /*
@@ -249,41 +484,4 @@ const SHEET_CSV_URL = "PASTE_YOUR_PUBLISHED_CSV_LINK_HERE";
 async function loadAnnouncements(){
   const list = document.getElementById('announceList');
   if(SHEET_CSV_URL.includes("PASTE_YOUR")){
-    list.innerHTML = '<div class="announce-empty">Add your Google Sheet CSV link in the code to show announcements here.</div>';
-    return;
-  }
-  try{
-    const res = await fetch(SHEET_CSV_URL);
-    if(!res.ok) throw new Error("fetch failed");
-    const csvText = await res.text();
-    const rows = csvText.trim().split("\n").map(r => r.split(","));
-    const dataRows = rows.slice(1).filter(r => r.length >= 3 && r[0].trim() !== "");
-
-    if(dataRows.length === 0){
-      list.innerHTML = '<div class="announce-empty">No announcements yet.</div>';
-      return;
-    }
-
-    list.innerHTML = "";
-    dataRows.reverse().forEach(row => {
-      const [date, title, ...messageParts] = row;
-      const message = messageParts.join(",");
-      const item = document.createElement("div");
-      item.className = "announce-item";
-      item.innerHTML = `
-        <div class="announce-date">${date.trim()}</div>
-        <div>
-          <div class="announce-title">${title.trim()}</div>
-          <div class="announce-msg">${message.trim()}</div>
-        </div>`;
-      list.appendChild(item);
-    });
-  }catch(err){
-    list.innerHTML = '<div class="announce-error">Could not load announcements right now.</div>';
-  }
-}
-loadAnnouncements();
-</script>
-
-</body>
-</html>
+    list.innerHTML = '<div class="announce
