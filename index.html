@@ -466,7 +466,7 @@
 </div>
 
 <script>
-  const SHEETDB_URL = "https://sheetdb.io/api/v1/5l921iexr1bki";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf24Db9ZhHKHK49SNQbJnSab9pNE4v00XTzRnm-AmG8j00hVvjWfyEBDAWNLaQXYh2ew/exec";
 
   function showLogin() {
     document.getElementById('homeView').style.display = 'none';
@@ -500,26 +500,11 @@
     });
   }
 
-  // Safe property getter
-  function getValue(row, ...possibleKeys) {
-    if (!row) return '';
-    const keys = Object.keys(row);
-    for (const pKey of possibleKeys) {
-      const target = pKey.toLowerCase().replace(/[^a-z0-9]/g, '');
-      const matchedKey = keys.find(k => k.toLowerCase().replace(/[^a-z0-9]/g, '') === target);
-      if (matchedKey && row[matchedKey] !== undefined && row[matchedKey] !== null) {
-        return String(row[matchedKey]).trim();
-      }
-    }
-    return '';
-  }
-
   document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    
+
     const studentId = document.getElementById('studentId').value.trim();
     const password = document.getElementById('password').value.trim();
-    const selectedClass = document.getElementById('studentClass').value;
     const errorMsg = document.getElementById('errorMsg');
     const loginBtn = document.querySelector('.login-btn');
 
@@ -528,75 +513,39 @@
     loginBtn.disabled = true;
 
     try {
-      // 1. Fetch data
-      let response = await fetch(`${SHEETDB_URL}?sheet=${encodeURIComponent(selectedClass)}`);
-      let data = await response.json();
+      const url = `${APPS_SCRIPT_URL}?id=${encodeURIComponent(studentId)}&password=${encodeURIComponent(password)}`;
+      const response = await fetch(url);
+      const result = await response.json();
 
-      if (!Array.isArray(data) || data.length === 0) {
-        response = await fetch(SHEETDB_URL);
-        data = await response.json();
-      }
+      if (result.success) {
+        const student = result.data;
 
-      if (!Array.isArray(data)) {
-        throw new Error("Invalid format received from SheetDB");
-      }
+        document.getElementById('dashName').innerText = student.Name || 'Student';
+        document.getElementById('dashId').innerText = student.Student_ID || studentId;
+        document.getElementById('dashClass').innerText = student.Class || 'Class 10';
+        document.getElementById('dashAttendance').innerText = (student['Attendance%'] ? (student['Attendance%'] * 100).toFixed(0) : '0') + '%';
 
-      // 2. Dual Matching Logic
-      const student = data.find(row => {
-        const rowId = getValue(row, "Student ID", "StudentID", "ID", "RollNo", "Roll", "User", "Username");
-        const rowPass = getValue(row, "Password", "Pass", "PIN", "Pin", "Passcode", "Pwd");
+        document.getElementById('dashMaths').innerText = student.Maths ?? '-';
+        document.getElementById('dashPhysics').innerText = student.Physics ?? '-';
+        document.getElementById('dashChem').innerText = student.Chemistry ?? '-';
+        document.getElementById('dashEng').innerText = student.English ?? '-';
+        document.getElementById('dashTotal').innerText = student['Total marks'] ?? '-';
 
-        if (rowId && rowPass) {
-          if (rowId.toLowerCase() === studentId.toLowerCase() && rowPass === password) {
-            return true;
-          }
-        }
+        document.getElementById('dashTotalFee').innerText = "₹" + (student['Total fees'] ?? '0');
+        document.getElementById('dashPaid').innerText = "₹" + (student.Paid ?? '0');
+        document.getElementById('dashDue').innerText = "₹" + (student.due ?? '0');
 
-        const cellValues = Object.values(row).map(v => String(v).trim());
-        const hasId = cellValues.some(v => v.toLowerCase() === studentId.toLowerCase());
-        const hasPass = cellValues.some(v => v === password);
-
-        return hasId && hasPass;
-      });
-
-      if (student) {
-        // Populate Dashboard
-        document.getElementById('dashName').innerText = getValue(student, "Name", "StudentName") || 'Student';
-        document.getElementById('dashId').innerText = getValue(student, "Student ID", "ID") || studentId;
-        document.getElementById('dashClass').innerText = "Class 10";
-        document.getElementById('dashAttendance').innerText = (getValue(student, "Attendance%", "Attendance") || 'N/A') + '%';
-        
-        // Marks
-        document.getElementById('dashMaths').innerText = getValue(student, "Maths", "Math") || '-';
-        document.getElementById('dashPhysics').innerText = getValue(student, "Physics", "Phy") || '-';
-        document.getElementById('dashChem').innerText = getValue(student, "Chemistry", "Chem") || '-';
-        document.getElementById('dashEng').innerText = getValue(student, "English", "Eng") || '-';
-        document.getElementById('dashTotal').innerText = getValue(student, "Total", "TotalMarks") || '-';
-
-        // Fees (Total Fee Calculation + Explicit Column Search)
-        const paidStr = getValue(student, "Paid", "PaidFee") || '0';
-        const dueStr = getValue(student, "Due", "FeeDue", "Pending") || '0';
-        const explicitTotal = getValue(student, "Total Fee", "TotalFee", "TotalFees", "Total Fees");
-
-        const calculatedTotal = (parseFloat(paidStr) || 0) + (parseFloat(dueStr) || 0);
-
-        document.getElementById('dashPaid').innerText = "₹" + paidStr;
-        document.getElementById('dashDue').innerText = "₹" + dueStr;
-        document.getElementById('dashTotalFee').innerText = "₹" + (explicitTotal ? explicitTotal : calculatedTotal);
-
-        // Display Dashboard
         document.getElementById('loginView').style.display = 'none';
         document.getElementById('dashboardView').style.display = 'block';
         window.scrollTo(0, 0);
       } else {
-        const colNames = data.length > 0 ? Object.keys(data[0]).join(", ") : "None";
-        errorMsg.innerText = `Invalid credentials. (Debug: ${data.length} rows found. Sheet columns: [${colNames}])`;
+        errorMsg.innerText = result.message || "Invalid ID or password.";
         errorMsg.classList.add('show');
       }
 
     } catch (err) {
       console.error(err);
-      errorMsg.innerText = "Connection error. Unable to connect to SheetDB API.";
+      errorMsg.innerText = "Connection error. Please try again.";
       errorMsg.classList.add('show');
     } finally {
       loginBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px; stroke:#fff; fill:none;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Login`;
