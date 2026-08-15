@@ -305,7 +305,7 @@
     <div class="feature">
       <span class="mark">03</span>
       <h3>Fees</h3>
-      <p>Paid and pending amounts by term, with receipts for completed payments.</p>
+      <p>Total, paid, and pending amounts by term, with receipts for completed payments.</p>
     </div>
   </div>
 </section>
@@ -447,20 +447,23 @@
 
     <!-- Fee Section -->
     <h3 style="font-size:16px; margin-bottom:12px; color:#1c1440;">Fee Details</h3>
-    <div style="display:flex; gap:14px;">
-      <div style="flex:1; background:#e8f8f5; border:1px solid #2ecc71; padding:14px; border-radius:10px; text-align:center;">
-        <span style="font-size:11px; color:#27ae60; text-transform:uppercase; font-weight:600;">Paid</span>
-        <div id="dashPaid" style="font-size:18px; font-weight:700; color:#27ae60; margin-top:4px;">₹0</div>
+    <div style="display:flex; gap:10px;">
+      <div style="flex:1; background:#f4f3ff; border:1px solid #6c5ce7; padding:12px 6px; border-radius:10px; text-align:center;">
+        <span style="font-size:11px; color:#4b3bd4; text-transform:uppercase; font-weight:600;">Total Fee</span>
+        <div id="dashTotalFee" style="font-size:16px; font-weight:700; color:#4b3bd4; margin-top:4px;">₹0</div>
       </div>
-      <div style="flex:1; background:#fdecec; border:1px solid #e74c3c; padding:14px; border-radius:10px; text-align:center;">
+      <div style="flex:1; background:#e8f8f5; border:1px solid #2ecc71; padding:12px 6px; border-radius:10px; text-align:center;">
+        <span style="font-size:11px; color:#27ae60; text-transform:uppercase; font-weight:600;">Paid</span>
+        <div id="dashPaid" style="font-size:16px; font-weight:700; color:#27ae60; margin-top:4px;">₹0</div>
+      </div>
+      <div style="flex:1; background:#fdecec; border:1px solid #e74c3c; padding:12px 6px; border-radius:10px; text-align:center;">
         <span style="font-size:11px; color:#c0392b; text-transform:uppercase; font-weight:600;">Due</span>
-        <div id="dashDue" style="font-size:18px; font-weight:700; color:#c0392b; margin-top:4px;">₹0</div>
+        <div id="dashDue" style="font-size:16px; font-weight:700; color:#c0392b; margin-top:4px;">₹0</div>
       </div>
     </div>
 
   </div>
 </div>
-
 
 <script>
   const SHEETDB_URL = "https://sheetdb.io/api/v1/5l921iexr1bki";
@@ -525,11 +528,10 @@
     loginBtn.disabled = true;
 
     try {
-      // 1. Try fetching with sheet name parameter
+      // 1. Fetch data
       let response = await fetch(`${SHEETDB_URL}?sheet=${encodeURIComponent(selectedClass)}`);
       let data = await response.json();
 
-      // Fallback: If sheet tab name failed, fetch primary endpoint directly
       if (!Array.isArray(data) || data.length === 0) {
         response = await fetch(SHEETDB_URL);
         data = await response.json();
@@ -539,8 +541,7 @@
         throw new Error("Invalid format received from SheetDB");
       }
 
-      // 2. Dual Matching Logic:
-      // Primary: Exact column match | Secondary: Search across all cells in the row
+      // 2. Dual Matching Logic
       const student = data.find(row => {
         const rowId = getValue(row, "Student ID", "StudentID", "ID", "RollNo", "Roll", "User", "Username");
         const rowPass = getValue(row, "Password", "Pass", "PIN", "Pin", "Passcode", "Pwd");
@@ -551,7 +552,6 @@
           }
         }
 
-        // Fallback: Check if ANY column value in the row equals the student ID and password
         const cellValues = Object.values(row).map(v => String(v).trim());
         const hasId = cellValues.some(v => v.toLowerCase() === studentId.toLowerCase());
         const hasPass = cellValues.some(v => v === password);
@@ -573,16 +573,22 @@
         document.getElementById('dashEng').innerText = getValue(student, "English", "Eng") || '-';
         document.getElementById('dashTotal').innerText = getValue(student, "Total", "TotalMarks") || '-';
 
-        // Fees
-        document.getElementById('dashPaid').innerText = "₹" + (getValue(student, "Paid", "PaidFee") || '0');
-        document.getElementById('dashDue').innerText = "₹" + (getValue(student, "Due", "FeeDue", "Pending") || '0');
+        // Fees (Total Fee Calculation + Explicit Column Search)
+        const paidStr = getValue(student, "Paid", "PaidFee") || '0';
+        const dueStr = getValue(student, "Due", "FeeDue", "Pending") || '0';
+        const explicitTotal = getValue(student, "Total Fee", "TotalFee", "TotalFees", "Total Fees");
+
+        const calculatedTotal = (parseFloat(paidStr) || 0) + (parseFloat(dueStr) || 0);
+
+        document.getElementById('dashPaid').innerText = "₹" + paidStr;
+        document.getElementById('dashDue').innerText = "₹" + dueStr;
+        document.getElementById('dashTotalFee').innerText = "₹" + (explicitTotal ? explicitTotal : calculatedTotal);
 
         // Display Dashboard
         document.getElementById('loginView').style.display = 'none';
         document.getElementById('dashboardView').style.display = 'block';
         window.scrollTo(0, 0);
       } else {
-        // Debug output printed inside the red box if no row matches
         const colNames = data.length > 0 ? Object.keys(data[0]).join(", ") : "None";
         errorMsg.innerText = `Invalid credentials. (Debug: ${data.length} rows found. Sheet columns: [${colNames}])`;
         errorMsg.classList.add('show');
@@ -598,7 +604,6 @@
     }
   });
 </script>
-
 
 </body>
 </html>
