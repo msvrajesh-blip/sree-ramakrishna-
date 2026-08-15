@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sree Ramakrishna Public School — Angara</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
   :root{
     --ink:#17264a;
@@ -14,554 +16,2364 @@
     --paper-dim:#eee9db;
     --gold:#c69a2e;
     --field:#3f6b4f;
-    --line: rgba(23,38,74,0.18);
+    --line:rgba(23,38,74,0.18);
     --text:#232017;
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+
+  *{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+  }
+
+  html{
+    scroll-behavior:smooth;
+  }
+
   body{
     background:var(--paper);
     color:var(--text);
-    font-family:'Inter', sans-serif;
+    font-family:'Inter',sans-serif;
     line-height:1.5;
   }
+
   h1,h2,h3{
-    font-family:'Fraunces', serif;
+    font-family:'Fraunces',serif;
     color:var(--ink);
     font-weight:600;
     letter-spacing:-0.01em;
   }
-  .mono{font-family:'IBM Plex Mono', monospace;}
-  a{color:inherit;}
+
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  a{
+    color:inherit;
+  }
 
   /* ---------- Header ---------- */
+
   header{
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
     padding:20px 32px;
     border-bottom:1px solid var(--line);
-    position:sticky; top:0; background:var(--paper);
+    position:sticky;
+    top:0;
+    background:var(--paper);
     z-index:10;
   }
-  .brand{display:flex; align-items:center; gap:12px;}
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+
   .crest{
-    width:44px; height:44px; border-radius:50%;
+    width:44px;
+    height:44px;
+    border-radius:50%;
     object-fit:cover;
     box-shadow:0 0 0 2px var(--gold);
   }
-  .brand-text .name{font-size:15px; font-weight:600; color:var(--ink); line-height:1.2;}
-  .brand-text .place{font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.08em;}
-  nav{display:flex; gap:28px; font-size:14px; font-weight:500;}
-  nav a{text-decoration:none; color:var(--ink-soft); transition:color .2s;}
-  nav a:hover{color:var(--ink);}
+
+  .brand-text .name{
+    font-size:15px;
+    font-weight:600;
+    color:var(--ink);
+    line-height:1.2;
+  }
+
+  .brand-text .place{
+    font-size:11px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+
+  nav{
+    display:flex;
+    gap:28px;
+    font-size:14px;
+    font-weight:500;
+  }
+
+  nav a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    transition:color .2s;
+  }
+
+  nav a:hover{
+    color:var(--ink);
+  }
+
   .portal-btn{
-    background:var(--ink); color:var(--paper);
-    padding:10px 20px; border-radius:3px;
-    text-decoration:none; font-size:13.5px; font-weight:600;
+    background:var(--ink);
+    color:var(--paper);
+    padding:10px 20px;
+    border-radius:3px;
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:600;
     letter-spacing:0.02em;
     cursor:pointer;
   }
-  @media(max-width:760px){ nav{display:none;} }
+
+  @media(max-width:760px){
+    nav{
+      display:none;
+    }
+  }
 
   /* ---------- Hamburger Menu ---------- */
-  .menu-wrap{position:relative; display:flex; align-items:center; gap:14px;}
+
+  .menu-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
+
   .hamburger{
-    width:38px; height:38px; border-radius:4px;
-    border:1px solid var(--line); background:var(--paper);
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+    width:38px;
+    height:38px;
+    border-radius:4px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
     cursor:pointer;
   }
-  .hamburger span{width:18px; height:2px; background:var(--ink); display:block; transition:transform .2s, opacity .2s;}
-  .hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
-  .hamburger.open span:nth-child(2){opacity:0;}
-  .hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+
+  .hamburger span{
+    width:18px;
+    height:2px;
+    background:var(--ink);
+    display:block;
+    transition:transform .2s,opacity .2s;
+  }
+
+  .hamburger.open span:nth-child(1){
+    transform:translateY(6px) rotate(45deg);
+  }
+
+  .hamburger.open span:nth-child(2){
+    opacity:0;
+  }
+
+  .hamburger.open span:nth-child(3){
+    transform:translateY(-6px) rotate(-45deg);
+  }
+
   .dropdown{
-    position:absolute; top:calc(100% + 10px); right:0;
-    background:var(--paper); border:1px solid var(--line); border-radius:6px;
-    min-width:220px; padding:8px; box-shadow:0 10px 30px rgba(23,38,74,0.12);
-    display:none; flex-direction:column; gap:2px;
+    position:absolute;
+    top:calc(100% + 10px);
+    right:0;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:6px;
+    min-width:220px;
+    padding:8px;
+    box-shadow:0 10px 30px rgba(23,38,74,0.12);
+    display:none;
+    flex-direction:column;
+    gap:2px;
   }
-  .dropdown.open{display:flex;}
+
+  .dropdown.open{
+    display:flex;
+  }
+
   .dropdown a{
-    padding:10px 12px; border-radius:4px; text-decoration:none;
-    color:var(--ink-soft); font-size:14px; font-weight:500;
+    padding:10px 12px;
+    border-radius:4px;
+    text-decoration:none;
+    color:var(--ink-soft);
+    font-size:14px;
+    font-weight:500;
   }
-  .dropdown a:hover{background:var(--paper-dim); color:var(--ink);}
+
+  .dropdown a:hover{
+    background:var(--paper-dim);
+    color:var(--ink);
+  }
+
   .dropdown .submenu-label{
-    font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase;
-    letter-spacing:0.1em; color:var(--field); padding:8px 12px 2px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--field);
+    padding:8px 12px 2px;
   }
-  .dropdown .sub-item{padding-left:22px; position:relative;}
-  .dropdown .sub-item::before{content:"—"; position:absolute; left:10px; color:var(--line);}
-  .dropdown hr{border:none; border-top:1px solid var(--line); margin:6px 4px;}
+
+  .dropdown .sub-item{
+    padding-left:22px;
+    position:relative;
+  }
+
+  .dropdown .sub-item::before{
+    content:"—";
+    position:absolute;
+    left:10px;
+    color:var(--line);
+  }
+
+  .dropdown hr{
+    border:none;
+    border-top:1px solid var(--line);
+    margin:6px 4px;
+  }
 
   /* ---------- Hero Section ---------- */
+
   .hero{
     padding:88px 32px 64px;
-    max-width:920px; margin:0 auto;
+    max-width:920px;
+    margin:0 auto;
     text-align:left;
   }
+
   .eyebrow{
-    font-family:'IBM Plex Mono', monospace; font-size:12px;
-    color:var(--field); text-transform:uppercase; letter-spacing:0.14em;
-    margin-bottom:18px; display:block;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--field);
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    margin-bottom:18px;
+    display:block;
   }
+
   .hero h1{
-    font-size:clamp(34px, 5.4vw, 58px);
+    font-size:clamp(34px,5.4vw,58px);
     line-height:1.06;
     max-width:760px;
   }
+
   .hero p{
-    margin-top:22px; font-size:17px; color:var(--ink-soft); max-width:520px;
+    margin-top:22px;
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:520px;
   }
-  .hero-actions{margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;}
-  .btn-primary, .btn-ghost{
-    padding:13px 24px; border-radius:3px; font-size:14.5px; font-weight:600;
-    text-decoration:none; display:inline-block; cursor:pointer;
+
+  .hero-actions{
+    margin-top:34px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
   }
-  .btn-primary{background:var(--gold); color:var(--ink);}
-  .btn-ghost{border:1px solid var(--line); color:var(--ink);}
+
+  .btn-primary,
+  .btn-ghost{
+    padding:13px 24px;
+    border-radius:3px;
+    font-size:14.5px;
+    font-weight:600;
+    text-decoration:none;
+    display:inline-block;
+    cursor:pointer;
+  }
+
+  .btn-primary{
+    background:var(--gold);
+    color:var(--ink);
+  }
+
+  .btn-ghost{
+    border:1px solid var(--line);
+    color:var(--ink);
+  }
 
   /* ---------- Sections ---------- */
+
   section.block{
-    max-width:920px; margin:0 auto; padding:56px 32px;
+    max-width:920px;
+    margin:0 auto;
+    padding:56px 32px;
     border-top:1px solid var(--line);
   }
-  .block-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:32px; flex-wrap:wrap; gap:8px;}
-  .block-head h2{font-size:26px;}
-  .block-head .tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.1em;}
 
-  .grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
-  @media(max-width:700px){ .grid3{grid-template-columns:1fr;} }
+  .block-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:32px;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  .block-head h2{
+    font-size:26px;
+  }
+
+  .block-head .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+  }
+
+  .grid3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+  }
+
+  @media(max-width:700px){
+    .grid3{
+      grid-template-columns:1fr;
+    }
+  }
+
   .feature{
-    border:1px solid var(--line); border-radius:5px; padding:24px;
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:24px;
     background:var(--paper-dim);
   }
-  .feature .mark{color:var(--field); font-family:'IBM Plex Mono',monospace; font-size:12px; margin-bottom:10px; display:block;}
-  .feature h3{font-size:17px; margin-bottom:8px;}
-  .feature p{font-size:14px; color:var(--ink-soft);}
 
-  .about-row{display:flex; gap:40px; flex-wrap:wrap;}
-  .about-row .col{flex:1; min-width:240px;}
-  .about-row h3{font-size:15px; margin-bottom:10px; color:var(--field);}
-  .about-row p{font-size:14.5px; color:var(--ink-soft);}
+  .feature .mark{
+    color:var(--field);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    margin-bottom:10px;
+    display:block;
+  }
+
+  .feature h3{
+    font-size:17px;
+    margin-bottom:8px;
+  }
+
+  .feature p{
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  .about-row{
+    display:flex;
+    gap:40px;
+    flex-wrap:wrap;
+  }
+
+  .about-row .col{
+    flex:1;
+    min-width:240px;
+  }
+
+  .about-row h3{
+    font-size:15px;
+    margin-bottom:10px;
+    color:var(--field);
+  }
+
+  .about-row p{
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
 
   footer{
-    max-width:920px; margin:0 auto; padding:36px 32px 56px;
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
-    font-size:13px; color:var(--ink-soft);
+    max-width:920px;
+    margin:0 auto;
+    padding:36px 32px 56px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:12px;
+    font-size:13px;
+    color:var(--ink-soft);
     border-top:1px solid var(--line);
   }
 
   /* ---------- Student Login View ---------- */
+
   #loginView{
     display:none;
     min-height:100vh;
-    font-family:'Inter', sans-serif;
+    font-family:'Inter',sans-serif;
     background:
-      radial-gradient(circle at 8% 10%, rgba(108,92,231,0.18), transparent 40%),
-      radial-gradient(circle at 95% 85%, rgba(108,92,231,0.22), transparent 45%),
+      radial-gradient(circle at 8% 10%,rgba(108,92,231,0.18),transparent 40%),
+      radial-gradient(circle at 95% 85%,rgba(108,92,231,0.22),transparent 45%),
       #f6f4ff;
     padding:40px 16px 60px;
     color:#1c1440;
   }
+
   #loginView .login-back{
-    display:inline-block; margin:0 auto 24px; max-width:400px; width:100%;
+    display:inline-block;
+    margin:0 auto 24px;
+    max-width:400px;
+    width:100%;
   }
+
   #loginView .login-back span{
-    font-size:13px; color:#6b6491; text-decoration:none;
-    background:#fff; padding:8px 14px; border-radius:20px;
-    border:1px solid rgba(28,20,64,0.12); cursor:pointer; display:inline-block;
+    font-size:13px;
+    color:#6b6491;
+    text-decoration:none;
+    background:#fff;
+    padding:8px 14px;
+    border-radius:20px;
+    border:1px solid rgba(28,20,64,0.12);
+    cursor:pointer;
+    display:inline-block;
   }
+
   .login-card{
-    width:100%; max-width:400px; margin:0 auto;
-    background:#fff; border-radius:28px; overflow:hidden;
+    width:100%;
+    max-width:400px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:28px;
+    overflow:hidden;
     box-shadow:0 30px 60px rgba(75,59,212,0.18);
   }
+
   .login-illustration{
     position:relative;
-    background:linear-gradient(160deg, #efeaff 0%, #e2dbff 100%);
-    padding:34px 24px 46px; overflow:hidden;
+    background:linear-gradient(160deg,#efeaff 0%,#e2dbff 100%);
+    padding:34px 24px 46px;
+    overflow:hidden;
   }
-  .login-illustration svg{position:relative; z-index:2; display:block; margin:0 auto;}
+
+  .login-illustration svg{
+    position:relative;
+    z-index:2;
+    display:block;
+    margin:0 auto;
+  }
+
   .login-dots{
-    position:absolute; width:70px; height:44px; top:14px; left:14px;
-    background-image:radial-gradient(#6c5ce7 1.4px, transparent 1.4px);
-    background-size:9px 9px; opacity:0.35;
+    position:absolute;
+    width:70px;
+    height:44px;
+    top:14px;
+    left:14px;
+    background-image:radial-gradient(#6c5ce7 1.4px,transparent 1.4px);
+    background-size:9px 9px;
+    opacity:0.35;
   }
+
   .login-badge{
-    position:absolute; bottom:-1px; left:0; right:0; height:34px;
-    background:#fff; border-radius:50% 50% 0 0 / 100% 100% 0 0;
+    position:absolute;
+    bottom:-1px;
+    left:0;
+    right:0;
+    height:34px;
+    background:#fff;
+    border-radius:50% 50% 0 0 / 100% 100% 0 0;
   }
-  .login-content{padding:8px 34px 34px; text-align:center;}
+
+  .login-content{
+    padding:8px 34px 34px;
+    text-align:center;
+  }
+
   .login-content h1{
-    font-family:'Fraunces', serif; font-size:26px; font-weight:700; color:#1c1440;
+    font-family:'Fraunces',serif;
+    font-size:26px;
+    font-weight:700;
+    color:#1c1440;
     margin-bottom:6px;
   }
-  .login-content .login-sub{font-size:13.5px; color:#6b6491; margin-bottom:14px;}
-  .login-dash{display:flex; align-items:center; justify-content:center; gap:6px; margin-bottom:26px;}
-  .login-dash span{width:16px; height:2px; background:rgba(28,20,64,0.12); border-radius:2px;}
-  .login-dash .login-dot{width:6px; height:6px; border-radius:50%; background:#6c5ce7;}
-  #loginForm{text-align:left;}
-  .login-field{
-    display:flex; align-items:center; gap:0;
-    border:1px solid rgba(28,20,64,0.12); border-radius:12px; overflow:hidden;
+
+  .login-content .login-sub{
+    font-size:13.5px;
+    color:#6b6491;
     margin-bottom:14px;
   }
-  .login-field .login-icon{
-    width:46px; height:46px; flex:none;
-    background:linear-gradient(135deg, #4b3bd4, #6c5ce7);
-    display:flex; align-items:center; justify-content:center;
+
+  .login-dash{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin-bottom:26px;
   }
-  .login-field .login-icon svg{width:18px; height:18px; stroke:#fff; fill:none;}
-  .login-field input, .login-field select{
-    border:none; outline:none; flex:1;
-    padding:12px 14px; font-size:14px; font-family:'Inter',sans-serif; color:#1c1440;
+
+  .login-dash span{
+    width:16px;
+    height:2px;
+    background:rgba(28,20,64,0.12);
+    border-radius:2px;
+  }
+
+  .login-dash .login-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:#6c5ce7;
+  }
+
+  #loginForm{
+    text-align:left;
+  }
+
+  .login-field{
+    display:flex;
+    align-items:center;
+    gap:0;
+    border:1px solid rgba(28,20,64,0.12);
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:14px;
+  }
+
+  .login-field .login-icon{
+    width:46px;
+    height:46px;
+    flex:none;
+    background:linear-gradient(135deg,#4b3bd4,#6c5ce7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .login-field .login-icon svg{
+    width:18px;
+    height:18px;
+    stroke:#fff;
+    fill:none;
+  }
+
+  .login-field input,
+  .login-field select{
+    border:none;
+    outline:none;
+    flex:1;
+    padding:12px 14px;
+    font-size:14px;
+    font-family:'Inter',sans-serif;
+    color:#1c1440;
     background:#fff;
   }
-  .login-field input::placeholder{color:#a7a1c4;}
+
+  .login-field input::placeholder{
+    color:#a7a1c4;
+  }
+
   .login-field .toggle-eye{
-    background:none; border:none; padding:0 14px; cursor:pointer;
-    color:#a7a1c4; display:flex; align-items:center;
+    background:none;
+    border:none;
+    padding:0 14px;
+    cursor:pointer;
+    color:#a7a1c4;
+    display:flex;
+    align-items:center;
   }
-  .login-field .toggle-eye svg{width:18px; height:18px; stroke:currentColor; fill:none;}
+
+  .login-field .toggle-eye svg{
+    width:18px;
+    height:18px;
+    stroke:currentColor;
+    fill:none;
+  }
+
   .login-row{
-    display:flex; align-items:center; justify-content:space-between;
-    font-size:12.5px; margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:12.5px;
+    margin-bottom:22px;
   }
-  .login-remember{display:flex; align-items:center; gap:7px; color:#6b6491;}
-  .login-remember input{width:14px; height:14px; accent-color:#6c5ce7;}
-  .login-forgot{color:#6c5ce7; text-decoration:none; font-weight:500;}
+
+  .login-remember{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#6b6491;
+  }
+
+  .login-remember input{
+    width:14px;
+    height:14px;
+    accent-color:#6c5ce7;
+  }
+
+  .login-forgot{
+    color:#6c5ce7;
+    text-decoration:none;
+    font-weight:500;
+  }
+
   .login-btn{
-    width:100%; border:none; border-radius:12px;
-    padding:14px; font-size:15px; font-weight:600; color:#fff;
-    background:linear-gradient(90deg, #4b3bd4, #6c5ce7);
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    cursor:pointer; box-shadow:0 12px 24px rgba(108,92,231,0.35);
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:14px;
+    font-size:15px;
+    font-weight:600;
+    color:#fff;
+    background:linear-gradient(90deg,#4b3bd4,#6c5ce7);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    box-shadow:0 12px 24px rgba(108,92,231,0.35);
   }
-  .login-btn svg{width:17px; height:17px; stroke:#fff; fill:none;}
+
+  .login-btn svg{
+    width:17px;
+    height:17px;
+    stroke:#fff;
+    fill:none;
+  }
+
+  .login-btn:disabled{
+    opacity:0.7;
+    cursor:not-allowed;
+  }
+
   .login-error{
-    display:none; background:#fdecec; color:#c0392b; font-size:12.5px;
-    padding:10px 12px; border-radius:8px; margin-bottom:14px;
+    display:none;
+    background:#fdecec;
+    color:#c0392b;
+    font-size:12.5px;
+    padding:10px 12px;
+    border-radius:8px;
+    margin-bottom:14px;
   }
-  .login-error.show{display:block;}
+
+  .login-error.show{
+    display:block;
+  }
+
+  /* ---------- Dashboard ---------- */
+
+  #dashboardView{
+    display:none;
+    min-height:100vh;
+    background:#f6f4ff;
+    padding:40px 16px;
+  }
+
+  .dashboard-card{
+    max-width:600px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:24px;
+    padding:28px;
+    box-shadow:0 20px 40px rgba(75,59,212,0.12);
+  }
+
+  .dashboard-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #eee;
+    padding-bottom:16px;
+    margin-bottom:20px;
+  }
+
+  .dashboard-header h2{
+    font-family:'Fraunces',serif;
+    color:#1c1440;
+    font-size:24px;
+  }
+
+  .dashboard-header p{
+    font-size:13px;
+    color:#6b6491;
+  }
+
+  .logout-btn{
+    background:#fdecec;
+    color:#c0392b;
+    border:none;
+    padding:8px 16px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+  }
+
+  .attendance-card{
+    background:linear-gradient(135deg,#4b3bd4,#6c5ce7);
+    color:#fff;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+
+  .attendance-label{
+    font-size:14px;
+    font-weight:500;
+  }
+
+  .attendance-value{
+    font-size:22px;
+    font-weight:700;
+  }
+
+  .dashboard-section-title{
+    font-size:16px;
+    margin-bottom:12px;
+    color:#1c1440;
+  }
+
+  .marks-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:16px;
+  }
+
+  .mark-box{
+    background:#f8f7fc;
+    padding:12px;
+    border-radius:8px;
+    font-size:14px;
+  }
+
+  .total-marks{
+    background:#efeaff;
+    padding:14px;
+    border-radius:8px;
+    font-weight:600;
+    color:#4b3bd4;
+    margin-bottom:24px;
+    font-size:15px;
+  }
+
+  .fees-row{
+    display:flex;
+    gap:10px;
+  }
+
+  .fee-box{
+    flex:1;
+    padding:12px 6px;
+    border-radius:10px;
+    text-align:center;
+  }
+
+  .fee-label{
+    font-size:11px;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+
+  .fee-value{
+    font-size:16px;
+    font-weight:700;
+    margin-top:4px;
+  }
+
+  .fee-total{
+    background:#f4f3ff;
+    border:1px solid #6c5ce7;
+    color:#4b3bd4;
+  }
+
+  .fee-paid{
+    background:#e8f8f5;
+    border:1px solid #2ecc71;
+    color:#27ae60;
+  }
+
+  .fee-due{
+    background:#fdecec;
+    border:1px solid #e74c3c;
+    color:#c0392b;
+  }
+
+  @media(max-width:500px){
+    .dashboard-card{
+      padding:20px;
+    }
+
+    .fees-row{
+      gap:6px;
+    }
+
+    .fee-value{
+      font-size:14px;
+    }
+
+    .dashboard-header{
+      gap:10px;
+    }
+
+    .dashboard-header h2{
+      font-size:20px;
+    }
+  }
 </style>
 </head>
+
 <body>
 
+<!-- ========================================================= -->
+<!-- HOME VIEW -->
+<!-- ========================================================= -->
+
 <div id="homeView">
+
 <header>
+
   <div class="brand">
-    <img class="crest" src="https://i.postimg.cc/FKHc4dP8/IMG-20260806-210223.jpg" alt="Sree Ramakrishna Public School logo">
+
+    <img
+      class="crest"
+      src="https://i.postimg.cc/FKHc4dP8/IMG-20260806-210223.jpg"
+      alt="Sree Ramakrishna Public School logo"
+    >
+
     <div class="brand-text">
-      <div class="name">Sree Ramakrishna Public School</div>
-      <div class="place">West Kandrika · Angara</div>
+
+      <div class="name">
+        Sree Ramakrishna Public School
+      </div>
+
+      <div class="place">
+        West Kandrika · Angara
+      </div>
+
     </div>
+
   </div>
+
   <nav>
+
     <a href="#about">About</a>
     <a href="#academics">Academics</a>
+
   </nav>
+
   <div class="menu-wrap">
-    <a href="#" class="portal-btn" onclick="showLogin(); return false;">Student Portal</a>
-    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
+
+    <a
+      href="#"
+      class="portal-btn"
+      onclick="showLogin(); return false;"
+    >
+      Student Portal
+    </a>
+
+    <button
+      class="hamburger"
+      id="hamburgerBtn"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
     </button>
-    <div class="dropdown" id="dropdownMenu">
-      <a href="#about">About</a>
-      <a href="#academics">Academics</a>
+
+    <div
+      class="dropdown"
+      id="dropdownMenu"
+    >
+
+      <a href="#about">
+        About
+      </a>
+
+      <a href="#academics">
+        Academics
+      </a>
+
       <hr>
-      <div class="submenu-label">Student Portal</div>
-      <a href="#" class="sub-item" onclick="showLogin(); return false;">Student Login</a>
+
+      <div class="submenu-label">
+        Student Portal
+      </div>
+
+      <a
+        href="#"
+        class="sub-item"
+        onclick="showLogin(); return false;"
+      >
+        Student Login
+      </a>
+
     </div>
+
   </div>
+
 </header>
 
+
 <section class="hero">
-  <span class="eyebrow">Angara, West Godavari</span>
-  <h1>Every student's record, in one place — attendance, marks, and fees.</h1>
-  <p>A simple portal for Sree Ramakrishna Public School: parents and students sign in with their PIN to check results, attendance, and fee status — no office visit needed.</p>
+
+  <span class="eyebrow">
+    Angara, West Godavari
+  </span>
+
+  <h1>
+    Every student's record, in one place — attendance, marks, and fees.
+  </h1>
+
+  <p>
+    A simple portal for Sree Ramakrishna Public School:
+    parents and students sign in with their PIN to check results,
+    attendance, and fee status — no office visit needed.
+  </p>
+
   <div class="hero-actions">
-    <a href="#" class="btn-primary" onclick="showLogin(); return false;">Open student portal</a>
-    <a href="#about" class="btn-ghost">About the school</a>
+
+    <a
+      href="#"
+      class="btn-primary"
+      onclick="showLogin(); return false;"
+    >
+      Open student portal
+    </a>
+
+    <a
+      href="#about"
+      class="btn-ghost"
+    >
+      About the school
+    </a>
+
   </div>
+
 </section>
 
-<section class="block" id="academics">
+
+<section
+  class="block"
+  id="academics"
+>
+
   <div class="block-head">
-    <h2>What the portal shows</h2>
-    <span class="tag">PIN + password login</span>
+
+    <h2>
+      What the portal shows
+    </h2>
+
+    <span class="tag">
+      PIN + password login
+    </span>
+
   </div>
+
+
   <div class="grid3">
+
     <div class="feature">
-      <span class="mark">01</span>
-      <h3>Marks</h3>
-      <p>Subject-wise scores for every exam, updated as soon as results are entered.</p>
+
+      <span class="mark">
+        01
+      </span>
+
+      <h3>
+        Marks
+      </h3>
+
+      <p>
+        Subject-wise scores for every exam,
+        updated as soon as results are entered.
+      </p>
+
     </div>
+
+
     <div class="feature">
-      <span class="mark">02</span>
-      <h3>Attendance</h3>
-      <p>Daily attendance percentage by term, so parents can spot patterns early.</p>
+
+      <span class="mark">
+        02
+      </span>
+
+      <h3>
+        Attendance
+      </h3>
+
+      <p>
+        Daily attendance percentage by term,
+        so parents can spot patterns early.
+      </p>
+
     </div>
+
+
     <div class="feature">
-      <span class="mark">03</span>
-      <h3>Fees</h3>
-      <p>Total, paid, and pending amounts by term, with receipts for completed payments.</p>
+
+      <span class="mark">
+        03
+      </span>
+
+      <h3>
+        Fees
+      </h3>
+
+      <p>
+        Total, paid, and pending amounts by term,
+        with receipts for completed payments.
+      </p>
+
     </div>
+
   </div>
+
 </section>
 
-<section class="block" id="about">
+
+<section
+  class="block"
+  id="about"
+>
+
   <div class="block-head">
-    <h2>About the school</h2>
-    <span class="tag">Est. Angara</span>
+
+    <h2>
+      About the school
+    </h2>
+
+    <span class="tag">
+      Est. Angara
+    </span>
+
   </div>
+
+
   <div class="about-row">
+
     <div class="col">
-      <h3>Our school</h3>
-      <p>Sree Ramakrishna Public School serves students from Angara and the surrounding villages, with a focus on strong academics and personal attention.</p>
+
+      <h3>
+        Our school
+      </h3>
+
+      <p>
+        Sree Ramakrishna Public School serves students
+        from Angara and the surrounding villages,
+        with a focus on strong academics and personal attention.
+      </p>
+
     </div>
+
+
     <div class="col">
-      <h3>Principal</h3>
-      <p>Torati Veerannababu leads the school and its academic staff.</p>
+
+      <h3>
+        Principal
+      </h3>
+
+      <p>
+        Torati Veerannababu leads the school
+        and its academic staff.
+      </p>
+
     </div>
+
   </div>
+
 </section>
+
 
 <footer>
-  <span>Sree Ramakrishna Public School, West Kandrika, Angara</span>
-  <span class="mono">Portal access is provided to enrolled students only</span>
+
+  <span>
+    Sree Ramakrishna Public School,
+    West Kandrika, Angara
+  </span>
+
+  <span class="mono">
+    Portal access is provided to enrolled students only
+  </span>
+
 </footer>
+
 </div>
 
+
+<!-- ========================================================= -->
 <!-- LOGIN VIEW -->
+<!-- ========================================================= -->
+
 <div id="loginView">
+
   <div class="login-back">
-    <span onclick="showHome()">← Back to school site</span>
+
+    <span onclick="showHome()">
+      ← Back to school site
+    </span>
+
   </div>
+
 
   <div class="login-card">
+
     <div class="login-illustration">
+
       <div class="login-dots"></div>
-      <svg width="220" height="150" viewBox="0 0 220 150">
-        <path d="M18 20 l6 -5 6 5 M32 24 l5 -4 5 4" stroke="#8c7fd6" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-        <circle cx="110" cy="70" r="52" fill="#ffffff" opacity="0.55"/>
-        <rect x="45" y="78" width="130" height="48" rx="2" fill="#a79bea"/>
-        <rect x="95" y="58" width="30" height="22" fill="#8c7fd6"/>
-        <circle cx="110" cy="66" r="5" fill="#efeaff" stroke="#5c4fc7" stroke-width="1.4"/>
-        <rect x="60" y="90" width="10" height="30" fill="#efeaff" opacity="0.8"/>
-        <rect x="78" y="90" width="10" height="30" fill="#efeaff" opacity="0.8"/>
-        <rect x="132" y="90" width="10" height="30" fill="#efeaff" opacity="0.8"/>
-        <rect x="150" y="90" width="10" height="30" fill="#efeaff" opacity="0.8"/>
-        <rect x="102" y="94" width="16" height="26" fill="#5c4fc7"/>
-        <circle cx="35" cy="95" r="16" fill="#8c7fd6"/>
-        <rect x="32" y="105" width="4" height="18" fill="#6c5ce7"/>
-        <circle cx="188" cy="92" r="18" fill="#7566dd"/>
-        <rect x="185" y="104" width="4" height="20" fill="#6c5ce7"/>
-        <path d="M0 126 Q110 108 220 126 L220 150 L0 150 Z" fill="#efeaff"/>
+
+      <svg
+        width="220"
+        height="150"
+        viewBox="0 0 220 150"
+      >
+
+        <path
+          d="M18 20 l6 -5 6 5 M32 24 l5 -4 5 4"
+          stroke="#8c7fd6"
+          stroke-width="1.6"
+          fill="none"
+          stroke-linecap="round"
+        />
+
+        <circle
+          cx="110"
+          cy="70"
+          r="52"
+          fill="#ffffff"
+          opacity="0.55"
+        />
+
+        <rect
+          x="45"
+          y="78"
+          width="130"
+          height="48"
+          rx="2"
+          fill="#a79bea"
+        />
+
+        <rect
+          x="95"
+          y="58"
+          width="30"
+          height="22"
+          fill="#8c7fd6"
+        />
+
+        <circle
+          cx="110"
+          cy="66"
+          r="5"
+          fill="#efeaff"
+          stroke="#5c4fc7"
+          stroke-width="1.4"
+        />
+
+        <rect
+          x="60"
+          y="90"
+          width="10"
+          height="30"
+          fill="#efeaff"
+          opacity="0.8"
+        />
+
+        <rect
+          x="78"
+          y="90"
+          width="10"
+          height="30"
+          fill="#efeaff"
+          opacity="0.8"
+        />
+
+        <rect
+          x="132"
+          y="90"
+          width="10"
+          height="30"
+          fill="#efeaff"
+          opacity="0.8"
+        />
+
+        <rect
+          x="150"
+          y="90"
+          width="10"
+          height="30"
+          fill="#efeaff"
+          opacity="0.8"
+        />
+
+        <rect
+          x="102"
+          y="94"
+          width="16"
+          height="26"
+          fill="#5c4fc7"
+        />
+
+        <circle
+          cx="35"
+          cy="95"
+          r="16"
+          fill="#8c7fd6"
+        />
+
+        <rect
+          x="32"
+          y="105"
+          width="4"
+          height="18"
+          fill="#6c5ce7"
+        />
+
+        <circle
+          cx="188"
+          cy="92"
+          r="18"
+          fill="#7566dd"
+        />
+
+        <rect
+          x="185"
+          y="104"
+          width="4"
+          height="20"
+          fill="#6c5ce7"
+        />
+
+        <path
+          d="M0 126 Q110 108 220 126 L220 150 L0 150 Z"
+          fill="#efeaff"
+        />
+
         <g transform="translate(110,26)">
-          <path d="M0 -22 L22 -14 L22 4 Q22 24 0 34 Q-22 24 -22 4 L-22 -14 Z" fill="#1c1440"/>
-          <path d="M-11 0 L0 -6 L11 0 L0 6 Z" fill="#fff"/>
-          <rect x="-3" y="0" width="6" height="10" fill="#fff"/>
+
+          <path
+            d="M0 -22 L22 -14 L22 4 Q22 24 0 34 Q-22 24 -22 4 L-22 -14 Z"
+            fill="#1c1440"
+          />
+
+          <path
+            d="M-11 0 L0 -6 L11 0 L0 6 Z"
+            fill="#fff"
+          />
+
+          <rect
+            x="-3"
+            y="0"
+            width="6"
+            height="10"
+            fill="#fff"
+          />
+
         </g>
+
       </svg>
+
       <div class="login-badge"></div>
+
     </div>
+
 
     <div class="login-content">
-      <h1>Student Login</h1>
-      <p class="login-sub">Sree Ramakrishna Public School, Angara</p>
-      <div class="login-dash"><span></span><span class="login-dot"></span><span></span></div>
 
-      <div class="login-error" id="errorMsg">Invalid credentials.</div>
+      <h1>
+        Student Login
+      </h1>
+
+      <p class="login-sub">
+        Sree Ramakrishna Public School, Angara
+      </p>
+
+      <div class="login-dash">
+
+        <span></span>
+
+        <span class="login-dot"></span>
+
+        <span></span>
+
+      </div>
+
+
+      <div
+        class="login-error"
+        id="errorMsg"
+      >
+        Invalid credentials.
+      </div>
+
 
       <form id="loginForm">
-        <div class="login-field">
-          <div class="login-icon">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
-          </div>
-          <input type="text" id="studentId" placeholder="Student ID (e.g., SR01)" autocomplete="username" required>
-        </div>
 
         <div class="login-field">
+
           <div class="login-icon">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+
+              <circle
+                cx="12"
+                cy="8"
+                r="4"
+              />
+
+              <path
+                d="M4 21c0-4 4-6 8-6s8 2 8 6"
+              />
+
+            </svg>
+
           </div>
-          <input type="password" id="password" placeholder="Password" autocomplete="current-password" required>
-          <button type="button" class="toggle-eye" id="toggleEye" aria-label="Show password">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
+
+
+          <input
+            type="text"
+            id="studentId"
+            placeholder="Student ID (e.g., SR01)"
+            autocomplete="username"
+            required
+          >
+
         </div>
+
+
+        <div class="login-field">
+
+          <div class="login-icon">
+
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+
+              <rect
+                x="5"
+                y="11"
+                width="14"
+                height="9"
+                rx="1.5"
+              />
+
+              <path
+                d="M8 11V7a4 4 0 0 1 8 0v4"
+              />
+
+            </svg>
+
+          </div>
+
+
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+          >
+
+
+          <button
+            type="button"
+            class="toggle-eye"
+            id="toggleEye"
+            aria-label="Show password"
+          >
+
+            <svg
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+
+              <path
+                d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"
+              />
+
+              <circle
+                cx="12"
+                cy="12"
+                r="3"
+              />
+
+            </svg>
+
+          </button>
+
+        </div>
+
 
         <div class="login-row">
-          <label class="login-remember"><input type="checkbox"> Remember me</label>
-          <a href="#" class="login-forgot">Forgot Password?</a>
+
+          <label class="login-remember">
+
+            <input type="checkbox">
+
+            Remember me
+
+          </label>
+
+
+          <a
+            href="#"
+            class="login-forgot"
+            onclick="return false;"
+          >
+            Forgot Password?
+          </a>
+
         </div>
 
-        <button type="submit" class="login-btn">
-          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg>
+
+        <button
+          type="submit"
+          class="login-btn"
+        >
+
+          <svg
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+
+            <path
+              d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"
+            />
+
+            <path
+              d="M10 17l5-5-5-5"
+            />
+
+            <path
+              d="M15 12H3"
+            />
+
+          </svg>
+
           Login
+
         </button>
+
       </form>
+
     </div>
+
   </div>
+
 </div>
 
+
+<!-- ========================================================= -->
 <!-- DASHBOARD VIEW -->
-<div id="dashboardView" style="display:none; min-height:100vh; background:#f6f4ff; padding:40px 16px;">
-  <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:24px; padding:28px; box-shadow:0 20px 40px rgba(75,59,212,0.12);">
-    
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:16px; margin-bottom:20px;">
+<!-- ========================================================= -->
+
+<div id="dashboardView">
+
+  <div class="dashboard-card">
+
+    <div class="dashboard-header">
+
       <div>
-        <h2 id="dashName" style="font-family:'Fraunces',serif; color:#1c1440; font-size:24px;">Student Name</h2>
-        <p style="font-size:13px; color:#6b6491;">ID: <span id="dashId" class="mono">--</span> | Class: <span id="dashClass">--</span></p>
+
+        <h2 id="dashName">
+          Student Name
+        </h2>
+
+        <p>
+          ID:
+          <span
+            id="dashId"
+            class="mono"
+          >
+            --
+          </span>
+
+          |
+
+          Class:
+          <span id="dashClass">
+            --
+          </span>
+        </p>
+
       </div>
-      <button onclick="showHome()" style="background:#fdecec; color:#c0392b; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer;">Logout</button>
+
+
+      <button
+        class="logout-btn"
+        onclick="logoutStudent()"
+      >
+        Logout
+      </button>
+
     </div>
 
-    <!-- Attendance Card -->
-    <div style="background:linear-gradient(135deg, #4b3bd4, #6c5ce7); color:#fff; border-radius:12px; padding:18px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
-      <span style="font-size:14px; font-weight:500;">Attendance Percentage</span>
-      <span id="dashAttendance" style="font-size:22px; font-weight:700;">0%</span>
+
+    <!-- Attendance -->
+
+    <div class="attendance-card">
+
+      <span class="attendance-label">
+        Attendance Percentage
+      </span>
+
+      <span
+        id="dashAttendance"
+        class="attendance-value"
+      >
+        0%
+      </span>
+
     </div>
 
-    <!-- Marks Section -->
-    <h3 style="font-size:16px; margin-bottom:12px; color:#1c1440;">Academic Marks</h3>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
-      <div style="background:#f8f7fc; padding:12px; border-radius:8px; font-size:14px;">Maths: <strong id="dashMaths">-</strong></div>
-      <div style="background:#f8f7fc; padding:12px; border-radius:8px; font-size:14px;">Physics: <strong id="dashPhysics">-</strong></div>
-      <div style="background:#f8f7fc; padding:12px; border-radius:8px; font-size:14px;">Chemistry: <strong id="dashChem">-</strong></div>
-      <div style="background:#f8f7fc; padding:12px; border-radius:8px; font-size:14px;">English: <strong id="dashEng">-</strong></div>
-    </div>
-    <div style="background:#efeaff; padding:14px; border-radius:8px; font-weight:600; color:#4b3bd4; margin-bottom:24px; font-size:15px;">
-      Total Marks: <span id="dashTotal">-</span>
+
+    <!-- Marks -->
+
+    <h3 class="dashboard-section-title">
+      Academic Marks
+    </h3>
+
+
+    <div class="marks-grid">
+
+      <div class="mark-box">
+        Maths:
+        <strong id="dashMaths">-</strong>
+      </div>
+
+      <div class="mark-box">
+        Physics:
+        <strong id="dashPhysics">-</strong>
+      </div>
+
+      <div class="mark-box">
+        Chemistry:
+        <strong id="dashChem">-</strong>
+      </div>
+
+      <div class="mark-box">
+        English:
+        <strong id="dashEng">-</strong>
+      </div>
+
     </div>
 
-    <!-- Fee Section -->
-    <h3 style="font-size:16px; margin-bottom:12px; color:#1c1440;">Fee Details</h3>
-    <div style="display:flex; gap:10px;">
-      <div style="flex:1; background:#f4f3ff; border:1px solid #6c5ce7; padding:12px 6px; border-radius:10px; text-align:center;">
-        <span style="font-size:11px; color:#4b3bd4; text-transform:uppercase; font-weight:600;">Total Fee</span>
-        <div id="dashTotalFee" style="font-size:16px; font-weight:700; color:#4b3bd4; margin-top:4px;">₹0</div>
+
+    <div class="total-marks">
+
+      Total Marks:
+      <span id="dashTotal">
+        -
+      </span>
+
+    </div>
+
+
+    <!-- Fees -->
+
+    <h3 class="dashboard-section-title">
+      Fee Details
+    </h3>
+
+
+    <div class="fees-row">
+
+      <div class="fee-box fee-total">
+
+        <span class="fee-label">
+          Total Fee
+        </span>
+
+        <div
+          id="dashTotalFee"
+          class="fee-value"
+        >
+          ₹0
+        </div>
+
       </div>
-      <div style="flex:1; background:#e8f8f5; border:1px solid #2ecc71; padding:12px 6px; border-radius:10px; text-align:center;">
-        <span style="font-size:11px; color:#27ae60; text-transform:uppercase; font-weight:600;">Paid</span>
-        <div id="dashPaid" style="font-size:16px; font-weight:700; color:#27ae60; margin-top:4px;">₹0</div>
+
+
+      <div class="fee-box fee-paid">
+
+        <span class="fee-label">
+          Paid
+        </span>
+
+        <div
+          id="dashPaid"
+          class="fee-value"
+        >
+          ₹0
+        </div>
+
       </div>
-      <div style="flex:1; background:#fdecec; border:1px solid #e74c3c; padding:12px 6px; border-radius:10px; text-align:center;">
-        <span style="font-size:11px; color:#c0392b; text-transform:uppercase; font-weight:600;">Due</span>
-        <div id="dashDue" style="font-size:16px; font-weight:700; color:#c0392b; margin-top:4px;">₹0</div>
+
+
+      <div class="fee-box fee-due">
+
+        <span class="fee-label">
+          Due
+        </span>
+
+        <div
+          id="dashDue"
+          class="fee-value"
+        >
+          ₹0
+        </div>
+
       </div>
+
     </div>
 
   </div>
+
 </div>
+
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
 
 <script>
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf24Db9ZhHKHK49SNQbJnSab9pNE4v00XTzRnm-AmG8j00hVvjWfyEBDAWNLaQXYh2ew/exec";
 
-  function showLogin() {
-    document.getElementById('homeView').style.display = 'none';
-    document.getElementById('dashboardView').style.display = 'none';
-    document.getElementById('loginView').style.display = 'block';
-    window.scrollTo(0, 0);
-  }
+/*
+============================================================
+APPS SCRIPT WEB APP URL
+============================================================
+*/
 
-  function showHome() {
-    document.getElementById('loginView').style.display = 'none';
-    document.getElementById('dashboardView').style.display = 'none';
-    document.getElementById('homeView').style.display = 'block';
-    window.scrollTo(0, 0);
-  }
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwf24Db9ZhHKHK49SNQbJnSab9pNE4v00XTzRnm-AmG8j00hVvjWfyEBDAWNLaQXYh2ew/exec";
 
-  const hamburgerBtn = document.getElementById('hamburgerBtn');
-  const dropdownMenu = document.getElementById('dropdownMenu');
-  if(hamburgerBtn){
-    hamburgerBtn.addEventListener('click', () => {
-      hamburgerBtn.classList.toggle('open');
-      dropdownMenu.classList.toggle('open');
-    });
-  }
 
-  const toggleEye = document.getElementById('toggleEye');
-  const passwordInput = document.getElementById('password');
-  if(toggleEye){
-    toggleEye.addEventListener('click', () => {
-      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-      passwordInput.setAttribute('type', type);
-    });
-  }
+/*
+============================================================
+VIEW CONTROL
+============================================================
+*/
 
-  // Helper for case-insensitive object key lookup
-  function getVal(obj, ...possibleKeys) {
-    if (!obj) return null;
-    const objKeys = Object.keys(obj);
-    for (const keyCandidate of possibleKeys) {
-      const matchedKey = objKeys.find(k => k.trim().toLowerCase() === keyCandidate.trim().toLowerCase());
-      if (matchedKey && obj[matchedKey] !== undefined && obj[matchedKey] !== "") {
-        return obj[matchedKey];
-      }
+function showLogin(){
+
+  document.getElementById("homeView").style.display = "none";
+
+  document.getElementById("dashboardView").style.display = "none";
+
+  document.getElementById("loginView").style.display = "block";
+
+  document.getElementById("errorMsg").classList.remove("show");
+
+  window.scrollTo(0,0);
+}
+
+
+function showHome(){
+
+  document.getElementById("loginView").style.display = "none";
+
+  document.getElementById("dashboardView").style.display = "none";
+
+  document.getElementById("homeView").style.display = "block";
+
+  window.scrollTo(0,0);
+}
+
+
+function logoutStudent(){
+
+  document.getElementById("studentId").value = "";
+
+  document.getElementById("password").value = "";
+
+  document.getElementById("errorMsg").classList.remove("show");
+
+  showHome();
+}
+
+
+/*
+============================================================
+HAMBURGER MENU
+============================================================
+*/
+
+const hamburgerBtn =
+  document.getElementById("hamburgerBtn");
+
+const dropdownMenu =
+  document.getElementById("dropdownMenu");
+
+
+if(hamburgerBtn){
+
+  hamburgerBtn.addEventListener("click",function(){
+
+    hamburgerBtn.classList.toggle("open");
+
+    dropdownMenu.classList.toggle("open");
+
+    hamburgerBtn.setAttribute(
+      "aria-expanded",
+      hamburgerBtn.classList.contains("open")
+        ? "true"
+        : "false"
+    );
+
+  });
+
+}
+
+
+/*
+============================================================
+PASSWORD SHOW / HIDE
+============================================================
+*/
+
+const toggleEye =
+  document.getElementById("toggleEye");
+
+const passwordInput =
+  document.getElementById("password");
+
+
+if(toggleEye){
+
+  toggleEye.addEventListener("click",function(){
+
+    if(passwordInput.type === "password"){
+
+      passwordInput.type = "text";
+
+      toggleEye.setAttribute(
+        "aria-label",
+        "Hide password"
+      );
+
+    }else{
+
+      passwordInput.type = "password";
+
+      toggleEye.setAttribute(
+        "aria-label",
+        "Show password"
+      );
+
     }
+
+  });
+
+}
+
+
+/*
+============================================================
+SAFE OBJECT VALUE LOOKUP
+============================================================
+*/
+
+function getVal(obj,...possibleKeys){
+
+  if(!obj){
     return null;
   }
 
-  document.getElementById('loginForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
+  const keys =
+    Object.keys(obj);
 
-    const studentId = document.getElementById('studentId').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const errorMsg = document.getElementById('errorMsg');
-    const loginBtn = document.querySelector('.login-btn');
 
-    errorMsg.classList.remove('show');
-    loginBtn.innerText = "Verifying...";
+  for(const candidate of possibleKeys){
+
+    const found =
+      keys.find(function(key){
+
+        return (
+          key.trim().toLowerCase() ===
+          candidate.trim().toLowerCase()
+        );
+
+      });
+
+
+    if(
+      found &&
+      obj[found] !== undefined &&
+      obj[found] !== null &&
+      obj[found] !== ""
+    ){
+
+      return obj[found];
+
+    }
+
+  }
+
+
+  return null;
+}
+
+
+/*
+============================================================
+DISPLAY VALUE HELPER
+============================================================
+*/
+
+function valueOrFallback(value,fallback="-"){
+
+  if(
+    value !== null &&
+    value !== undefined &&
+    value !== ""
+  ){
+
+    return value;
+
+  }
+
+  return fallback;
+}
+
+
+/*
+============================================================
+ATTENDANCE FORMATTER
+============================================================
+*/
+
+function formatAttendance(value){
+
+  let number =
+    parseFloat(value);
+
+
+  if(isNaN(number)){
+    return "0%";
+  }
+
+
+  /*
+  Example:
+
+  0.85 = 85%
+  85   = 85%
+  */
+
+  if(number > 0 && number <= 1){
+
+    number =
+      Math.round(number * 100);
+
+  }else{
+
+    number =
+      Math.round(number);
+
+  }
+
+
+  return number + "%";
+}
+
+
+/*
+============================================================
+CURRENCY FORMATTER
+============================================================
+*/
+
+function formatMoney(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+
+    return "₹0";
+
+  }
+
+
+  return "₹" + value;
+}
+
+
+/*
+============================================================
+LOGIN FORM
+============================================================
+*/
+
+document
+  .getElementById("loginForm")
+  .addEventListener("submit",async function(event){
+
+    event.preventDefault();
+
+
+    const studentId =
+      document
+        .getElementById("studentId")
+        .value
+        .trim();
+
+
+    const password =
+      document
+        .getElementById("password")
+        .value
+        .trim();
+
+
+    const errorMsg =
+      document.getElementById("errorMsg");
+
+
+    const loginBtn =
+      document.querySelector(".login-btn");
+
+
+    /*
+    --------------------------------------------------------
+    BASIC VALIDATION
+    --------------------------------------------------------
+    */
+
+    if(!studentId || !password){
+
+      errorMsg.innerText =
+        "Please enter your Student ID and password.";
+
+      errorMsg.classList.add("show");
+
+      return;
+
+    }
+
+
+    /*
+    --------------------------------------------------------
+    RESET ERROR
+    --------------------------------------------------------
+    */
+
+    errorMsg.classList.remove("show");
+
+
+    /*
+    --------------------------------------------------------
+    LOGIN BUTTON LOADING
+    --------------------------------------------------------
+    */
+
     loginBtn.disabled = true;
 
-    try {
-      const url = `${APPS_SCRIPT_URL}?id=${encodeURIComponent(studentId)}&password=${encodeURIComponent(password)}`;
-      const response = await fetch(url);
-      const result = await response.json();
+    loginBtn.innerText =
+      "Verifying...";
 
-      if (result.success) {
-        const student = result.data;
 
-        const valOrFallback = (val, fallback = '-') => (val !== null && val !== undefined && val !== '') ? val : fallback;
+    try{
 
-        // Safely parse attendance percentage
-        let rawAtt = parseFloat(getVal(student, 'Attendance%', 'Attendance', 'Attendance Percent')) || 0;
-        let attendanceVal = (rawAtt <= 1 && rawAtt > 0) ? Math.round(rawAtt * 100) : Math.round(rawAtt);
 
-        document.getElementById('dashName').innerText = valOrFallback(getVal(student, 'Name', 'Student Name', 'Student_Name'), 'Student');
-        document.getElementById('dashId').innerText = valOrFallback(getVal(student, 'Student_ID', 'ID', 'Student ID'), studentId);
-        document.getElementById('dashClass').innerText = valOrFallback(getVal(student, 'Class', 'Standard', 'Grade'), 'N/A');
-        document.getElementById('dashAttendance').innerText = attendanceVal + '%';
+      /*
+      ======================================================
+      IMPORTANT
 
-        document.getElementById('dashMaths').innerText = valOrFallback(getVal(student, 'Maths', 'Math'));
-        document.getElementById('dashPhysics').innerText = valOrFallback(getVal(student, 'Physics', 'Phy'));
-        document.getElementById('dashChem').innerText = valOrFallback(getVal(student, 'Chemistry', 'Chem'));
-        document.getElementById('dashEng').innerText = valOrFallback(getVal(student, 'English', 'Eng'));
-        document.getElementById('dashTotal').innerText = valOrFallback(getVal(student, 'Total marks', 'Total Marks', 'Total'));
+      NEW Code.gs EXPECTS:
 
-        document.getElementById('dashTotalFee').innerText = "₹" + valOrFallback(getVal(student, 'Total fees', 'Total Fees', 'Total Fee'), '0');
-        document.getElementById('dashPaid').innerText = "₹" + valOrFallback(getVal(student, 'Paid', 'Paid Fee', 'Paid Fees'), '0');
-        document.getElementById('dashDue').innerText = "₹" + valOrFallback(getVal(student, 'due', 'Due', 'Pending'), '0');
+      POST
 
-        document.getElementById('loginView').style.display = 'none';
-        document.getElementById('dashboardView').style.display = 'block';
-        window.scrollTo(0, 0);
-      } else {
-        errorMsg.innerText = result.message || "Invalid ID or password.";
-        errorMsg.classList.add('show');
+      e.parameter.id
+      e.parameter.password
+
+      So we send exactly those two parameters.
+      ======================================================
+      */
+
+
+      const formData =
+        new URLSearchParams();
+
+
+      formData.append(
+        "id",
+        studentId
+      );
+
+
+      formData.append(
+        "password",
+        password
+      );
+
+
+      /*
+      --------------------------------------------------------
+      SEND POST REQUEST
+      --------------------------------------------------------
+      */
+
+      const response =
+        await fetch(
+          APPS_SCRIPT_URL,
+          {
+            method:"POST",
+            body:formData,
+            redirect:"follow"
+          }
+        );
+
+
+      /*
+      --------------------------------------------------------
+      CHECK SERVER RESPONSE
+      --------------------------------------------------------
+      */
+
+      if(!response.ok){
+
+        throw new Error(
+          "Server returned HTTP " +
+          response.status
+        );
+
       }
 
-    } catch (err) {
-      console.error(err);
-      errorMsg.innerText = "Connection error. Please check your internet connection and try again.";
-      errorMsg.classList.add('show');
-    } finally {
-      loginBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px; stroke:#fff; fill:none;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Login`;
+
+      /*
+      --------------------------------------------------------
+      CONVERT JSON RESPONSE
+      --------------------------------------------------------
+      */
+
+      const result =
+        await response.json();
+
+
+      /*
+      ======================================================
+      LOGIN SUCCESS
+      ======================================================
+      */
+
+      if(result.success === true){
+
+
+        const student =
+          result.data || {};
+
+
+        /*
+        ----------------------------------------------------
+        NAME
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashName").innerText =
+          valueOrFallback(
+            getVal(
+              student,
+              "Name",
+              "Student Name",
+              "Student_Name"
+            ),
+            "Student"
+          );
+
+
+        /*
+        ----------------------------------------------------
+        STUDENT ID
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashId").innerText =
+          valueOrFallback(
+            getVal(
+              student,
+              "Student_ID",
+              "ID",
+              "Student ID"
+            ),
+            studentId
+          );
+
+
+        /*
+        ----------------------------------------------------
+        CLASS
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashClass").innerText =
+          valueOrFallback(
+            getVal(
+              student,
+              "Class",
+              "Standard",
+              "Grade"
+            ),
+            "N/A"
+          );
+
+
+        /*
+        ----------------------------------------------------
+        ATTENDANCE
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashAttendance").innerText =
+          formatAttendance(
+            getVal(
+              student,
+              "Attendance%",
+              "Attendance",
+              "Attendance Percent"
+            )
+          );
+
+
+        /*
+        ----------------------------------------------------
+        MATHS
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashMaths").innerText =
+          valueOrFallback(
+            getVal(
+              student,
+              "Maths",
+              "Math"
+            )
+          );
+
+
+        /*
+        ----------------------------------------------------
+        PHYSICS
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashPhysics").innerText =
+          valueOrFallback(
+            getVal(
+              student,
+              "Physics",
+              "Phy"
+            )
+          );
+
+
+        /*
+        ----------------------------------------------------
+        CHEMISTRY
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashChem").innerText =
+          valueOrFallback(
+            getVal(
+              student,
+              "Chemistry",
+              "Chem"
+            )
+          );
+
+
+        /*
+        ----------------------------------------------------
+        ENGLISH
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashEng").innerText =
+          valueOrFallback(
+            getVal(
+              student,
+              "English",
+              "Eng"
+            )
+          );
+
+
+        /*
+        ----------------------------------------------------
+        TOTAL MARKS
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashTotal").innerText =
+          valueOrFallback(
+            getVal(
+              student,
+              "Total marks",
+              "Total Marks",
+              "Total"
+            )
+          );
+
+
+        /*
+        ----------------------------------------------------
+        TOTAL FEES
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashTotalFee").innerText =
+          formatMoney(
+            valueOrFallback(
+              getVal(
+                student,
+                "Total fees",
+                "Total Fees",
+                "Total Fee"
+              ),
+              "0"
+            )
+          );
+
+
+        /*
+        ----------------------------------------------------
+        PAID FEES
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashPaid").innerText =
+          formatMoney(
+            valueOrFallback(
+              getVal(
+                student,
+                "Paid",
+                "Paid Fee",
+                "Paid Fees"
+              ),
+              "0"
+            )
+          );
+
+
+        /*
+        ----------------------------------------------------
+        DUE FEES
+        ----------------------------------------------------
+        */
+
+        document.getElementById("dashDue").innerText =
+          formatMoney(
+            valueOrFallback(
+              getVal(
+                student,
+                "Due",
+                "due",
+                "Pending"
+              ),
+              "0"
+            )
+          );
+
+
+        /*
+        ====================================================
+        SHOW DASHBOARD
+        ====================================================
+        */
+
+        document.getElementById(
+          "homeView"
+        ).style.display = "none";
+
+
+        document.getElementById(
+          "loginView"
+        ).style.display = "none";
+
+
+        document.getElementById(
+          "dashboardView"
+        ).style.display = "block";
+
+
+        window.scrollTo(0,0);
+
+
+      }else{
+
+
+        /*
+        ====================================================
+        LOGIN FAILED
+        ====================================================
+        */
+
+        errorMsg.innerText =
+          result.message ||
+          "Invalid ID or password.";
+
+
+        errorMsg.classList.add("show");
+
+      }
+
+
+    }catch(error){
+
+
+      /*
+      ======================================================
+      CONNECTION / SERVER ERROR
+      ======================================================
+      */
+
+      console.error(
+        "Student login error:",
+        error
+      );
+
+
+      errorMsg.innerText =
+        "Connection error. Please check your internet connection and try again.";
+
+
+      errorMsg.classList.add("show");
+
+
+    }finally{
+
+
+      /*
+      ======================================================
+      RESTORE LOGIN BUTTON
+      ======================================================
+      */
+
+      loginBtn.innerHTML = `
+        <svg
+          viewBox="0 0 24 24"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <path d="M10 17l5-5-5-5"/>
+          <path d="M15 12H3"/>
+        </svg>
+        Login
+      `;
+
+
       loginBtn.disabled = false;
+
     }
+
   });
+
 </script>
 
 </body>
