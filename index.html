@@ -491,6 +491,19 @@
     });
   }
 
+  // Helper for case-insensitive object key lookup
+  function getVal(obj, ...possibleKeys) {
+    if (!obj) return null;
+    const objKeys = Object.keys(obj);
+    for (const keyCandidate of possibleKeys) {
+      const matchedKey = objKeys.find(k => k.trim().toLowerCase() === keyCandidate.trim().toLowerCase());
+      if (matchedKey && obj[matchedKey] !== undefined && obj[matchedKey] !== "") {
+        return obj[matchedKey];
+      }
+    }
+    return null;
+  }
+
   document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -511,24 +524,26 @@
       if (result.success) {
         const student = result.data;
 
-        // Safely parse attendance percentage decimal or integer
-        let rawAtt = parseFloat(student['Attendance%']) || 0;
-        let attendanceVal = rawAtt <= 1 ? Math.round(rawAtt * 100) : Math.round(rawAtt);
+        const valOrFallback = (val, fallback = '-') => (val !== null && val !== undefined && val !== '') ? val : fallback;
 
-        document.getElementById('dashName').innerText = student.Name || 'Student';
-        document.getElementById('dashId').innerText = student.Student_ID || studentId;
-        document.getElementById('dashClass').innerText = student.Class || 'N/A';
+        // Safely parse attendance percentage
+        let rawAtt = parseFloat(getVal(student, 'Attendance%', 'Attendance', 'Attendance Percent')) || 0;
+        let attendanceVal = (rawAtt <= 1 && rawAtt > 0) ? Math.round(rawAtt * 100) : Math.round(rawAtt);
+
+        document.getElementById('dashName').innerText = valOrFallback(getVal(student, 'Name', 'Student Name', 'Student_Name'), 'Student');
+        document.getElementById('dashId').innerText = valOrFallback(getVal(student, 'Student_ID', 'ID', 'Student ID'), studentId);
+        document.getElementById('dashClass').innerText = valOrFallback(getVal(student, 'Class', 'Standard', 'Grade'), 'N/A');
         document.getElementById('dashAttendance').innerText = attendanceVal + '%';
 
-        document.getElementById('dashMaths').innerText = student.Maths ?? '-';
-        document.getElementById('dashPhysics').innerText = student.Physics ?? '-';
-        document.getElementById('dashChem').innerText = student.Chemistry ?? '-';
-        document.getElementById('dashEng').innerText = student.English ?? '-';
-        document.getElementById('dashTotal').innerText = student['Total marks'] ?? '-';
+        document.getElementById('dashMaths').innerText = valOrFallback(getVal(student, 'Maths', 'Math'));
+        document.getElementById('dashPhysics').innerText = valOrFallback(getVal(student, 'Physics', 'Phy'));
+        document.getElementById('dashChem').innerText = valOrFallback(getVal(student, 'Chemistry', 'Chem'));
+        document.getElementById('dashEng').innerText = valOrFallback(getVal(student, 'English', 'Eng'));
+        document.getElementById('dashTotal').innerText = valOrFallback(getVal(student, 'Total marks', 'Total Marks', 'Total'));
 
-        document.getElementById('dashTotalFee').innerText = "₹" + (student['Total fees'] ?? '0');
-        document.getElementById('dashPaid').innerText = "₹" + (student.Paid ?? '0');
-        document.getElementById('dashDue').innerText = "₹" + (student.due ?? '0');
+        document.getElementById('dashTotalFee').innerText = "₹" + valOrFallback(getVal(student, 'Total fees', 'Total Fees', 'Total Fee'), '0');
+        document.getElementById('dashPaid').innerText = "₹" + valOrFallback(getVal(student, 'Paid', 'Paid Fee', 'Paid Fees'), '0');
+        document.getElementById('dashDue').innerText = "₹" + valOrFallback(getVal(student, 'due', 'Due', 'Pending'), '0');
 
         document.getElementById('loginView').style.display = 'none';
         document.getElementById('dashboardView').style.display = 'block';
@@ -540,7 +555,7 @@
 
     } catch (err) {
       console.error(err);
-      errorMsg.innerText = "Connection error. Please try again.";
+      errorMsg.innerText = "Connection error. Please check your internet connection and try again.";
       errorMsg.classList.add('show');
     } finally {
       loginBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px; stroke:#fff; fill:none;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Login`;
