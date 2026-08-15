@@ -58,6 +58,7 @@
     padding:10px 20px; border-radius:3px;
     text-decoration:none; font-size:13.5px; font-weight:600;
     letter-spacing:0.02em;
+    cursor:pointer;
   }
   @media(max-width:760px){ nav{display:none;} }
 
@@ -115,7 +116,7 @@
   .hero-actions{margin-top:34px; display:flex; gap:14px; flex-wrap:wrap;}
   .btn-primary, .btn-ghost{
     padding:13px 24px; border-radius:3px; font-size:14.5px; font-weight:600;
-    text-decoration:none; display:inline-block;
+    text-decoration:none; display:inline-block; cursor:pointer;
   }
   .btn-primary{background:var(--gold); color:var(--ink);}
   .btn-ghost{border:1px solid var(--line); color:var(--ink);}
@@ -150,19 +151,6 @@
     font-size:13px; color:var(--ink-soft);
     border-top:1px solid var(--line);
   }
-
-  @media (prefers-reduced-motion: no-preference){
-    .hero h1, .hero p, .hero-actions{
-      animation: rise .7s ease both;
-    }
-    .hero p{animation-delay:.08s;}
-    .hero-actions{animation-delay:.16s;}
-    @keyframes rise{
-      from{opacity:0; transform:translateY(14px);}
-      to{opacity:1; transform:translateY(0);}
-    }
-  }
-  a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
 
   /* ---------- announcements ---------- */
   .announce-list{display:flex; flex-direction:column; gap:0;}
@@ -239,7 +227,7 @@
     display:flex; align-items:center; justify-content:center;
   }
   .login-field .login-icon svg{width:18px; height:18px; stroke:#fff; fill:none;}
-  .login-field input{
+  .login-field input, .login-field select{
     border:none; outline:none; flex:1;
     padding:12px 14px; font-size:14px; font-family:'Inter',sans-serif; color:#1c1440;
     background:#fff;
@@ -265,21 +253,6 @@
     cursor:pointer; box-shadow:0 12px 24px rgba(108,92,231,0.35);
   }
   .login-btn svg{width:17px; height:17px; stroke:#fff; fill:none;}
-  .login-divider{
-    display:flex; align-items:center; gap:12px;
-    margin:24px 0 18px; font-size:11.5px; color:#6b6491;
-    text-transform:uppercase; letter-spacing:0.08em;
-  }
-  .login-divider::before, .login-divider::after{content:""; flex:1; height:1px; background:rgba(28,20,64,0.12);}
-  .alt-login{
-    display:flex; align-items:center; justify-content:center; gap:10px;
-    text-decoration:none; font-size:13.5px; color:#6c5ce7; font-weight:500;
-  }
-  .alt-login .cap-icon{
-    width:30px; height:30px; border-radius:50%; border:1px solid rgba(28,20,64,0.12);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .alt-login svg{width:15px; height:15px; stroke:#6c5ce7; fill:none;}
   .login-error{
     display:none; background:#fdecec; color:#c0392b; font-size:12.5px;
     padding:10px 12px; border-radius:8px; margin-bottom:14px;
@@ -321,7 +294,7 @@
 
 <section class="hero">
   <span class="eyebrow">Angara, West Godavari</span>
-  <h1>Every student's record, in one place — attendance, marks, and fees.</h1>
+  <h1>Every student'record, in one place — attendance, marks, and fees.</h1>
   <p>A simple portal for Sree Ramakrishna Public School: parents and students sign in with their PIN to check results, attendance, and fee status — no office visit needed.</p>
   <div class="hero-actions">
     <a href="#" class="btn-primary" onclick="showLogin(); return false;">Open student portal</a>
@@ -353,17 +326,6 @@
   </div>
 </section>
 
-<!-- DYNAMIC ANNOUNCEMENTS SECTION -->
-<section class="block" id="announcements">
-  <div class="block-head">
-    <h2>Announcements</h2>
-    <span class="tag">Live Google Sheet Sync</span>
-  </div>
-  <div class="announce-list" id="announceList">
-    <p style="font-size: 14px; color: var(--ink-soft);">Loading announcements...</p>
-  </div>
-</section>
-
 <section class="block" id="about">
   <div class="block-head">
     <h2>About the school</h2>
@@ -387,6 +349,7 @@
 </footer>
 </div>
 
+<!-- LOGIN VIEW -->
 <div id="loginView">
   <div class="login-back">
     <span onclick="showHome()">← Back to school site</span>
@@ -425,14 +388,24 @@
       <p class="login-sub">Sree Ramakrishna Public School, Angara</p>
       <div class="login-dash"><span></span><span class="login-dot"></span><span></span></div>
 
-      <div class="login-error" id="errorMsg">Login isn't connected to student records yet — backend setup needed.</div>
+      <div class="login-error" id="errorMsg">Invalid credentials.</div>
 
       <form id="loginForm">
+        <!-- Class Selection Dropdown -->
+        <div class="login-field">
+          <div class="login-icon">
+            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </div>
+          <select id="studentClass" required>
+            <option value="Sheet1">Class 10</option>
+          </select>
+        </div>
+
         <div class="login-field">
           <div class="login-icon">
             <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
           </div>
-          <input type="text" id="studentId" placeholder="Student ID" autocomplete="username" required>
+          <input type="text" id="studentId" placeholder="Student ID (e.g., SR01)" autocomplete="username" required>
         </div>
 
         <div class="login-field">
@@ -455,34 +428,71 @@
           Login
         </button>
       </form>
-
-      <div class="login-divider">or</div>
-      <a href="#" class="alt-login">
-        <span class="cap-icon">
-          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11 11 13.5 16 11"/></svg>
-        </span>
-        Login with Access Code
-      </a>
     </div>
   </div>
 </div>
 
-<!-- PAPAPARSE CSV PARSER LIBRARY -->
-<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<!-- DASHBOARD VIEW -->
+<div id="dashboardView" style="display:none; min-height:100vh; background:#f6f4ff; padding:40px 16px;">
+  <div style="max-width:600px; margin:0 auto; background:#fff; border-radius:24px; padding:28px; box-shadow:0 20px 40px rgba(75,59,212,0.12);">
+    
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:16px; margin-bottom:20px;">
+      <div>
+        <h2 id="dashName" style="font-family:'Fraunces',serif; color:#1c1440; font-size:24px;">Student Name</h2>
+        <p style="font-size:13px; color:#6b6491;">ID: <span id="dashId" class="mono">--</span> | Class: <span id="dashClass">--</span></p>
+      </div>
+      <button onclick="showHome()" style="background:#fdecec; color:#c0392b; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer;">Logout</button>
+    </div>
+
+    <!-- Attendance Card -->
+    <div style="background:linear-gradient(135deg, #4b3bd4, #6c5ce7); color:#fff; border-radius:12px; padding:18px; margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+      <span style="font-size:14px; font-weight:500;">Attendance Percentage</span>
+      <span id="dashAttendance" style="font-size:22px; font-weight:700;">0%</span>
+    </div>
+
+    <!-- Marks Section -->
+    <h3 style="font-size:16px; margin-bottom:12px; color:#1c1440;">Academic Marks</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+      <div style="background:#f8f7fc; padding:12px; border-radius:8px; font-size:14px;">Maths: <strong id="dashMaths">-</strong></div>
+      <div style="background:#f8f7fc; padding:12px; border-radius:8px; font-size:14px;">Physics: <strong id="dashPhysics">-</strong></div>
+      <div style="background:#f8f7fc; padding:12px; border-radius:8px; font-size:14px;">Chemistry: <strong id="dashChem">-</strong></div>
+      <div style="background:#f8f7fc; padding:12px; border-radius:8px; font-size:14px;">English: <strong id="dashEng">-</strong></div>
+    </div>
+    <div style="background:#efeaff; padding:14px; border-radius:8px; font-weight:600; color:#4b3bd4; margin-bottom:24px; font-size:15px;">
+      Total Marks: <span id="dashTotal">-</span>
+    </div>
+
+    <!-- Fee Section -->
+    <h3 style="font-size:16px; margin-bottom:12px; color:#1c1440;">Fee Details</h3>
+    <div style="display:flex; gap:14px;">
+      <div style="flex:1; background:#e8f8f5; border:1px solid #2ecc71; padding:14px; border-radius:10px; text-align:center;">
+        <span style="font-size:11px; color:#27ae60; text-transform:uppercase; font-weight:600;">Paid</span>
+        <div id="dashPaid" style="font-size:18px; font-weight:700; color:#27ae60; margin-top:4px;">₹0</div>
+      </div>
+      <div style="flex:1; background:#fdecec; border:1px solid #e74c3c; padding:14px; border-radius:10px; text-align:center;">
+        <span style="font-size:11px; color:#c0392b; text-transform:uppercase; font-weight:600;">Due</span>
+        <div id="dashDue" style="font-size:18px; font-weight:700; color:#c0392b; margin-top:4px;">₹0</div>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <script>
-  // Google Sheet CSV Link (Pre-configured with your Spreadsheet ID)
-  const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1JFkmCSJJe7CzDPqWGsAtDBvcDB89Bin8_kOMx2E6X6Y/gviz/tq?tqx=out:csv&sheet=Sheet1";
+  // SheetDB API URL
+  const SHEETDB_URL = "https://sheetdb.io/api/v1/5l921iexr1bki";
 
   // Navigation functions
   function showLogin() {
     document.getElementById('homeView').style.display = 'none';
+    document.getElementById('dashboardView').style.display = 'none';
     document.getElementById('loginView').style.display = 'block';
     window.scrollTo(0, 0);
   }
 
   function showHome() {
     document.getElementById('loginView').style.display = 'none';
+    document.getElementById('dashboardView').style.display = 'none';
     document.getElementById('homeView').style.display = 'block';
     window.scrollTo(0, 0);
   }
@@ -490,76 +500,88 @@
   // Hamburger menu toggle
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const dropdownMenu = document.getElementById('dropdownMenu');
-  if (hamburgerBtn && dropdownMenu) {
+  if(hamburgerBtn){
     hamburgerBtn.addEventListener('click', () => {
       hamburgerBtn.classList.toggle('open');
       dropdownMenu.classList.toggle('open');
     });
   }
 
-  // Password visibility toggle
+  // Password toggle eye
   const toggleEye = document.getElementById('toggleEye');
   const passwordInput = document.getElementById('password');
-  if (toggleEye && passwordInput) {
+  if(toggleEye){
     toggleEye.addEventListener('click', () => {
-      const isPassword = passwordInput.type === 'password';
-      passwordInput.type = isPassword ? 'text' : 'password';
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
     });
   }
 
-  // Form submit handler
-  const loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      document.getElementById('errorMsg').classList.add('show');
-    });
-  }
+  // Login Form Submission & SheetDB Fetch
+  document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const studentId = document.getElementById('studentId').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const selectedClass = document.getElementById('studentClass').value;
+    const errorMsg = document.getElementById('errorMsg');
+    const loginBtn = document.querySelector('.login-btn');
 
-  // Fetch announcements from Google Sheet
-  function fetchAnnouncements() {
-    Papa.parse(SHEET_CSV_URL, {
-      download: true,
-      header: true,
-      transformHeader: function(header) {
-        return header.trim(); // Removes accidental trailing spaces like 'Title '
-      },
-      complete: function(results) {
-        const container = document.getElementById('announceList');
-        if (!container || !results.data) return;
+    errorMsg.classList.remove('show');
+    loginBtn.innerText = "Verifying...";
+    loginBtn.disabled = true;
 
-        const validRows = results.data.filter(row => row.Date && row.Title);
+    try {
+      const response = await fetch(`${SHEETDB_URL}?sheet=${encodeURIComponent(selectedClass)}`);
+      
+      if (!response.ok) throw new Error("Database connection failed");
+      
+      const data = await response.json();
+
+      // Find matching student
+      const student = data.find(row => {
+        const idMatch = row["Student ID"] && String(row["Student ID"]).trim().toLowerCase() === studentId.toLowerCase();
+        const passMatch = row["Password"] && String(row["Password"]).trim() === password;
+        return idMatch && passMatch;
+      });
+
+      if (student) {
+        // Populate Dashboard Data
+        document.getElementById('dashName').innerText = student.Name || 'Student';
+        document.getElementById('dashId').innerText = student["Student ID"] || studentId;
+        document.getElementById('dashClass').innerText = "Class 10";
+        document.getElementById('dashAttendance').innerText = student["Attendance%"] || 'N/A';
         
-        if (validRows.length === 0) {
-          container.innerHTML = '<p style="font-size:14px; color:var(--ink-soft);">No announcements at this time.</p>';
-          return;
-        }
+        // Marks
+        document.getElementById('dashMaths').innerText = student.Maths || student["Maths "] || '-';
+        document.getElementById('dashPhysics').innerText = student.Physics || student["Physics "] || '-';
+        document.getElementById('dashChem').innerText = student.Chemistry || student["Chemistry "] || '-';
+        document.getElementById('dashEng').innerText = student.English || student["English "] || '-';
+        document.getElementById('dashTotal').innerText = student.Total || student["Total "] || '-';
 
-        container.innerHTML = '';
-        validRows.forEach(row => {
-          const item = document.createElement('div');
-          item.className = 'announce-item';
-          item.innerHTML = `
-            <div class="announce-date">${row.Date}</div>
-            <div>
-              <div class="announce-title">${row.Title}</div>
-              <div class="announce-msg">${row.Message || ''}</div>
-            </div>
-          `;
-          container.appendChild(item);
-        });
-      },
-      error: function(err) {
-        console.error('Failed to load announcements:', err);
-        const container = document.getElementById('announceList');
-        if (container) {
-          container.innerHTML = '<p style="font-size:14px; color:#c0392b;">Unable to load announcements.</p>';
-        }
+        // Fees
+        document.getElementById('dashPaid').innerText = "₹" + (student.Paid || student["Paid "] || '0');
+        document.getElementById('dashDue').innerText = "₹" + (student.due || student.Due || student["due "] || '0');
+
+        // Display Dashboard
+        document.getElementById('loginView').style.display = 'none';
+        document.getElementById('dashboardView').style.display = 'block';
+        window.scrollTo(0, 0);
+      } else {
+        errorMsg.innerText = "Invalid Student ID or Password. Please try again.";
+        errorMsg.classList.add('show');
       }
-    });
-  }
 
-  document.addEventListener('DOMContentLoaded', fetchAnnouncements);
+    } catch (err) {
+      console.error(err);
+      errorMsg.innerText = "Failed to connect to database. Please check connection.";
+      errorMsg.classList.add('show');
+    } finally {
+      loginBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px; stroke:#fff; fill:none;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Login`;
+      loginBtn.disabled = false;
+    }
+  });
 </script>
+
 </body>
 </html>
