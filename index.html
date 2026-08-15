@@ -461,6 +461,7 @@
   </div>
 </div>
 
+
 <script>
   const SHEETDB_URL = "https://sheetdb.io/api/v1/5l921iexr1bki";
 
@@ -496,7 +497,7 @@
     });
   }
 
-  // Flexible column getter to safely handle variations in capitalization or spaces
+  // Safe property getter
   function getValue(row, ...possibleKeys) {
     if (!row) return '';
     const keys = Object.keys(row);
@@ -524,22 +525,42 @@
     loginBtn.disabled = true;
 
     try {
-      const response = await fetch(`${SHEETDB_URL}?sheet=${encodeURIComponent(selectedClass)}`);
-      
-      if (!response.ok) throw new Error("Database fetch failed");
-      
-      const data = await response.json();
+      // 1. Try fetching with sheet name parameter
+      let response = await fetch(`${SHEETDB_URL}?sheet=${encodeURIComponent(selectedClass)}`);
+      let data = await response.json();
 
-      // Find matching row flexible on key names
+      // Fallback: If sheet tab name failed, fetch primary endpoint directly
+      if (!Array.isArray(data) || data.length === 0) {
+        response = await fetch(SHEETDB_URL);
+        data = await response.json();
+      }
+
+      if (!Array.isArray(data)) {
+        throw new Error("Invalid format received from SheetDB");
+      }
+
+      // 2. Dual Matching Logic:
+      // Primary: Exact column match | Secondary: Search across all cells in the row
       const student = data.find(row => {
-        const rowId = getValue(row, "Student ID", "StudentID", "ID", "RollNo", "Roll");
-        const rowPass = getValue(row, "Password", "Pass", "PIN", "Pin");
+        const rowId = getValue(row, "Student ID", "StudentID", "ID", "RollNo", "Roll", "User", "Username");
+        const rowPass = getValue(row, "Password", "Pass", "PIN", "Pin", "Passcode", "Pwd");
 
-        return rowId.toLowerCase() === studentId.toLowerCase() && rowPass === password;
+        if (rowId && rowPass) {
+          if (rowId.toLowerCase() === studentId.toLowerCase() && rowPass === password) {
+            return true;
+          }
+        }
+
+        // Fallback: Check if ANY column value in the row equals the student ID and password
+        const cellValues = Object.values(row).map(v => String(v).trim());
+        const hasId = cellValues.some(v => v.toLowerCase() === studentId.toLowerCase());
+        const hasPass = cellValues.some(v => v === password);
+
+        return hasId && hasPass;
       });
 
       if (student) {
-        // Populate Dashboard Data
+        // Populate Dashboard
         document.getElementById('dashName').innerText = getValue(student, "Name", "StudentName") || 'Student';
         document.getElementById('dashId').innerText = getValue(student, "Student ID", "ID") || studentId;
         document.getElementById('dashClass').innerText = "Class 10";
@@ -561,13 +582,15 @@
         document.getElementById('dashboardView').style.display = 'block';
         window.scrollTo(0, 0);
       } else {
-        errorMsg.innerText = "Invalid Student ID or Password. Please try again.";
+        // Debug output printed inside the red box if no row matches
+        const colNames = data.length > 0 ? Object.keys(data[0]).join(", ") : "None";
+        errorMsg.innerText = `Invalid credentials. (Debug: ${data.length} rows found. Sheet columns: [${colNames}])`;
         errorMsg.classList.add('show');
       }
 
     } catch (err) {
       console.error(err);
-      errorMsg.innerText = "Connection error. Unable to fetch student data.";
+      errorMsg.innerText = "Connection error. Unable to connect to SheetDB API.";
       errorMsg.classList.add('show');
     } finally {
       loginBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px; stroke:#fff; fill:none;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Login`;
@@ -575,6 +598,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>
