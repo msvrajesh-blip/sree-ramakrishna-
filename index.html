@@ -377,15 +377,6 @@
       <form id="loginForm">
         <div class="login-field">
           <div class="login-icon">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          </div>
-          <select id="studentClass" required>
-            <option value="Sheet1">Class 10</option>
-          </select>
-        </div>
-
-        <div class="login-field">
-          <div class="login-icon">
             <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
           </div>
           <input type="text" id="studentId" placeholder="Student ID (e.g., SR01)" autocomplete="username" required>
@@ -520,10 +511,14 @@
       if (result.success) {
         const student = result.data;
 
+        // Safely parse attendance percentage decimal or integer
+        let rawAtt = parseFloat(student['Attendance%']) || 0;
+        let attendanceVal = rawAtt <= 1 ? Math.round(rawAtt * 100) : Math.round(rawAtt);
+
         document.getElementById('dashName').innerText = student.Name || 'Student';
         document.getElementById('dashId').innerText = student.Student_ID || studentId;
-        document.getElementById('dashClass').innerText = student.Class || 'Class 10';
-        document.getElementById('dashAttendance').innerText = (student['Attendance%'] ? (student['Attendance%'] * 100).toFixed(0) : '0') + '%';
+        document.getElementById('dashClass').innerText = student.Class || 'N/A';
+        document.getElementById('dashAttendance').innerText = attendanceVal + '%';
 
         document.getElementById('dashMaths').innerText = student.Maths ?? '-';
         document.getElementById('dashPhysics').innerText = student.Physics ?? '-';
