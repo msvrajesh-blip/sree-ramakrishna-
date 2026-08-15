@@ -34,7 +34,7 @@
   .mono{font-family:'IBM Plex Mono', monospace;}
   a{color:inherit;}
 
-  /* ---------- header ---------- */
+  /* ---------- Header ---------- */
   header{
     display:flex; align-items:center; justify-content:space-between;
     padding:20px 32px;
@@ -62,7 +62,7 @@
   }
   @media(max-width:760px){ nav{display:none;} }
 
-  /* ---------- hamburger menu ---------- */
+  /* ---------- Hamburger Menu ---------- */
   .menu-wrap{position:relative; display:flex; align-items:center; gap:14px;}
   .hamburger{
     width:38px; height:38px; border-radius:4px;
@@ -94,7 +94,7 @@
   .dropdown .sub-item::before{content:"—"; position:absolute; left:10px; color:var(--line);}
   .dropdown hr{border:none; border-top:1px solid var(--line); margin:6px 4px;}
 
-  /* ---------- hero ---------- */
+  /* ---------- Hero Section ---------- */
   .hero{
     padding:88px 32px 64px;
     max-width:920px; margin:0 auto;
@@ -121,7 +121,7 @@
   .btn-primary{background:var(--gold); color:var(--ink);}
   .btn-ghost{border:1px solid var(--line); color:var(--ink);}
 
-  /* ---------- sections ---------- */
+  /* ---------- Sections ---------- */
   section.block{
     max-width:920px; margin:0 auto; padding:56px 32px;
     border-top:1px solid var(--line);
@@ -152,21 +152,7 @@
     border-top:1px solid var(--line);
   }
 
-  /* ---------- announcements ---------- */
-  .announce-list{display:flex; flex-direction:column; gap:0;}
-  .announce-item{
-    display:flex; gap:20px; padding:16px 0;
-    border-bottom:1px solid var(--line);
-  }
-  .announce-item:last-child{border-bottom:none;}
-  .announce-date{
-    font-family:'IBM Plex Mono',monospace; font-size:12px;
-    color:var(--field); white-space:nowrap; padding-top:2px; min-width:88px;
-  }
-  .announce-title{font-size:15px; font-weight:600; color:var(--ink); margin-bottom:3px;}
-  .announce-msg{font-size:13.5px; color:var(--ink-soft);}
-
-  /* ---------- student login view ---------- */
+  /* ---------- Student Login View ---------- */
   #loginView{
     display:none;
     min-height:100vh;
@@ -274,7 +260,6 @@
   <nav>
     <a href="#about">About</a>
     <a href="#academics">Academics</a>
-    <a href="#announcements">Announcements</a>
   </nav>
   <div class="menu-wrap">
     <a href="#" class="portal-btn" onclick="showLogin(); return false;">Student Portal</a>
@@ -284,7 +269,6 @@
     <div class="dropdown" id="dropdownMenu">
       <a href="#about">About</a>
       <a href="#academics">Academics</a>
-      <a href="#announcements">Announcements</a>
       <hr>
       <div class="submenu-label">Student Portal</div>
       <a href="#" class="sub-item" onclick="showLogin(); return false;">Student Login</a>
@@ -294,7 +278,7 @@
 
 <section class="hero">
   <span class="eyebrow">Angara, West Godavari</span>
-  <h1>Every student'record, in one place — attendance, marks, and fees.</h1>
+  <h1>Every student's record, in one place — attendance, marks, and fees.</h1>
   <p>A simple portal for Sree Ramakrishna Public School: parents and students sign in with their PIN to check results, attendance, and fee status — no office visit needed.</p>
   <div class="hero-actions">
     <a href="#" class="btn-primary" onclick="showLogin(); return false;">Open student portal</a>
@@ -391,7 +375,6 @@
       <div class="login-error" id="errorMsg">Invalid credentials.</div>
 
       <form id="loginForm">
-        <!-- Class Selection Dropdown -->
         <div class="login-field">
           <div class="login-icon">
             <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -479,10 +462,8 @@
 </div>
 
 <script>
-  // SheetDB API URL
   const SHEETDB_URL = "https://sheetdb.io/api/v1/5l921iexr1bki";
 
-  // Navigation functions
   function showLogin() {
     document.getElementById('homeView').style.display = 'none';
     document.getElementById('dashboardView').style.display = 'none';
@@ -497,7 +478,6 @@
     window.scrollTo(0, 0);
   }
 
-  // Hamburger menu toggle
   const hamburgerBtn = document.getElementById('hamburgerBtn');
   const dropdownMenu = document.getElementById('dropdownMenu');
   if(hamburgerBtn){
@@ -507,7 +487,6 @@
     });
   }
 
-  // Password toggle eye
   const toggleEye = document.getElementById('toggleEye');
   const passwordInput = document.getElementById('password');
   if(toggleEye){
@@ -517,7 +496,20 @@
     });
   }
 
-  // Login Form Submission & SheetDB Fetch
+  // Flexible column getter to safely handle variations in capitalization or spaces
+  function getValue(row, ...possibleKeys) {
+    if (!row) return '';
+    const keys = Object.keys(row);
+    for (const pKey of possibleKeys) {
+      const target = pKey.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const matchedKey = keys.find(k => k.toLowerCase().replace(/[^a-z0-9]/g, '') === target);
+      if (matchedKey && row[matchedKey] !== undefined && row[matchedKey] !== null) {
+        return String(row[matchedKey]).trim();
+      }
+    }
+    return '';
+  }
+
   document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     
@@ -534,34 +526,35 @@
     try {
       const response = await fetch(`${SHEETDB_URL}?sheet=${encodeURIComponent(selectedClass)}`);
       
-      if (!response.ok) throw new Error("Database connection failed");
+      if (!response.ok) throw new Error("Database fetch failed");
       
       const data = await response.json();
 
-      // Find matching student
+      // Find matching row flexible on key names
       const student = data.find(row => {
-        const idMatch = row["Student ID"] && String(row["Student ID"]).trim().toLowerCase() === studentId.toLowerCase();
-        const passMatch = row["Password"] && String(row["Password"]).trim() === password;
-        return idMatch && passMatch;
+        const rowId = getValue(row, "Student ID", "StudentID", "ID", "RollNo", "Roll");
+        const rowPass = getValue(row, "Password", "Pass", "PIN", "Pin");
+
+        return rowId.toLowerCase() === studentId.toLowerCase() && rowPass === password;
       });
 
       if (student) {
         // Populate Dashboard Data
-        document.getElementById('dashName').innerText = student.Name || 'Student';
-        document.getElementById('dashId').innerText = student["Student ID"] || studentId;
+        document.getElementById('dashName').innerText = getValue(student, "Name", "StudentName") || 'Student';
+        document.getElementById('dashId').innerText = getValue(student, "Student ID", "ID") || studentId;
         document.getElementById('dashClass').innerText = "Class 10";
-        document.getElementById('dashAttendance').innerText = student["Attendance%"] || 'N/A';
+        document.getElementById('dashAttendance').innerText = (getValue(student, "Attendance%", "Attendance") || 'N/A') + '%';
         
         // Marks
-        document.getElementById('dashMaths').innerText = student.Maths || student["Maths "] || '-';
-        document.getElementById('dashPhysics').innerText = student.Physics || student["Physics "] || '-';
-        document.getElementById('dashChem').innerText = student.Chemistry || student["Chemistry "] || '-';
-        document.getElementById('dashEng').innerText = student.English || student["English "] || '-';
-        document.getElementById('dashTotal').innerText = student.Total || student["Total "] || '-';
+        document.getElementById('dashMaths').innerText = getValue(student, "Maths", "Math") || '-';
+        document.getElementById('dashPhysics').innerText = getValue(student, "Physics", "Phy") || '-';
+        document.getElementById('dashChem').innerText = getValue(student, "Chemistry", "Chem") || '-';
+        document.getElementById('dashEng').innerText = getValue(student, "English", "Eng") || '-';
+        document.getElementById('dashTotal').innerText = getValue(student, "Total", "TotalMarks") || '-';
 
         // Fees
-        document.getElementById('dashPaid').innerText = "₹" + (student.Paid || student["Paid "] || '0');
-        document.getElementById('dashDue').innerText = "₹" + (student.due || student.Due || student["due "] || '0');
+        document.getElementById('dashPaid').innerText = "₹" + (getValue(student, "Paid", "PaidFee") || '0');
+        document.getElementById('dashDue').innerText = "₹" + (getValue(student, "Due", "FeeDue", "Pending") || '0');
 
         // Display Dashboard
         document.getElementById('loginView').style.display = 'none';
@@ -574,7 +567,7 @@
 
     } catch (err) {
       console.error(err);
-      errorMsg.innerText = "Failed to connect to database. Please check connection.";
+      errorMsg.innerText = "Connection error. Unable to fetch student data.";
       errorMsg.classList.add('show');
     } finally {
       loginBtn.innerHTML = `<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:17px; height:17px; stroke:#fff; fill:none;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5"/><path d="M15 12H3"/></svg> Login`;
