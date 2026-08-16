@@ -844,6 +844,7 @@
 
   <nav>
 
+    <a href="#announcements">Announcements</a>
     <a href="#about">About</a>
     <a href="#academics">Academics</a>
 
@@ -874,6 +875,10 @@
       class="dropdown"
       id="dropdownMenu"
     >
+
+      <a href="#announcements">
+        Announcements
+      </a>
 
       <a href="#about">
         About
@@ -937,6 +942,35 @@
       About the school
     </a>
 
+  </div>
+
+</section>
+
+
+<!-- ANNOUNCEMENTS SECTION -->
+
+<section
+  class="block"
+  id="announcements"
+>
+
+  <div class="block-head">
+
+    <h2>
+      📢 Latest Announcements
+    </h2>
+
+    <span class="tag">
+      Notice Board
+    </span>
+
+  </div>
+
+  <div
+    class="feature"
+    id="announcementsContainer"
+  >
+    <p style="color:var(--ink-soft);">Loading announcements...</p>
   </div>
 
 </section>
@@ -1640,6 +1674,67 @@ APPS SCRIPT WEB APP URL
 
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbyDiuVWJYSdra6T1gVcDbYJLFJKR0skm9uy4Uh-V4_T7dMqJeMmbl-Sipl-D6yclfhJUw/exec";
+
+
+/*
+============================================================
+ANNOUNCEMENTS GOOGLE SHEET FETCH
+============================================================
+*/
+
+const ANNOUNCEMENTS_SHEET_ID = "1xTDpQGIUSlyo6MybnDJR85pyV8nFnuvIiOiqQLUtJuA";
+
+async function fetchAnnouncements() {
+  const container = document.getElementById("announcementsContainer");
+  if (!container) return;
+
+  const url = `https://docs.google.com/spreadsheets/d/${ANNOUNCEMENTS_SHEET_ID}/gviz/tq?tqx=out:json`;
+
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+
+    const jsonText = text.substring(47, text.length - 2);
+    const data = JSON.parse(jsonText);
+
+    const rows = data.table.rows;
+    if (!rows || rows.length === 0) {
+      container.innerHTML = "<p style='color:var(--ink-soft);'>No active announcements at the moment.</p>";
+      return;
+    }
+
+    let listHtml = '<ul style="list-style-type: none; padding-left: 0; margin: 0;">';
+    let hasItems = false;
+
+    rows.forEach(row => {
+      const col0 = row.c && row.c[0] ? (row.c[0].f || row.c[0].v || '') : '';
+      const col1 = row.c && row.c[1] ? (row.c[1].f || row.c[1].v || '') : '';
+
+      if (col0 || col1) {
+        hasItems = true;
+        listHtml += `
+          <li style="padding: 10px 0; border-bottom: 1px solid var(--line);">
+            ${col0 ? `<span style="font-weight: 600; color: var(--field); margin-right: 8px;">[${col0}]</span>` : ''}
+            <span style="color: var(--ink);">${col1 || col0}</span>
+          </li>`;
+      }
+    });
+
+    listHtml += '</ul>';
+
+    if (!hasItems) {
+      container.innerHTML = "<p style='color:var(--ink-soft);'>No active announcements at the moment.</p>";
+    } else {
+      container.innerHTML = listHtml;
+    }
+
+  } catch (error) {
+    console.error("Error fetching announcements:", error);
+    container.innerHTML = "<p style='color:#c0392b;'>Unable to load announcements.</p>";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", fetchAnnouncements);
 
 
 /*
