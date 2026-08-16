@@ -164,7 +164,7 @@
 </div>
 
 <script>
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf24Db9ZhHKHK49SNQbJnSab9pNE4v00XTzRnm-AmG8j00hVvjWfyEBDAWNLaQXYh2ew/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDiuVWJYSdra6T1gVcDbYJLFJKR0skm9uy4Uh-V4_T7dMqJeMmbl-Sipl-D6yclfhJUw/exec";
 
 window.onload = function() {
   loadClassSheets();
@@ -183,7 +183,7 @@ async function loadClassSheets() {
   try {
     const formData = new URLSearchParams();
     formData.append("action", "GET_SHEETS");
-    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData, redirect: "follow" });
     const data = await res.json();
     
     if (data.success) {
@@ -205,11 +205,13 @@ async function generateNextId() {
   try {
     const formData = new URLSearchParams();
     formData.append("action", "GET_NEXT_ID");
-    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData, redirect: "follow" });
     const data = await res.json();
     
-    if (data.success) {
+    if (data.success && data.nextId) {
       document.getElementById("studentId").value = data.nextId;
+    } else {
+      document.getElementById("studentId").value = "SR01";
     }
   } catch (err) {
     document.getElementById("studentId").value = "SR01";
@@ -220,7 +222,7 @@ async function loadCurrentSettings() {
   try {
     const formData = new URLSearchParams();
     formData.append("action", "GET_SETTINGS");
-    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData, redirect: "follow" });
     const data = await res.json();
 
     if (data.success && data.settings && data.settings.hiddenFields) {
@@ -264,11 +266,11 @@ document.getElementById("addStudentForm").addEventListener("submit", async funct
     formData.append("action", "ADD_STUDENT");
     formData.append("adminPin", pin);
 
-    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData, redirect: "follow" });
     const data = await res.json();
 
     if (data.success) {
-      showAlert(data.message, "success");
+      showAlert(data.message || "Student record saved successfully!", "success");
       this.reset();
       generateNextId();
     } else {
@@ -312,11 +314,11 @@ document.getElementById("settingsForm").addEventListener("submit", async functio
     formData.append("adminPin", pin);
     formData.append("hiddenFields", JSON.stringify(hiddenFields));
 
-    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData, redirect: "follow" });
     const data = await res.json();
 
     if (data.success) {
-      showAlert(data.message, "success");
+      showAlert(data.message || "Visibility settings updated successfully!", "success");
     } else {
       showAlert(data.message || "Failed to update settings.", "error");
     }
