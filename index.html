@@ -814,9 +814,7 @@
 
 <body>
 
-<!-- ========================================================= -->
 <!-- HOME VIEW -->
-<!-- ========================================================= -->
 
 <div id="homeView">
 
@@ -1091,9 +1089,7 @@
 </div>
 
 
-<!-- ========================================================= -->
 <!-- LOGIN VIEW -->
-<!-- ========================================================= -->
 
 <div id="loginView">
 
@@ -1465,9 +1461,7 @@
 </div>
 
 
-<!-- ========================================================= -->
 <!-- DASHBOARD VIEW -->
-<!-- ========================================================= -->
 
 <div id="dashboardView">
 
@@ -1634,9 +1628,7 @@
 </div>
 
 
-<!-- ========================================================= -->
 <!-- JAVASCRIPT -->
-<!-- ========================================================= -->
 
 <script>
 
@@ -1647,7 +1639,7 @@ APPS SCRIPT WEB APP URL
 */
 
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwf24Db9ZhHKHK49SNQbJnSab9pNE4v00XTzRnm-AmG8j00hVvjWfyEBDAWNLaQXYh2ew/exec";
+  "https://script.google.com/macros/s/AKfycbyDiuVWJYSdra6T1gVcDbYJLFJKR0skm9uy4Uh-V4_T7dMqJeMmbl-Sipl-D6yclfhJUw/exec";
 
 
 /*
@@ -1855,13 +1847,6 @@ function formatAttendance(value){
   }
 
 
-  /*
-  Example:
-
-  0.85 = 85%
-  85   = 85%
-  */
-
   if(number > 0 && number <= 1){
 
     number =
@@ -1937,12 +1922,6 @@ document
       document.querySelector(".login-btn");
 
 
-    /*
-    --------------------------------------------------------
-    BASIC VALIDATION
-    --------------------------------------------------------
-    */
-
     if(!studentId || !password){
 
       errorMsg.innerText =
@@ -1955,20 +1934,8 @@ document
     }
 
 
-    /*
-    --------------------------------------------------------
-    RESET ERROR
-    --------------------------------------------------------
-    */
-
     errorMsg.classList.remove("show");
 
-
-    /*
-    --------------------------------------------------------
-    LOGIN BUTTON LOADING
-    --------------------------------------------------------
-    */
 
     loginBtn.disabled = true;
 
@@ -1978,29 +1945,12 @@ document
 
     try{
 
-
-      /*
-      ======================================================
-      IMPORTANT
-
-      NEW Code.gs EXPECTS:
-
-      POST
-
-      e.parameter.id
-      e.parameter.password
-
-      So we send exactly those two parameters.
-      ======================================================
-      */
-
-
       const formData =
         new URLSearchParams();
 
 
       formData.append(
-        "id",
+        "studentId",
         studentId
       );
 
@@ -2010,12 +1960,6 @@ document
         password
       );
 
-
-      /*
-      --------------------------------------------------------
-      SEND POST REQUEST
-      --------------------------------------------------------
-      */
 
       const response =
         await fetch(
@@ -2028,12 +1972,6 @@ document
         );
 
 
-      /*
-      --------------------------------------------------------
-      CHECK SERVER RESPONSE
-      --------------------------------------------------------
-      */
-
       if(!response.ok){
 
         throw new Error(
@@ -2044,34 +1982,16 @@ document
       }
 
 
-      /*
-      --------------------------------------------------------
-      CONVERT JSON RESPONSE
-      --------------------------------------------------------
-      */
-
       const result =
         await response.json();
 
-
-      /*
-      ======================================================
-      LOGIN SUCCESS
-      ======================================================
-      */
 
       if(result.success === true){
 
 
         const student =
-          result.data || {};
+          result.student || result.data || {};
 
-
-        /*
-        ----------------------------------------------------
-        NAME
-        ----------------------------------------------------
-        */
 
         document.getElementById("dashName").innerText =
           valueOrFallback(
@@ -2085,12 +2005,6 @@ document
           );
 
 
-        /*
-        ----------------------------------------------------
-        STUDENT ID
-        ----------------------------------------------------
-        */
-
         document.getElementById("dashId").innerText =
           valueOrFallback(
             getVal(
@@ -2102,12 +2016,6 @@ document
             studentId
           );
 
-
-        /*
-        ----------------------------------------------------
-        CLASS
-        ----------------------------------------------------
-        */
 
         document.getElementById("dashClass").innerText =
           valueOrFallback(
@@ -2121,12 +2029,6 @@ document
           );
 
 
-        /*
-        ----------------------------------------------------
-        ATTENDANCE
-        ----------------------------------------------------
-        */
-
         document.getElementById("dashAttendance").innerText =
           formatAttendance(
             getVal(
@@ -2138,12 +2040,6 @@ document
           );
 
 
-        /*
-        ----------------------------------------------------
-        MATHS
-        ----------------------------------------------------
-        */
-
         document.getElementById("dashMaths").innerText =
           valueOrFallback(
             getVal(
@@ -2153,12 +2049,6 @@ document
             )
           );
 
-
-        /*
-        ----------------------------------------------------
-        PHYSICS
-        ----------------------------------------------------
-        */
 
         document.getElementById("dashPhysics").innerText =
           valueOrFallback(
@@ -2170,12 +2060,6 @@ document
           );
 
 
-        /*
-        ----------------------------------------------------
-        CHEMISTRY
-        ----------------------------------------------------
-        */
-
         document.getElementById("dashChem").innerText =
           valueOrFallback(
             getVal(
@@ -2185,12 +2069,6 @@ document
             )
           );
 
-
-        /*
-        ----------------------------------------------------
-        ENGLISH
-        ----------------------------------------------------
-        */
 
         document.getElementById("dashEng").innerText =
           valueOrFallback(
@@ -2202,12 +2080,6 @@ document
           );
 
 
-        /*
-        ----------------------------------------------------
-        TOTAL MARKS
-        ----------------------------------------------------
-        */
-
         document.getElementById("dashTotal").innerText =
           valueOrFallback(
             getVal(
@@ -2218,12 +2090,6 @@ document
             )
           );
 
-
-        /*
-        ----------------------------------------------------
-        TOTAL FEES
-        ----------------------------------------------------
-        */
 
         document.getElementById("dashTotalFee").innerText =
           formatMoney(
@@ -2239,12 +2105,6 @@ document
           );
 
 
-        /*
-        ----------------------------------------------------
-        PAID FEES
-        ----------------------------------------------------
-        */
-
         document.getElementById("dashPaid").innerText =
           formatMoney(
             valueOrFallback(
@@ -2259,12 +2119,6 @@ document
           );
 
 
-        /*
-        ----------------------------------------------------
-        DUE FEES
-        ----------------------------------------------------
-        */
-
         document.getElementById("dashDue").innerText =
           formatMoney(
             valueOrFallback(
@@ -2278,12 +2132,6 @@ document
             )
           );
 
-
-        /*
-        ====================================================
-        SHOW DASHBOARD
-        ====================================================
-        */
 
         document.getElementById(
           "homeView"
@@ -2306,12 +2154,6 @@ document
       }else{
 
 
-        /*
-        ====================================================
-        LOGIN FAILED
-        ====================================================
-        */
-
         errorMsg.innerText =
           result.message ||
           "Invalid ID or password.";
@@ -2324,12 +2166,6 @@ document
 
     }catch(error){
 
-
-      /*
-      ======================================================
-      CONNECTION / SERVER ERROR
-      ======================================================
-      */
 
       console.error(
         "Student login error:",
@@ -2346,12 +2182,6 @@ document
 
     }finally{
 
-
-      /*
-      ======================================================
-      RESTORE LOGIN BUTTON
-      ======================================================
-      */
 
       loginBtn.innerHTML = `
         <svg
