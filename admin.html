@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Admin Panel — Sree Ramakrishna Public School</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  *{ box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+  body{ background: #f4f5fb; color: #1c1440; padding: 20px; }
+  .container{ max-width: 700px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
+  h1{ font-size: 22px; margin-bottom: 6px; color: #17264a; }
+  p.sub{ font-size: 13px; color: #6b6491; margin-bottom: 20px; }
+  
+  /* Nav Tabs */
+  .nav-tabs { display: flex; gap: 10px; border-bottom: 2px solid #eef; margin-bottom: 20px; }
+  .tab-btn { padding: 10px 18px; border: none; background: none; font-size: 14px; font-weight: 600; color: #6b6491; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .tab-btn.active { color: #6c5ce7; border-bottom-color: #6c5ce7; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .form-group{ margin-bottom: 16px; }
+  label{ display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; color: #3a4a72; margin-bottom: 6px; }
+  input, select{ width: 100%; padding: 11px 14px; border: 1px solid rgba(23,38,74,0.18); border-radius: 8px; font-size: 14px; outline: none; }
+  input:focus, select:focus{ border-color: #6c5ce7; box-shadow: 0 0 0 3px rgba(108,92,231,0.12); }
+  input[readonly]{ background: #efeaff; color: #4b3bd4; font-weight: 600; cursor: not-allowed; }
+
+  .grid-2{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media(max-width: 500px){ .grid-2{ grid-template-columns: 1fr; } }
+
+  .btn-submit{ width: 100%; padding: 14px; background: #6c5ce7; color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+  .btn-submit:hover{ background: #4b3bd4; }
+  .btn-submit:disabled{ opacity: 0.6; cursor: not-allowed; }
+
+  .alert{ padding: 12px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; display: none; }
+  .alert-success{ background: #e8f8f5; color: #10b981; border: 1px solid #10b981; }
+  .alert-error{ background: #fdecec; color: #c0392b; border: 1px solid #c0392b; }
+
+  /* Checkbox Grid for Visibility Settings */
+  .visibility-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; background: #f8f7fc; padding: 16px; border-radius: 10px; margin-bottom: 16px; }
+  .checkbox-item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+  .checkbox-item input[type="checkbox"] { width: auto; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🏫 Staff Control Center</h1>
+  <p class="sub">Sree Ramakrishna Public School — Angara</p>
+
+  <div id="statusAlert" class="alert"></div>
+
+  <!-- Navigation Tabs -->
+  <div class="nav-tabs">
+    <button type="button" class="tab-btn active" onclick="switchTab('dataEntryTab', this)">➕ Student Data Entry</button>
+    <button type="button" class="tab-btn" onclick="switchTab('settingsTab', this)">⚙️ Portal Display Settings</button>
+  </div>
+
+  <!-- Shared Security Admin PIN Input -->
+  <div class="form-group" style="background:#efeaff; padding:12px; border-radius:10px; margin-bottom:20px;">
+    <label style="color:#4b3bd4;">🔑 Security Admin PIN (Required for Operations)</label>
+    <input type="password" id="adminPin" placeholder="Enter Admin Security PIN (Default: 1234)" required style="background:#fff;">
+  </div>
+
+  <!-- TAB 1: STUDENT DATA ENTRY -->
+  <div id="dataEntryTab" class="tab-content active">
+    <form id="addStudentForm">
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Select Class (Sheet)</label>
+          <select id="className" name="className" required>
+            <option value="">Loading Sheets...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Auto Student ID</label>
+          <input type="text" id="studentId" name="Student ID" readonly placeholder="Generating ID...">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Student Name</label>
+          <input type="text" name="Name" placeholder="e.g. K. Rajesh" required>
+        </div>
+        <div class="form-group">
+          <label>Password / PIN</label>
+          <input type="text" name="Password" placeholder="e.g. 1234" required>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="text" name="Phone" placeholder="Mobile Number">
+        </div>
+        <div class="form-group">
+          <label>Village / Place</label>
+          <input type="text" name="Village" placeholder="Village Name">
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Father Name</label>
+          <input type="text" name="Father Name" placeholder="Father Name">
+        </div>
+        <div class="form-group">
+          <label>Mother Name</label>
+          <input type="text" name="Mother Name" placeholder="Mother Name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Date of Birth (DOB)</label>
+        <input type="date" name="DOB">
+      </div>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px dashed rgba(23,38,74,0.18);">
+
+      <div class="grid-2">
+        <div class="form-group">
+          <label>Total Fee (₹)</label>
+          <input type="number" name="Total fees" placeholder="0">
+        </div>
+        <div class="form-group">
+          <label>Paid Fee (₹)</label>
+          <input type="number" name="Paid" placeholder="0">
+        </div>
+      </div>
+
+      <button type="submit" id="saveBtn" class="btn-submit">Save Student Record</button>
+    </form>
+  </div>
+
+  <!-- TAB 2: PORTAL DISPLAY SETTINGS -->
+  <div id="settingsTab" class="tab-content">
+    <h3 style="font-size:16px; margin-bottom:8px;">Student Portal Field Visibility</h3>
+    <p style="font-size:13px; color:#6b6491; margin-bottom:16px;">Check the fields below that you want to <strong>HIDE</strong> from the Student Profile page.</p>
+
+    <form id="settingsForm">
+      <div class="visibility-grid">
+        <label class="checkbox-item"><input type="checkbox" value="Phone" class="hide-field-cb"> Phone Number</label>
+        <label class="checkbox-item"><input type="checkbox" value="Village" class="hide-field-cb"> Village</label>
+        <label class="checkbox-item"><input type="checkbox" value="Father Name" class="hide-field-cb"> Father Name</label>
+        <label class="checkbox-item"><input type="checkbox" value="Mother Name" class="hide-field-cb"> Mother Name</label>
+        <label class="checkbox-item"><input type="checkbox" value="DOB" class="hide-field-cb"> Date of Birth</label>
+        <label class="checkbox-item"><input type="checkbox" value="Total fees" class="hide-field-cb"> Total Fees</label>
+        <label class="checkbox-item"><input type="checkbox" value="Paid" class="hide-field-cb"> Paid Fees</label>
+      </div>
+
+      <div class="form-group">
+        <label>Additional Custom Field Names to Hide (Comma-separated)</label>
+        <input type="text" id="customHideFields" placeholder="e.g. Bus Fee, Internal Marks, Remarks">
+      </div>
+
+      <button type="submit" id="saveSettingsBtn" class="btn-submit" style="background:#10b981;">Save Visibility Settings</button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf24Db9ZhHKHK49SNQbJnSab9pNE4v00XTzRnm-AmG8j00hVvjWfyEBDAWNLaQXYh2ew/exec";
+
+window.onload = function() {
+  loadClassSheets();
+  generateNextId();
+  loadCurrentSettings();
+};
+
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+async function loadClassSheets() {
+  try {
+    const formData = new URLSearchParams();
+    formData.append("action", "GET_SHEETS");
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const data = await res.json();
+    
+    if (data.success) {
+      const select = document.getElementById("className");
+      select.innerHTML = "";
+      data.sheets.forEach(sheet => {
+        const option = document.createElement("option");
+        option.value = sheet;
+        option.textContent = sheet;
+        select.appendChild(option);
+      });
+    }
+  } catch (err) {
+    showAlert("Failed to load class sheets.", "error");
+  }
+}
+
+async function generateNextId() {
+  try {
+    const formData = new URLSearchParams();
+    formData.append("action", "GET_NEXT_ID");
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const data = await res.json();
+    
+    if (data.success) {
+      document.getElementById("studentId").value = data.nextId;
+    }
+  } catch (err) {
+    document.getElementById("studentId").value = "SR01";
+  }
+}
+
+async function loadCurrentSettings() {
+  try {
+    const formData = new URLSearchParams();
+    formData.append("action", "GET_SETTINGS");
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const data = await res.json();
+
+    if (data.success && data.settings && data.settings.hiddenFields) {
+      const hidden = data.settings.hiddenFields;
+      const checkboxes = document.querySelectorAll('.hide-field-cb');
+      const customList = [];
+
+      checkboxes.forEach(cb => {
+        if (hidden.includes(cb.value)) {
+          cb.checked = true;
+        }
+      });
+
+      hidden.forEach(field => {
+        const isStandard = Array.from(checkboxes).some(cb => cb.value === field);
+        if (!isStandard) customList.push(field);
+      });
+
+      document.getElementById("customHideFields").value = customList.join(", ");
+    }
+  } catch (err) {
+    console.error("Could not load display settings.");
+  }
+}
+
+// Handle Student Entry Submission
+document.getElementById("addStudentForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const pin = document.getElementById("adminPin").value.trim();
+  if (!pin) {
+    showAlert("Security Admin PIN is required!", "error");
+    return;
+  }
+
+  const saveBtn = document.getElementById("saveBtn");
+  saveBtn.disabled = true;
+  saveBtn.innerText = "Saving Record...";
+
+  try {
+    const formData = new URLSearchParams(new FormData(this));
+    formData.append("action", "ADD_STUDENT");
+    formData.append("adminPin", pin);
+
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const data = await res.json();
+
+    if (data.success) {
+      showAlert(data.message, "success");
+      this.reset();
+      generateNextId();
+    } else {
+      showAlert(data.message || "Failed to add student.", "error");
+    }
+  } catch (err) {
+    showAlert("Technical error while saving data.", "error");
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerText = "Save Student Record";
+  }
+});
+
+// Handle Display Settings Submission
+document.getElementById("settingsForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const pin = document.getElementById("adminPin").value.trim();
+  if (!pin) {
+    showAlert("Security Admin PIN is required!", "error");
+    return;
+  }
+
+  const saveBtn = document.getElementById("saveSettingsBtn");
+  saveBtn.disabled = true;
+  saveBtn.innerText = "Updating Settings...";
+
+  const hiddenFields = [];
+  document.querySelectorAll('.hide-field-cb:checked').forEach(cb => hiddenFields.push(cb.value));
+  
+  const customVal = document.getElementById("customHideFields").value.trim();
+  if (customVal) {
+    customVal.split(",").forEach(f => {
+      const clean = f.trim();
+      if (clean && !hiddenFields.includes(clean)) hiddenFields.push(clean);
+    });
+  }
+
+  try {
+    const formData = new URLSearchParams();
+    formData.append("action", "SAVE_SETTINGS");
+    formData.append("adminPin", pin);
+    formData.append("hiddenFields", JSON.stringify(hiddenFields));
+
+    const res = await fetch(APPS_SCRIPT_URL, { method: "POST", body: formData });
+    const data = await res.json();
+
+    if (data.success) {
+      showAlert(data.message, "success");
+    } else {
+      showAlert(data.message || "Failed to update settings.", "error");
+    }
+  } catch (err) {
+    showAlert("Technical error updating settings.", "error");
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerText = "Save Visibility Settings";
+  }
+});
+
+function showAlert(msg, type) {
+  const alert = document.getElementById("statusAlert");
+  alert.innerText = msg;
+  alert.className = "alert " + (type === "success" ? "alert-success" : "alert-error");
+  alert.style.display = "block";
+  window.scrollTo(0,0);
+  setTimeout(() => { alert.style.display = "none"; }, 5000);
+}
+</script>
+
+</body>
+</html>
