@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Staff Control Center — Sree Ramakrishna Public School</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -63,7 +66,8 @@ body{
   color:#4b3bd4;
 }
 
-input,select{
+input,
+select{
   width:100%;
   border:1px solid #ddd9ed;
   border-radius:10px;
@@ -73,7 +77,8 @@ input,select{
   background:white;
 }
 
-input:focus,select:focus{
+input:focus,
+select:focus{
   border-color:#6c5ce7;
   box-shadow:0 0 0 3px rgba(108,92,231,.1);
 }
@@ -132,6 +137,7 @@ input:focus,select:focus{
 }
 
 @media(max-width:650px){
+
   .grid{
     grid-template-columns:1fr;
   }
@@ -139,6 +145,7 @@ input:focus,select:focus{
   .nav{
     grid-template-columns:repeat(2,1fr);
   }
+
 }
 
 .field{
@@ -184,6 +191,7 @@ input:focus,select:focus{
 
 .btn:disabled{
   opacity:.55;
+  cursor:not-allowed;
 }
 
 .actions{
@@ -281,9 +289,11 @@ input:focus,select:focus{
 }
 
 @media(max-width:550px){
+
   .marks-grid{
     grid-template-columns:1fr;
   }
+
 }
 
 .mark-box{
@@ -330,11 +340,26 @@ input:focus,select:focus{
   font-weight:700;
 }
 
+.loading{
+  text-align:center;
+  padding:20px;
+  color:#77708f;
+}
+
+.empty{
+  text-align:center;
+  padding:25px;
+  color:#77708f;
+  background:#f8f7fc;
+  border-radius:12px;
+}
+
 hr{
   border:0;
   border-top:1px dashed #ddd8eb;
   margin:20px 0;
 }
+
 </style>
 </head>
 
@@ -342,428 +367,636 @@ hr{
 
 <div class="container">
 
-  <!-- HEADER -->
-  <div class="header">
-    <h1>Staff Control Center</h1>
-    <p>Sree Ramakrishna Public School · Angara</p>
-  </div>
-
-  <!-- SECURITY -->
-  <div class="security">
-    <label>🔐 Admin Security PIN</label>
-    <input
-      type="password"
-      id="adminPin"
-      placeholder="Enter Admin PIN"
-    >
-  </div>
-
-  <div id="alert" class="alert"></div>
-
-  <!-- NAVIGATION -->
-  <div class="nav">
-
-    <button
-      class="active"
-      onclick="openPanel('students',this)"
-    >
-      👨‍🎓 Students
-    </button>
-
-    <button
-      onclick="openPanel('add',this)"
-    >
-      ➕ Add Student
-    </button>
-
-    <button
-      onclick="openPanel('marks',this)"
-    >
-      📝 Marks
-    </button>
-
-    <button
-      onclick="openPanel('settings',this)"
-    >
-      ⚙️ Settings
-    </button>
-
-  </div>
-
-
-  <!-- =========================================
-       STUDENTS
-       ========================================= -->
-
-  <section id="students" class="panel active">
-
-    <h2 class="panel-title">
-      Student Management
-    </h2>
-
-    <p class="panel-sub">
-      View, edit and delete student records from any sheet.
-    </p>
-
-    <div class="grid">
-
-      <div class="field">
-        <label>Class / Sheet</label>
-
-        <select id="studentSheet">
-          <option value="">Loading sheets...</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Search Student</label>
-
-        <input
-          id="studentSearch"
-          placeholder="Student ID or name"
-          oninput="filterStudents()"
-        >
-      </div>
-
-    </div>
-
-    <div class="actions">
-
-      <button
-        class="btn primary"
-        onclick="loadStudents()"
-      >
-        🔄 Refresh Students
-      </button>
-
-    </div>
-
-    <div
-      id="studentList"
-      class="student-list"
-    >
-      <div class="info-card">
-        Select a sheet and press Refresh Students.
-      </div>
-    </div>
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
 
-  </section>
-
-
-  <!-- =========================================
-       ADD / EDIT STUDENT
-       ========================================= -->
-
-  <section id="add" class="panel">
-
-    <h2 class="panel-title">
-      Student Data Entry
-    </h2>
-
-    <p class="panel-sub">
-      Add a new student or update an existing student.
-    </p>
-
-    <input
-      type="hidden"
-      id="editMode"
-      value="ADD"
-    >
-
-    <div class="grid">
-
-      <div class="field">
-        <label>Class / Sheet</label>
-
-        <select id="className">
-          <option value="">Loading sheets...</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Student ID</label>
-
-        <input
-          id="studentId"
-          placeholder="Auto generated"
-        >
-      </div>
-
-      <div class="field">
-        <label>Student Name</label>
-
-        <input
-          id="studentName"
-          placeholder="Student name"
-        >
-      </div>
-
-      <div class="field">
-        <label>Password / PIN</label>
-
-        <input
-          id="studentPassword"
-          placeholder="Student password"
-        >
-      </div>
-
-      <div class="field">
-        <label>Phone Number</label>
-
-        <input
-          id="phone"
-          placeholder="Phone number"
-        >
-      </div>
-
-      <div class="field">
-        <label>Village</label>
-
-        <input
-          id="village"
-          placeholder="Village / Place"
-        >
-      </div>
-
-      <div class="field">
-        <label>Father Name</label>
-
-        <input
-          id="father"
-          placeholder="Father name"
-        >
-      </div>
-
-      <div class="field">
-        <label>Mother Name</label>
-
-        <input
-          id="mother"
-          placeholder="Mother name"
-        >
-      </div>
-
-      <div class="field">
-        <label>Date of Birth</label>
-
-        <input
-          type="date"
-          id="dob"
-        >
-      </div>
-
-      <div class="field">
-        <label>Attendance %</label>
-
-        <input
-          type="number"
-          id="attendance"
-          min="0"
-          max="100"
-          placeholder="100"
-        >
-      </div>
-
-      <div class="field">
-        <label>Total Fees ₹</label>
-
-        <input
-          type="number"
-          id="totalFees"
-          placeholder="0"
-        >
-      </div>
-
-      <div class="field">
-        <label>Paid Fees ₹</label>
-
-        <input
-          type="number"
-          id="paidFees"
-          placeholder="0"
-        >
-      </div>
-
-    </div>
-
-    <div class="actions">
-
-      <button
-        class="btn primary"
-        onclick="saveStudent()"
-      >
-        💾 Save Student
-      </button>
-
-      <button
-        class="btn gray"
-        onclick="clearStudentForm()"
-      >
-        Clear
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================================
-       MARKS
-       ========================================= -->
-
-  <section id="marks" class="panel">
-
-    <h2 class="panel-title">
-      Examination Marks
-    </h2>
-
-    <p class="panel-sub">
-      Enter marks using your existing column structure such as
-      <span class="badge">FA1_Telugu</span>
-      <span class="badge">FA1_English</span>
-      <span class="badge">FA2_Maths</span>.
-    </p>
-
-    <div class="grid">
-
-      <div class="field">
-        <label>Class / Sheet</label>
-
-        <select id="marksSheet">
-          <option value="">Loading sheets...</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label>Student ID</label>
-
-        <input
-          id="marksStudentId"
-          placeholder="Example: SR01"
-        >
-      </div>
-
-      <div class="field">
-        <label>Exam</label>
-
-        <select
-          id="examSelect"
-          onchange="loadMarkFields()"
-        >
-          <option value="">
-            Select Exam
-          </option>
-        </select>
-      </div>
-
-    </div>
-
-    <div
-      id="markFields"
-      class="marks-grid"
-    >
-    </div>
-
-    <div class="actions">
-
-      <button
-        class="btn primary"
-        onclick="loadExamSubjects()"
-      >
-        🔄 Load Subjects
-      </button>
-
-      <button
-        class="btn green"
-        onclick="saveMarks()"
-      >
-        💾 Save Marks
-      </button>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================================
-       SETTINGS
-       ========================================= -->
-
-  <section id="settings" class="panel">
-
-    <h2 class="panel-title">
-      Portal Display Settings
-    </h2>
-
-    <p class="panel-sub">
-      Select the information that should be hidden from students.
-    </p>
-
-    <div class="checkbox-grid">
+<div class="header">
+
+  <h1>Staff Control Center</h1>
+
+  <p>
+    Sree Ramakrishna Public School · Angara
+  </p>
+
+</div>
+
+
+<!-- =====================================================
+     SECURITY
+     ===================================================== -->
+
+<div class="security">
+
+  <label>
+    🔐 Admin Security PIN
+  </label>
+
+  <input
+    type="password"
+    id="adminPin"
+    placeholder="Enter Admin PIN"
+  >
+
+</div>
+
+
+<div id="alert" class="alert"></div>
+
+
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
+
+<div class="nav">
+
+  <button
+    class="active"
+    onclick="openPanel('students',this)"
+  >
+    👨‍🎓 Students
+  </button>
+
+  <button
+    onclick="openPanel('add',this)"
+  >
+    ➕ Add Student
+  </button>
+
+  <button
+    onclick="openPanel('marks',this)"
+  >
+    📝 Marks
+  </button>
+
+  <button
+    onclick="openPanel('settings',this)"
+  >
+    ⚙️ Settings
+  </button>
+
+</div>
+
+
+<!-- =====================================================
+     STUDENTS
+     ===================================================== -->
+
+<section
+  id="students"
+  class="panel active"
+>
+
+  <h2 class="panel-title">
+    Student Management
+  </h2>
+
+  <p class="panel-sub">
+    View, edit and delete student records from any sheet.
+  </p>
+
+
+  <div class="grid">
+
+    <div class="field">
 
       <label>
-        <input type="checkbox" value="Phone" class="hideField">
-        Phone Number
+        Class / Sheet
       </label>
 
-      <label>
-        <input type="checkbox" value="Village" class="hideField">
-        Village
-      </label>
+      <select id="studentSheet">
 
-      <label>
-        <input type="checkbox" value="Father Name" class="hideField">
-        Father Name
-      </label>
+        <option value="">
+          Loading sheets...
+        </option>
 
-      <label>
-        <input type="checkbox" value="Mother Name" class="hideField">
-        Mother Name
-      </label>
-
-      <label>
-        <input type="checkbox" value="DOB" class="hideField">
-        Date of Birth
-      </label>
-
-      <label>
-        <input type="checkbox" value="Total fees" class="hideField">
-        Total Fees
-      </label>
-
-      <label>
-        <input type="checkbox" value="Paid" class="hideField">
-        Paid Fees
-      </label>
-
-      <label>
-        <input type="checkbox" value="Attendance" class="hideField">
-        Attendance
-      </label>
+      </select>
 
     </div>
 
-    <div class="field" style="margin-top:15px">
+
+    <div class="field">
 
       <label>
-        Additional Fields to Hide
+        Search Student
       </label>
 
       <input
-        id="customHideFields"
-        placeholder="Example: Remarks, Bus Fee"
+        id="studentSearch"
+        placeholder="Student ID or name"
+        oninput="filterStudents()"
       >
 
     </div>
 
+  </div>
+
+
+  <div class="actions">
+
     <button
-      class="btn green"
-      onclick="saveSettings()"
+      class="btn primary"
+      onclick="loadStudents()"
     >
-      💾 Save Visibility Settings
+      🔄 Refresh Students
     </button>
 
-  </section>
+  </div>
+
+
+  <div
+    id="studentList"
+    class="student-list"
+  >
+
+    <div class="loading">
+      Select a sheet and load students.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADD / EDIT STUDENT
+     ===================================================== -->
+
+<section
+  id="add"
+  class="panel"
+>
+
+  <h2 class="panel-title">
+    Student Data Entry
+  </h2>
+
+  <p class="panel-sub">
+    Add a new student or update an existing student.
+  </p>
+
+
+  <input
+    type="hidden"
+    id="editMode"
+    value="ADD"
+  >
+
+
+  <div class="grid">
+
+
+    <div class="field">
+
+      <label>
+        Class / Sheet
+      </label>
+
+      <select id="className">
+
+        <option value="">
+          Loading sheets...
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Student ID
+      </label>
+
+      <input
+        id="studentId"
+        placeholder="Student ID"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Student Name
+      </label>
+
+      <input
+        id="studentName"
+        placeholder="Student name"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Password / PIN
+      </label>
+
+      <input
+        id="studentPassword"
+        placeholder="Student password"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Phone Number
+      </label>
+
+      <input
+        id="phone"
+        placeholder="Phone number"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Village
+      </label>
+
+      <input
+        id="village"
+        placeholder="Village / Place"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Father Name
+      </label>
+
+      <input
+        id="father"
+        placeholder="Father name"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Mother Name
+      </label>
+
+      <input
+        id="mother"
+        placeholder="Mother name"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Date of Birth
+      </label>
+
+      <input
+        type="date"
+        id="dob"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Attendance %
+      </label>
+
+      <input
+        type="number"
+        id="attendance"
+        min="0"
+        max="100"
+        placeholder="100"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Total Fees ₹
+      </label>
+
+      <input
+        type="number"
+        id="totalFees"
+        placeholder="0"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Paid Fees ₹
+      </label>
+
+      <input
+        type="number"
+        id="paidFees"
+        placeholder="0"
+      >
+
+    </div>
+
+  </div>
+
+
+  <div class="actions">
+
+    <button
+      class="btn primary"
+      onclick="saveStudent()"
+    >
+      💾 Save Student
+    </button>
+
+    <button
+      class="btn gray"
+      onclick="clearStudentForm()"
+    >
+      Clear
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     MARKS
+     ===================================================== -->
+
+<section
+  id="marks"
+  class="panel"
+>
+
+  <h2 class="panel-title">
+    Examination Marks
+  </h2>
+
+  <p class="panel-sub">
+
+    Enter marks using your existing examination structure.
+
+    <span class="badge">
+      FA1
+    </span>
+
+    <span class="badge">
+      FA2
+    </span>
+
+    <span class="badge">
+      Telugu
+    </span>
+
+    <span class="badge">
+      English
+    </span>
+
+    <span class="badge">
+      Maths
+    </span>
+
+  </p>
+
+
+  <div class="grid">
+
+
+    <div class="field">
+
+      <label>
+        Class / Sheet
+      </label>
+
+      <select id="marksSheet">
+
+        <option value="">
+          Loading sheets...
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Student ID
+      </label>
+
+      <input
+        id="marksStudentId"
+        placeholder="Example: SR01"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <label>
+        Exam
+      </label>
+
+      <select
+        id="examSelect"
+        onchange="loadMarkFields()"
+      >
+
+        <option value="">
+          Loading exams...
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="markFields"
+    class="marks-grid"
+  >
+  </div>
+
+
+  <div class="actions">
+
+    <button
+      class="btn primary"
+      onclick="loadExamSubjects()"
+    >
+      🔄 Load Subjects
+    </button>
+
+    <button
+      class="btn green"
+      onclick="saveMarks()"
+    >
+      💾 Save Marks
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     SETTINGS
+     ===================================================== -->
+
+<section
+  id="settings"
+  class="panel"
+>
+
+  <h2 class="panel-title">
+    Portal Display Settings
+  </h2>
+
+  <p class="panel-sub">
+    Select the information that should be hidden from students.
+  </p>
+
+
+  <div class="checkbox-grid">
+
+
+    <label>
+      <input
+        type="checkbox"
+        value="Phone"
+        class="hideField"
+      >
+      Phone Number
+    </label>
+
+
+    <label>
+      <input
+        type="checkbox"
+        value="Village"
+        class="hideField"
+      >
+      Village
+    </label>
+
+
+    <label>
+      <input
+        type="checkbox"
+        value="Father Name"
+        class="hideField"
+      >
+      Father Name
+    </label>
+
+
+    <label>
+      <input
+        type="checkbox"
+        value="Mother Name"
+        class="hideField"
+      >
+      Mother Name
+    </label>
+
+
+    <label>
+      <input
+        type="checkbox"
+        value="DOB"
+        class="hideField"
+      >
+      Date of Birth
+    </label>
+
+
+    <label>
+      <input
+        type="checkbox"
+        value="Total fees"
+        class="hideField"
+      >
+      Total Fees
+    </label>
+
+
+    <label>
+      <input
+        type="checkbox"
+        value="Paid"
+        class="hideField"
+      >
+      Paid Fees
+    </label>
+
+
+    <label>
+      <input
+        type="checkbox"
+        value="Attendance"
+        class="hideField"
+      >
+      Attendance
+    </label>
+
+  </div>
+
+
+  <div
+    class="field"
+    style="margin-top:15px"
+  >
+
+    <label>
+      Additional Fields to Hide
+    </label>
+
+    <input
+      id="customHideFields"
+      placeholder="Example: Remarks, Bus Fee"
+    >
+
+  </div>
+
+
+  <button
+    class="btn green"
+    onclick="saveSettings()"
+  >
+    💾 Save Visibility Settings
+  </button>
+
+</section>
 
 </div>
 
@@ -790,7 +1023,7 @@ let exams = {};
 
 
 /* =====================================================
-   START
+   START APPLICATION
    ===================================================== */
 
 window.addEventListener("load", async function(){
@@ -810,21 +1043,37 @@ function openPanel(id,button){
 
   document
     .querySelectorAll(".panel")
-    .forEach(p =>
-      p.classList.remove("active")
-    );
+    .forEach(function(panel){
+
+      panel.classList.remove("active");
+
+    });
+
 
   document
     .querySelectorAll(".nav button")
-    .forEach(b =>
-      b.classList.remove("active")
-    );
+    .forEach(function(btn){
 
-  document
-    .getElementById(id)
-    .classList.add("active");
+      btn.classList.remove("active");
 
-  button.classList.add("active");
+    });
+
+
+  const panel =
+    document.getElementById(id);
+
+  if(panel){
+
+    panel.classList.add("active");
+
+  }
+
+
+  if(button){
+
+    button.classList.add("active");
+
+  }
 
 }
 
@@ -838,16 +1087,36 @@ async function api(action,data={}){
   const body =
     new URLSearchParams();
 
-  body.append("action",action);
 
-  Object.keys(data).forEach(key=>{
+  body.append(
+    "action",
+    action
+  );
+
+
+  Object.keys(data).forEach(function(key){
+
+    let value =
+      data[key];
+
+
+    if(
+      value === undefined ||
+      value === null
+    ){
+
+      value = "";
+
+    }
+
 
     body.append(
       key,
-      data[key]
+      String(value)
     );
 
   });
+
 
   const response =
     await fetch(
@@ -859,57 +1128,132 @@ async function api(action,data={}){
       }
     );
 
-  return await response.json();
+
+  const text =
+    await response.text();
+
+
+  try{
+
+    return JSON.parse(text);
+
+  }
+  catch(error){
+
+    console.error(
+      "Invalid API response:",
+      text
+    );
+
+    throw new Error(
+      "Apps Script returned an invalid response."
+    );
+
+  }
 
 }
 
 
 /* =====================================================
-   LOAD SHEETS
+   LOAD ALL SHEETS
    ===================================================== */
 
 async function loadSheets(){
+
+  const selects = [
+
+    document.getElementById(
+      "studentSheet"
+    ),
+
+    document.getElementById(
+      "className"
+    ),
+
+    document.getElementById(
+      "marksSheet"
+    )
+
+  ];
+
+
+  selects.forEach(function(select){
+
+    if(select){
+
+      select.innerHTML =
+        '<option value="">Loading sheets...</option>';
+
+    }
+
+  });
+
 
   try{
 
     const data =
       await api("GET_SHEETS");
 
+
+    console.log(
+      "GET_SHEETS:",
+      data
+    );
+
+
     if(
+      !data ||
       !data.success
     ){
 
       throw new Error(
-        data.message || "Unable to load sheets"
+        data && data.message
+          ? data.message
+          : "Unable to load sheets."
       );
 
     }
 
+
     sheets =
-      data.sheets || [];
+      Array.isArray(data.sheets)
+        ? data.sheets
+        : [];
 
-    const selects =
-      [
-        document.getElementById("studentSheet"),
-        document.getElementById("className"),
-        document.getElementById("marksSheet")
-      ];
 
-    selects.forEach(select=>{
+    if(!sheets.length){
+
+      throw new Error(
+        "No sheets were found."
+      );
+
+    }
+
+
+    selects.forEach(function(select){
+
+      if(!select){
+        return;
+      }
+
 
       select.innerHTML =
         '<option value="">Select Sheet</option>';
 
-      sheets.forEach(sheet=>{
+
+      sheets.forEach(function(sheet){
 
         const option =
           document.createElement("option");
 
+
         option.value =
           sheet;
 
+
         option.textContent =
           sheet;
+
 
         select.appendChild(option);
 
@@ -917,11 +1261,43 @@ async function loadSheets(){
 
     });
 
+
+    console.log(
+      "Available sheets:",
+      sheets
+    );
+
+
+    showAlert(
+      "Connected successfully. " +
+      sheets.length +
+      " sheet(s) loaded.",
+      "success"
+    );
+
   }
   catch(error){
 
+    console.error(
+      "Sheet loading error:",
+      error
+    );
+
+
+    selects.forEach(function(select){
+
+      if(select){
+
+        select.innerHTML =
+          '<option value="">Unable to load sheets</option>';
+
+      }
+
+    });
+
+
     showAlert(
-      "Could not load Google Sheet tabs. Check Code.gs.",
+      "Could not load Google Sheet tabs. Check Apps Script deployment and Code.gs.",
       "error"
     );
 
@@ -936,16 +1312,56 @@ async function loadSheets(){
 
 async function loadExams(){
 
+  const select =
+    document.getElementById(
+      "examSelect"
+    );
+
+
   try{
+
+    /*
+      Your tested API uses:
+
+      ?action=exams
+
+      and returns:
+
+      {
+        "success":true,
+        "exams":{
+          "Student":[...],
+          "FA1":[...],
+          "FA2":[...]
+        }
+      }
+    */
+
 
     const response =
       await fetch(
         APPS_SCRIPT_URL +
-        "?action=exams"
+        "?action=exams",
+        {
+          method:"GET",
+          redirect:"follow"
+        }
       );
 
+
+    const text =
+      await response.text();
+
+
     const data =
-      await response.json();
+      JSON.parse(text);
+
+
+    console.log(
+      "EXAMS:",
+      data
+    );
+
 
     if(
       data.success &&
@@ -955,14 +1371,28 @@ async function loadExams(){
       exams =
         data.exams;
 
+
       populateExamDropdown();
+
+    }
+    else{
+
+      select.innerHTML =
+        '<option value="">No exams found</option>';
 
     }
 
   }
   catch(error){
 
-    console.log(error);
+    console.error(
+      "Exam loading error:",
+      error
+    );
+
+
+    select.innerHTML =
+      '<option value="">Unable to load exams</option>';
 
   }
 
@@ -980,20 +1410,25 @@ function populateExamDropdown(){
       "examSelect"
     );
 
+
   select.innerHTML =
     '<option value="">Select Exam</option>';
 
+
   Object.keys(exams)
-    .forEach(exam=>{
+    .forEach(function(exam){
 
       const option =
         document.createElement("option");
 
+
       option.value =
         exam;
 
+
       option.textContent =
         exam;
+
 
       select.appendChild(option);
 
@@ -1008,13 +1443,31 @@ function populateExamDropdown(){
 
 function loadExamSubjects(){
 
+  const exam =
+    document.getElementById(
+      "examSelect"
+    ).value;
+
+
+  if(!exam){
+
+    showAlert(
+      "Select an exam first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
   loadMarkFields();
 
 }
 
 
 /* =====================================================
-   MARK INPUTS
+   LOAD MARK INPUTS
    ===================================================== */
 
 function loadMarkFields(){
@@ -1024,12 +1477,15 @@ function loadMarkFields(){
       "examSelect"
     ).value;
 
+
   const container =
     document.getElementById(
       "markFields"
     );
 
-  container.innerHTML="";
+
+  container.innerHTML = "";
+
 
   if(
     !exam ||
@@ -1040,16 +1496,40 @@ function loadMarkFields(){
 
   }
 
-  exams[exam].forEach(subject=>{
+
+  const subjects =
+    exams[exam];
+
+
+  if(
+    !Array.isArray(subjects) ||
+    subjects.length === 0
+  ){
+
+    container.innerHTML =
+      '<div class="empty">No subjects found for this exam.</div>';
+
+    return;
+
+  }
+
+
+  subjects.forEach(function(subject){
 
     const box =
       document.createElement("div");
 
+
     box.className =
       "mark-box";
 
+
     box.innerHTML = `
-      <label>${subject}</label>
+
+      <label>
+        ${escapeHtml(subject)}
+      </label>
+
       <input
         type="number"
         min="0"
@@ -1058,7 +1538,9 @@ function loadMarkFields(){
         data-subject="${escapeHtml(subject)}"
         placeholder="Enter marks"
       >
+
     `;
+
 
     container.appendChild(box);
 
@@ -1079,10 +1561,12 @@ async function saveMarks(){
       .value
       .trim();
 
+
   const sheet =
     document
       .getElementById("marksSheet")
       .value;
+
 
   const studentId =
     document
@@ -1090,10 +1574,12 @@ async function saveMarks(){
       .value
       .trim();
 
+
   const exam =
     document
       .getElementById("examSelect")
       .value;
+
 
   if(
     !pin ||
@@ -1111,18 +1597,37 @@ async function saveMarks(){
 
   }
 
+
+  const inputs =
+    document.querySelectorAll(
+      ".markInput"
+    );
+
+
+  if(!inputs.length){
+
+    showAlert(
+      "Load the subjects before saving marks.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
   const marks = {};
 
-  document
-    .querySelectorAll(".markInput")
-    .forEach(input=>{
 
-      marks[
-        input.dataset.subject
-      ] =
-        input.value;
+  inputs.forEach(function(input){
 
-    });
+    marks[
+      input.dataset.subject
+    ] =
+      input.value;
+
+  });
+
 
   try{
 
@@ -1130,15 +1635,29 @@ async function saveMarks(){
       await api(
         "SAVE_MARKS",
         {
+
           adminPin:pin,
+
           sheet:sheet,
+
           studentId:studentId,
+
           exam:exam,
-          marks:JSON.stringify(marks)
+
+          marks:
+            JSON.stringify(marks)
+
         }
       );
 
-    if(data.success){
+
+    console.log(
+      "SAVE_MARKS:",
+      data
+    );
+
+
+    if(data && data.success){
 
       showAlert(
         data.message ||
@@ -1150,8 +1669,11 @@ async function saveMarks(){
     else{
 
       showAlert(
-        data.message ||
-        data.error ||
+        data && (
+          data.message ||
+          data.error
+        )
+        ||
         "Unable to save marks.",
         "error"
       );
@@ -1161,8 +1683,13 @@ async function saveMarks(){
   }
   catch(error){
 
+    console.error(
+      error
+    );
+
+
     showAlert(
-      "Error saving marks. Check Code.gs.",
+      "Error saving marks. Check Apps Script.",
       "error"
     );
 
@@ -1182,6 +1709,7 @@ async function loadStudents(){
       .getElementById("studentSheet")
       .value;
 
+
   if(!sheet){
 
     showAlert(
@@ -1193,34 +1721,65 @@ async function loadStudents(){
 
   }
 
+
+  const container =
+    document.getElementById(
+      "studentList"
+    );
+
+
+  container.innerHTML =
+    '<div class="loading">Loading students...</div>';
+
+
   try{
 
     const data =
       await api(
         "GET_STUDENTS",
         {
+
           sheet:sheet,
+
           adminPin:
             document
               .getElementById("adminPin")
               .value
               .trim()
+
         }
       );
 
-    if(data.success){
+
+    console.log(
+      "GET_STUDENTS:",
+      data
+    );
+
+
+    if(data && data.success){
 
       students =
-        data.students || [];
+        Array.isArray(data.students)
+          ? data.students
+          : [];
+
 
       renderStudents();
 
     }
     else{
 
+      container.innerHTML =
+        '<div class="empty">Unable to load students.</div>';
+
+
       showAlert(
-        data.message ||
-        data.error ||
+        data && (
+          data.message ||
+          data.error
+        )
+        ||
         "Unable to load students.",
         "error"
       );
@@ -1230,8 +1789,17 @@ async function loadStudents(){
   }
   catch(error){
 
+    console.error(
+      error
+    );
+
+
+    container.innerHTML =
+      '<div class="empty">Unable to load students.</div>';
+
+
     showAlert(
-      "Unable to load students. Check Code.gs.",
+      "Unable to load students. Check Apps Script.",
       "error"
     );
 
@@ -1251,32 +1819,43 @@ function renderStudents(){
       "studentList"
     );
 
+
   const search =
     document
-      .getElementById("studentSearch")
+      .getElementById(
+        "studentSearch"
+      )
       .value
       .toLowerCase()
       .trim();
 
-  container.innerHTML="";
+
+  container.innerHTML = "";
+
 
   const filtered =
-    students.filter(student=>{
+    students.filter(function(student){
 
       const id =
         String(
           student["Student ID"] ||
           student.Student_ID ||
           student.ID ||
+          student["ID"] ||
           ""
-        ).toLowerCase();
+        )
+        .toLowerCase();
+
 
       const name =
         String(
           student.Name ||
           student["Student Name"] ||
+          student["Name"] ||
           ""
-        ).toLowerCase();
+        )
+        .toLowerCase();
+
 
       return(
         !search ||
@@ -1286,62 +1865,142 @@ function renderStudents(){
 
     });
 
+
   if(!filtered.length){
 
     container.innerHTML =
-      '<div class="info-card">No students found.</div>';
+      '<div class="empty">No students found in this sheet.</div>';
 
     return;
 
   }
 
-  filtered.forEach(student=>{
+
+  filtered.forEach(function(student){
 
     const id =
       student["Student ID"] ||
       student.Student_ID ||
       student.ID ||
+      student["ID"] ||
       "";
+
 
     const name =
       student.Name ||
       student["Student Name"] ||
       "Student";
 
+
     const item =
       document.createElement("div");
+
 
     item.className =
       "student-item";
 
-    item.innerHTML = `
 
-      <div>
-        <strong>${escapeHtml(name)}</strong>
-        <small>ID: ${escapeHtml(id)}</small>
-      </div>
+    const left =
+      document.createElement("div");
 
-      <div class="student-actions">
 
-        <button
-          class="edit-btn"
-          onclick='editStudent(${JSON.stringify(student)})'
-        >
-          Edit
-        </button>
+    const strong =
+      document.createElement("strong");
 
-        <button
-          class="delete-btn"
-          onclick='deleteStudent("${escapeJs(id)}")'
-        >
-          Delete
-        </button>
 
-      </div>
+    strong.textContent =
+      name;
 
-    `;
 
-    container.appendChild(item);
+    const small =
+      document.createElement("small");
+
+
+    small.textContent =
+      "ID: " + id;
+
+
+    left.appendChild(
+      strong
+    );
+
+
+    left.appendChild(
+      small
+    );
+
+
+    const actions =
+      document.createElement("div");
+
+
+    actions.className =
+      "student-actions";
+
+
+    const editButton =
+      document.createElement("button");
+
+
+    editButton.className =
+      "edit-btn";
+
+
+    editButton.textContent =
+      "Edit";
+
+
+    editButton.onclick =
+      function(){
+
+        editStudent(student);
+
+      };
+
+
+    const deleteButton =
+      document.createElement("button");
+
+
+    deleteButton.className =
+      "delete-btn";
+
+
+    deleteButton.textContent =
+      "Delete";
+
+
+    deleteButton.onclick =
+      function(){
+
+        deleteStudent(id);
+
+      };
+
+
+    actions.appendChild(
+      editButton
+    );
+
+
+    actions.appendChild(
+      deleteButton
+    );
+
+
+    item.appendChild(
+      left
+    );
+
+
+    item.appendChild(
+      actions
+    );
+
+
+    container.appendChild(
+      item
+    );
 
   });
 
@@ -1367,7 +2026,9 @@ function editStudent(student){
 
   document
     .getElementById("editMode")
-    .value="EDIT";
+    .value =
+      "EDIT";
+
 
   const fields = {
 
@@ -1377,79 +2038,126 @@ function editStudent(student){
       student.ID ||
       "",
 
+
     studentName:
       student.Name ||
       student["Student Name"] ||
       "",
 
+
     studentPassword:
       student.Password ||
+      student["Password"] ||
       "",
+
 
     phone:
       student.Phone ||
       "",
 
+
     village:
       student.Village ||
       "",
+
 
     father:
       student["Father Name"] ||
       student.Father ||
       "",
 
+
     mother:
       student["Mother Name"] ||
       student.Mother ||
       "",
 
+
     dob:
       student.DOB ||
       "",
 
+
     attendance:
       student.Attendance ||
       student["Attendance%"] ||
+      student["Attendance %"] ||
       "",
+
 
     totalFees:
       student["Total fees"] ||
       student["Total Fee"] ||
+      student["Total Fees"] ||
       "",
+
 
     paidFees:
       student.Paid ||
+      student["Paid Fees"] ||
       ""
 
   };
 
+
   Object.keys(fields)
-    .forEach(id=>{
+    .forEach(function(id){
 
       const element =
         document.getElementById(id);
 
-      if(element)
+
+      if(element){
+
         element.value =
-          fields[id];
+          formatInputValue(
+            fields[id],
+            id
+          );
+
+      }
 
     });
+
+
+  /*
+    Use currently selected student sheet.
+  */
 
   const sheet =
     document
       .getElementById("studentSheet")
       .value;
 
+
   document
     .getElementById("className")
-    .value=sheet;
+    .value =
+      sheet;
 
-  document
-    .querySelectorAll(".nav button")[1]
-    .click();
 
-  window.scrollTo(0,0);
+  /*
+    Open Add/Edit panel.
+  */
+
+  const addButton =
+    document.querySelectorAll(
+      ".nav button"
+    )[1];
+
+
+  openPanel(
+    "add",
+    addButton
+  );
+
+
+  window.scrollTo(
+    {
+      top:0,
+      behavior:"smooth"
+    }
+  );
 
 }
 
@@ -1466,6 +2174,7 @@ async function saveStudent(){
       .value
       .trim();
 
+
   if(!pin){
 
     showAlert(
@@ -1477,26 +2186,72 @@ async function saveStudent(){
 
   }
 
+
+  const sheet =
+    document
+      .getElementById("className")
+      .value;
+
+
+  if(!sheet){
+
+    showAlert(
+      "Select a Class / Sheet.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const studentId =
+    document
+      .getElementById("studentId")
+      .value
+      .trim();
+
+
+  const name =
+    document
+      .getElementById("studentName")
+      .value
+      .trim();
+
+
+  if(!studentId){
+
+    showAlert(
+      "Enter Student ID.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if(!name){
+
+    showAlert(
+      "Enter Student Name.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
   const dataToSend = {
 
     adminPin:pin,
 
-    sheet:
-      document
-        .getElementById("className")
-        .value,
+    sheet:sheet,
 
-    studentId:
-      document
-        .getElementById("studentId")
-        .value
-        .trim(),
+    studentId:studentId,
 
-    name:
-      document
-        .getElementById("studentName")
-        .value
-        .trim(),
+    name:name,
 
     password:
       document
@@ -1550,15 +2305,18 @@ async function saveStudent(){
 
   };
 
+
   const mode =
     document
       .getElementById("editMode")
       .value;
 
+
   const action =
     mode === "EDIT"
       ? "UPDATE_STUDENT"
       : "ADD_STUDENT";
+
 
   try{
 
@@ -1568,7 +2326,14 @@ async function saveStudent(){
         dataToSend
       );
 
-    if(data.success){
+
+    console.log(
+      action,
+      data
+    );
+
+
+    if(data && data.success){
 
       showAlert(
         data.message ||
@@ -1576,16 +2341,32 @@ async function saveStudent(){
         "success"
       );
 
+
+      /*
+        Keep sheet selected so that
+        student list can refresh.
+      */
+
+      document
+        .getElementById("studentSheet")
+        .value =
+          sheet;
+
+
       clearStudentForm();
 
-      loadStudents();
+
+      await loadStudents();
 
     }
     else{
 
       showAlert(
-        data.message ||
-        data.error ||
+        data && (
+          data.message ||
+          data.error
+        )
+        ||
         "Unable to save student.",
         "error"
       );
@@ -1595,8 +2376,13 @@ async function saveStudent(){
   }
   catch(error){
 
+    console.error(
+      error
+    );
+
+
     showAlert(
-      "Error saving student. Check Code.gs.",
+      "Error saving student. Check Apps Script.",
       "error"
     );
 
@@ -1611,6 +2397,18 @@ async function saveStudent(){
 
 async function deleteStudent(id){
 
+  if(!id){
+
+    showAlert(
+      "Student ID is missing.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
   if(
     !confirm(
       "Delete student " +
@@ -1623,16 +2421,19 @@ async function deleteStudent(id){
 
   }
 
+
   const pin =
     document
       .getElementById("adminPin")
       .value
       .trim();
 
+
   const sheet =
     document
       .getElementById("studentSheet")
       .value;
+
 
   if(!pin){
 
@@ -1645,34 +2446,62 @@ async function deleteStudent(id){
 
   }
 
+
+  if(!sheet){
+
+    showAlert(
+      "Select a sheet first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
   try{
 
     const data =
       await api(
         "DELETE_STUDENT",
         {
+
           adminPin:pin,
+
           sheet:sheet,
+
           studentId:id
+
         }
       );
 
-    if(data.success){
+
+    console.log(
+      "DELETE_STUDENT:",
+      data
+    );
+
+
+    if(data && data.success){
 
       showAlert(
         data.message ||
-        "Student deleted.",
+        "Student deleted successfully.",
         "success"
       );
 
-      loadStudents();
+
+      await loadStudents();
 
     }
     else{
 
       showAlert(
-        data.message ||
-        data.error ||
+        data && (
+          data.message ||
+          data.error
+        )
+        ||
         "Delete failed.",
         "error"
       );
@@ -1682,8 +2511,13 @@ async function deleteStudent(id){
   }
   catch(error){
 
+    console.error(
+      error
+    );
+
+
     showAlert(
-      "Delete failed. Check Code.gs.",
+      "Delete failed. Check Apps Script.",
       "error"
     );
 
@@ -1700,9 +2534,12 @@ function clearStudentForm(){
 
   document
     .getElementById("editMode")
-    .value="ADD";
+    .value =
+      "ADD";
 
-  [
+
+  const ids = [
+
     "studentId",
     "studentName",
     "studentPassword",
@@ -1714,13 +2551,21 @@ function clearStudentForm(){
     "attendance",
     "totalFees",
     "paidFees"
-  ].forEach(id=>{
 
-    const el =
+  ];
+
+
+  ids.forEach(function(id){
+
+    const element =
       document.getElementById(id);
 
-    if(el)
-      el.value="";
+
+    if(element){
+
+      element.value = "";
+
+    }
 
   });
 
@@ -1739,6 +2584,7 @@ async function saveSettings(){
       .value
       .trim();
 
+
   if(!pin){
 
     showAlert(
@@ -1750,35 +2596,50 @@ async function saveSettings(){
 
   }
 
-  const hidden=[];
+
+  const hidden = [];
+
 
   document
-    .querySelectorAll(".hideField:checked")
-    .forEach(cb =>
-      hidden.push(cb.value)
-    );
+    .querySelectorAll(
+      ".hideField:checked"
+    )
+    .forEach(function(cb){
+
+      hidden.push(
+        cb.value
+      );
+
+    });
+
 
   const custom =
     document
-      .getElementById("customHideFields")
+      .getElementById(
+        "customHideFields"
+      )
       .value
       .trim();
+
 
   if(custom){
 
     custom
       .split(",")
-      .forEach(field=>{
+      .forEach(function(field){
 
         const clean =
           field.trim();
+
 
         if(
           clean &&
           !hidden.includes(clean)
         ){
 
-          hidden.push(clean);
+          hidden.push(
+            clean
+          );
 
         }
 
@@ -1786,23 +2647,34 @@ async function saveSettings(){
 
   }
 
+
   try{
 
     const data =
       await api(
         "SAVE_SETTINGS",
         {
+
           adminPin:pin,
+
           hiddenFields:
             JSON.stringify(hidden)
+
         }
       );
 
-    if(data.success){
+
+    console.log(
+      "SAVE_SETTINGS:",
+      data
+    );
+
+
+    if(data && data.success){
 
       showAlert(
         data.message ||
-        "Settings saved.",
+        "Settings saved successfully.",
         "success"
       );
 
@@ -1810,8 +2682,11 @@ async function saveSettings(){
     else{
 
       showAlert(
-        data.message ||
-        data.error ||
+        data && (
+          data.message ||
+          data.error
+        )
+        ||
         "Unable to save settings.",
         "error"
       );
@@ -1821,8 +2696,13 @@ async function saveSettings(){
   }
   catch(error){
 
+    console.error(
+      error
+    );
+
+
     showAlert(
-      "Settings update failed. Check Code.gs.",
+      "Settings update failed. Check Apps Script.",
       "error"
     );
 
@@ -1832,7 +2712,53 @@ async function saveSettings(){
 
 
 /* =====================================================
-   HELPERS
+   FORMAT INPUT VALUE
+   ===================================================== */
+
+function formatInputValue(value,id){
+
+  if(
+    value === undefined ||
+    value === null
+  ){
+
+    return "";
+
+  }
+
+
+  let text =
+    String(value);
+
+
+  /*
+    Google Sheets may return a date
+    in a slightly different format.
+  */
+
+  if(id === "dob"){
+
+    if(
+      /^\d{4}-\d{2}-\d{2}/.test(text)
+    ){
+
+      return text.substring(
+        0,
+        10
+      );
+
+    }
+
+  }
+
+
+  return text;
+
+}
+
+
+/* =====================================================
+   ALERT
    ===================================================== */
 
 function showAlert(message,type){
@@ -1842,46 +2768,72 @@ function showAlert(message,type){
       "alert"
     );
 
+
   alert.textContent =
     message;
 
+
   alert.className =
     "alert " +
-    (type === "success"
-      ? "success"
-      : "error");
+    (
+      type === "success"
+        ? "success"
+        : "error"
+    );
+
 
   alert.style.display =
     "block";
 
-  setTimeout(()=>{
 
-    alert.style.display =
-      "none";
+  clearTimeout(
+    window.alertTimer
+  );
 
-  },5000);
+
+  window.alertTimer =
+    setTimeout(function(){
+
+      alert.style.display =
+        "none";
+
+    },5000);
 
 }
 
+
+/* =====================================================
+   HTML ESCAPE
+   ===================================================== */
 
 function escapeHtml(value){
 
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function escapeJs(value){
-
-  return String(value || "")
-    .replace(/\\/g,"\\\\")
-    .replace(/"/g,'\\"')
-    .replace(/'/g,"\\'");
+  return String(
+    value === undefined ||
+    value === null
+      ? ""
+      : value
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
