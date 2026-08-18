@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Staff Control Center — Sree Ramakrishna Public School</title>
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1.0"
+>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<title>
+Staff Control Center — Sree Ramakrishna Public School
+</title>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+  rel="stylesheet"
+>
 
 <style>
 
@@ -191,7 +201,6 @@ select:focus{
 
 .btn:disabled{
   opacity:.55;
-  cursor:not-allowed;
 }
 
 .actions{
@@ -346,9 +355,15 @@ select:focus{
   color:#77708f;
 }
 
+.student-count{
+  font-size:12px;
+  color:#77708f;
+  margin-top:5px;
+}
+
 .empty{
   text-align:center;
-  padding:25px;
+  padding:25px 15px;
   color:#77708f;
   background:#f8f7fc;
   border-radius:12px;
@@ -361,19 +376,24 @@ hr{
 }
 
 </style>
+
 </head>
+
 
 <body>
 
 <div class="container">
 
-<!-- =====================================================
+
+<!-- =========================================
      HEADER
-     ===================================================== -->
+     ========================================= -->
 
 <div class="header">
 
-  <h1>Staff Control Center</h1>
+  <h1>
+    Staff Control Center
+  </h1>
 
   <p>
     Sree Ramakrishna Public School · Angara
@@ -382,9 +402,9 @@ hr{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================
      SECURITY
-     ===================================================== -->
+     ========================================= -->
 
 <div class="security">
 
@@ -401,12 +421,15 @@ hr{
 </div>
 
 
-<div id="alert" class="alert"></div>
+<div
+  id="alert"
+  class="alert"
+></div>
 
 
-<!-- =====================================================
+<!-- =========================================
      NAVIGATION
-     ===================================================== -->
+     ========================================= -->
 
 <div class="nav">
 
@@ -438,9 +461,9 @@ hr{
 </div>
 
 
-<!-- =====================================================
+<!-- =========================================
      STUDENTS
-     ===================================================== -->
+     ========================================= -->
 
 <section
   id="students"
@@ -458,13 +481,17 @@ hr{
 
   <div class="grid">
 
+
     <div class="field">
 
       <label>
         Class / Sheet
       </label>
 
-      <select id="studentSheet">
+      <select
+        id="studentSheet"
+        onchange="sheetChanged()"
+      >
 
         <option value="">
           Loading sheets...
@@ -489,6 +516,7 @@ hr{
 
     </div>
 
+
   </div>
 
 
@@ -505,22 +533,29 @@ hr{
 
 
   <div
+    id="studentCount"
+    class="student-count"
+  ></div>
+
+
+  <div
     id="studentList"
     class="student-list"
   >
 
-    <div class="loading">
-      Select a sheet and load students.
+    <div class="info-card">
+      Select a sheet to load students.
     </div>
 
   </div>
 
+
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================
      ADD / EDIT STUDENT
-     ===================================================== -->
+     ========================================= -->
 
 <section
   id="add"
@@ -571,7 +606,7 @@ hr{
 
       <input
         id="studentId"
-        placeholder="Student ID"
+        placeholder="Auto generated"
       >
 
     </div>
@@ -721,6 +756,7 @@ hr{
 
     </div>
 
+
   </div>
 
 
@@ -742,12 +778,13 @@ hr{
 
   </div>
 
+
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================
      MARKS
-     ===================================================== -->
+     ========================================= -->
 
 <section
   id="marks"
@@ -760,26 +797,18 @@ hr{
 
   <p class="panel-sub">
 
-    Enter marks using your existing examination structure.
+    Enter marks using your existing column structure such as
 
     <span class="badge">
-      FA1
+      FA1_Telugu
     </span>
 
     <span class="badge">
-      FA2
+      FA1_English
     </span>
 
     <span class="badge">
-      Telugu
-    </span>
-
-    <span class="badge">
-      English
-    </span>
-
-    <span class="badge">
-      Maths
+      FA2_Maths
     </span>
 
   </p>
@@ -831,12 +860,13 @@ hr{
       >
 
         <option value="">
-          Loading exams...
+          Select Exam
         </option>
 
       </select>
 
     </div>
+
 
   </div>
 
@@ -844,8 +874,7 @@ hr{
   <div
     id="markFields"
     class="marks-grid"
-  >
-  </div>
+  ></div>
 
 
   <div class="actions">
@@ -866,12 +895,13 @@ hr{
 
   </div>
 
+
 </section>
 
 
-<!-- =====================================================
+<!-- =========================================
      SETTINGS
-     ===================================================== -->
+     ========================================= -->
 
 <section
   id="settings"
@@ -891,83 +921,108 @@ hr{
 
 
     <label>
+
       <input
         type="checkbox"
         value="Phone"
         class="hideField"
       >
+
       Phone Number
+
     </label>
 
 
     <label>
+
       <input
         type="checkbox"
         value="Village"
         class="hideField"
       >
+
       Village
+
     </label>
 
 
     <label>
+
       <input
         type="checkbox"
         value="Father Name"
         class="hideField"
       >
+
       Father Name
+
     </label>
 
 
     <label>
+
       <input
         type="checkbox"
         value="Mother Name"
         class="hideField"
       >
+
       Mother Name
+
     </label>
 
 
     <label>
+
       <input
         type="checkbox"
         value="DOB"
         class="hideField"
       >
+
       Date of Birth
+
     </label>
 
 
     <label>
+
       <input
         type="checkbox"
         value="Total fees"
         class="hideField"
       >
+
       Total Fees
+
     </label>
 
 
     <label>
+
       <input
         type="checkbox"
         value="Paid"
         class="hideField"
       >
+
       Paid Fees
+
     </label>
 
 
     <label>
+
       <input
         type="checkbox"
         value="Attendance"
         class="hideField"
       >
+
       Attendance
+
     </label>
+
 
   </div>
 
@@ -996,12 +1051,15 @@ hr{
     💾 Save Visibility Settings
   </button>
 
+
 </section>
+
 
 </div>
 
 
 <script>
+
 
 /* =====================================================
    CONFIGURATION
@@ -1023,16 +1081,19 @@ let exams = {};
 
 
 /* =====================================================
-   START APPLICATION
+   START
    ===================================================== */
 
-window.addEventListener("load", async function(){
+window.addEventListener(
+  "load",
+  async function(){
 
-  await loadSheets();
+    await loadSheets();
 
-  await loadExams();
+    await loadExams();
 
-});
+  }
+);
 
 
 /* =====================================================
@@ -1043,31 +1104,19 @@ function openPanel(id,button){
 
   document
     .querySelectorAll(".panel")
-    .forEach(function(panel){
-
-      panel.classList.remove("active");
-
-    });
-
+    .forEach(
+      p => p.classList.remove("active")
+    );
 
   document
     .querySelectorAll(".nav button")
-    .forEach(function(btn){
+    .forEach(
+      b => b.classList.remove("active")
+    );
 
-      btn.classList.remove("active");
-
-    });
-
-
-  const panel =
-    document.getElementById(id);
-
-  if(panel){
-
-    panel.classList.add("active");
-
-  }
-
+  document
+    .getElementById(id)
+    .classList.add("active");
 
   if(button){
 
@@ -1087,33 +1136,28 @@ async function api(action,data={}){
   const body =
     new URLSearchParams();
 
-
   body.append(
     "action",
     action
   );
 
 
-  Object.keys(data).forEach(function(key){
+  Object.keys(data).forEach(key=>{
 
-    let value =
+    const value =
       data[key];
 
-
     if(
-      value === undefined ||
-      value === null
+      value !== undefined &&
+      value !== null
     ){
 
-      value = "";
+      body.append(
+        key,
+        String(value)
+      );
 
     }
-
-
-    body.append(
-      key,
-      String(value)
-    );
 
   });
 
@@ -1133,6 +1177,13 @@ async function api(action,data={}){
     await response.text();
 
 
+  console.log(
+    "API",
+    action,
+    text
+  );
+
+
   try{
 
     return JSON.parse(text);
@@ -1140,13 +1191,9 @@ async function api(action,data={}){
   }
   catch(error){
 
-    console.error(
-      "Invalid API response:",
-      text
-    );
-
     throw new Error(
-      "Apps Script returned an invalid response."
+      "Invalid JSON response: " +
+      text.substring(0,300)
     );
 
   }
@@ -1155,39 +1202,10 @@ async function api(action,data={}){
 
 
 /* =====================================================
-   LOAD ALL SHEETS
+   LOAD SHEETS
    ===================================================== */
 
 async function loadSheets(){
-
-  const selects = [
-
-    document.getElementById(
-      "studentSheet"
-    ),
-
-    document.getElementById(
-      "className"
-    ),
-
-    document.getElementById(
-      "marksSheet"
-    )
-
-  ];
-
-
-  selects.forEach(function(select){
-
-    if(select){
-
-      select.innerHTML =
-        '<option value="">Loading sheets...</option>';
-
-    }
-
-  });
-
 
   try{
 
@@ -1196,112 +1214,134 @@ async function loadSheets(){
 
 
     console.log(
-      "GET_SHEETS:",
+      "Sheets response:",
       data
     );
 
 
-    if(
-      !data ||
-      !data.success
-    ){
+    if(!data.success){
 
       throw new Error(
-        data && data.message
-          ? data.message
-          : "Unable to load sheets."
+        data.message ||
+        "Unable to load sheets"
       );
 
     }
 
 
     sheets =
-      Array.isArray(data.sheets)
-        ? data.sheets
-        : [];
+      data.sheets || [];
 
 
-    if(!sheets.length){
+    const selects = [
 
-      throw new Error(
-        "No sheets were found."
-      );
+      document.getElementById(
+        "studentSheet"
+      ),
 
-    }
+      document.getElementById(
+        "className"
+      ),
+
+      document.getElementById(
+        "marksSheet"
+      )
+
+    ];
 
 
-    selects.forEach(function(select){
+    selects.forEach(select=>{
 
-      if(!select){
+      if(!select)
         return;
-      }
 
 
       select.innerHTML =
         '<option value="">Select Sheet</option>';
 
 
-      sheets.forEach(function(sheet){
+      sheets.forEach(sheet=>{
 
         const option =
-          document.createElement("option");
-
+          document.createElement(
+            "option"
+          );
 
         option.value =
           sheet;
 
-
         option.textContent =
           sheet;
 
-
-        select.appendChild(option);
+        select.appendChild(
+          option
+        );
 
       });
 
     });
 
 
-    console.log(
-      "Available sheets:",
-      sheets
-    );
-
-
-    showAlert(
-      "Connected successfully. " +
-      sheets.length +
-      " sheet(s) loaded.",
-      "success"
-    );
-
   }
   catch(error){
 
     console.error(
-      "Sheet loading error:",
+      "LOAD SHEETS ERROR:",
       error
     );
 
 
-    selects.forEach(function(select){
-
-      if(select){
-
-        select.innerHTML =
-          '<option value="">Unable to load sheets</option>';
-
-      }
-
-    });
-
-
     showAlert(
-      "Could not load Google Sheet tabs. Check Apps Script deployment and Code.gs.",
+      "Could not load Google Sheet tabs. Check Code.gs.",
       "error"
     );
 
   }
+
+}
+
+
+/* =====================================================
+   SHEET CHANGED
+   ===================================================== */
+
+function sheetChanged(){
+
+  const sheet =
+    document.getElementById(
+      "studentSheet"
+    ).value;
+
+
+  students = [];
+
+
+  document.getElementById(
+    "studentSearch"
+  ).value = "";
+
+
+  document.getElementById(
+    "studentCount"
+  ).textContent = "";
+
+
+  if(!sheet){
+
+    document.getElementById(
+      "studentList"
+    ).innerHTML = `
+      <div class="info-card">
+        Select a sheet to load students.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  loadStudents();
 
 }
 
@@ -1312,53 +1352,21 @@ async function loadSheets(){
 
 async function loadExams(){
 
-  const select =
-    document.getElementById(
-      "examSelect"
-    );
-
-
   try{
-
-    /*
-      Your tested API uses:
-
-      ?action=exams
-
-      and returns:
-
-      {
-        "success":true,
-        "exams":{
-          "Student":[...],
-          "FA1":[...],
-          "FA2":[...]
-        }
-      }
-    */
-
 
     const response =
       await fetch(
         APPS_SCRIPT_URL +
-        "?action=exams",
-        {
-          method:"GET",
-          redirect:"follow"
-        }
+        "?action=exams"
       );
 
 
-    const text =
-      await response.text();
-
-
     const data =
-      JSON.parse(text);
+      await response.json();
 
 
     console.log(
-      "EXAMS:",
+      "Exams response:",
       data
     );
 
@@ -1371,14 +1379,7 @@ async function loadExams(){
       exams =
         data.exams;
 
-
       populateExamDropdown();
-
-    }
-    else{
-
-      select.innerHTML =
-        '<option value="">No exams found</option>';
 
     }
 
@@ -1386,13 +1387,9 @@ async function loadExams(){
   catch(error){
 
     console.error(
-      "Exam loading error:",
+      "EXAMS ERROR:",
       error
     );
-
-
-    select.innerHTML =
-      '<option value="">Unable to load exams</option>';
 
   }
 
@@ -1416,21 +1413,22 @@ function populateExamDropdown(){
 
 
   Object.keys(exams)
-    .forEach(function(exam){
+    .forEach(exam=>{
 
       const option =
-        document.createElement("option");
-
+        document.createElement(
+          "option"
+        );
 
       option.value =
         exam;
 
-
       option.textContent =
         exam;
 
-
-      select.appendChild(option);
+      select.appendChild(
+        option
+      );
 
     });
 
@@ -1443,31 +1441,13 @@ function populateExamDropdown(){
 
 function loadExamSubjects(){
 
-  const exam =
-    document.getElementById(
-      "examSelect"
-    ).value;
-
-
-  if(!exam){
-
-    showAlert(
-      "Select an exam first.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
   loadMarkFields();
 
 }
 
 
 /* =====================================================
-   LOAD MARK INPUTS
+   MARK INPUTS
    ===================================================== */
 
 function loadMarkFields(){
@@ -1497,52 +1477,63 @@ function loadMarkFields(){
   }
 
 
-  const subjects =
-    exams[exam];
-
-
-  if(
-    !Array.isArray(subjects) ||
-    subjects.length === 0
-  ){
-
-    container.innerHTML =
-      '<div class="empty">No subjects found for this exam.</div>';
-
-    return;
-
-  }
-
-
-  subjects.forEach(function(subject){
+  exams[exam].forEach(subject=>{
 
     const box =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
 
     box.className =
       "mark-box";
 
 
-    box.innerHTML = `
+    const label =
+      document.createElement(
+        "label"
+      );
 
-      <label>
-        ${escapeHtml(subject)}
-      </label>
-
-      <input
-        type="number"
-        min="0"
-        max="100"
-        class="markInput"
-        data-subject="${escapeHtml(subject)}"
-        placeholder="Enter marks"
-      >
-
-    `;
+    label.textContent =
+      subject;
 
 
-    container.appendChild(box);
+    const input =
+      document.createElement(
+        "input"
+      );
+
+    input.type =
+      "number";
+
+    input.min =
+      "0";
+
+    input.max =
+      "100";
+
+    input.className =
+      "markInput";
+
+    input.dataset.subject =
+      subject;
+
+    input.placeholder =
+      "Enter marks";
+
+
+    box.appendChild(
+      label
+    );
+
+    box.appendChild(
+      input
+    );
+
+
+    container.appendChild(
+      box
+    );
 
   });
 
@@ -1557,27 +1548,35 @@ async function saveMarks(){
 
   const pin =
     document
-      .getElementById("adminPin")
+      .getElementById(
+        "adminPin"
+      )
       .value
       .trim();
 
 
   const sheet =
     document
-      .getElementById("marksSheet")
+      .getElementById(
+        "marksSheet"
+      )
       .value;
 
 
   const studentId =
     document
-      .getElementById("marksStudentId")
+      .getElementById(
+        "marksStudentId"
+      )
       .value
       .trim();
 
 
   const exam =
     document
-      .getElementById("examSelect")
+      .getElementById(
+        "examSelect"
+      )
       .value;
 
 
@@ -1598,35 +1597,21 @@ async function saveMarks(){
   }
 
 
-  const inputs =
-    document.querySelectorAll(
-      ".markInput"
-    );
-
-
-  if(!inputs.length){
-
-    showAlert(
-      "Load the subjects before saving marks.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
   const marks = {};
 
 
-  inputs.forEach(function(input){
+  document
+    .querySelectorAll(
+      ".markInput"
+    )
+    .forEach(input=>{
 
-    marks[
-      input.dataset.subject
-    ] =
-      input.value;
+      marks[
+        input.dataset.subject
+      ] =
+        input.value;
 
-  });
+    });
 
 
   try{
@@ -1640,24 +1625,24 @@ async function saveMarks(){
 
           sheet:sheet,
 
+          sheetName:sheet,
+
+          className:sheet,
+
           studentId:studentId,
 
           exam:exam,
 
           marks:
-            JSON.stringify(marks)
+            JSON.stringify(
+              marks
+            )
 
         }
       );
 
 
-    console.log(
-      "SAVE_MARKS:",
-      data
-    );
-
-
-    if(data && data.success){
+    if(data.success){
 
       showAlert(
         data.message ||
@@ -1669,11 +1654,8 @@ async function saveMarks(){
     else{
 
       showAlert(
-        data && (
-          data.message ||
-          data.error
-        )
-        ||
+        data.message ||
+        data.error ||
         "Unable to save marks.",
         "error"
       );
@@ -1689,7 +1671,7 @@ async function saveMarks(){
 
 
     showAlert(
-      "Error saving marks. Check Apps Script.",
+      "Error saving marks. Check Code.gs.",
       "error"
     );
 
@@ -1706,7 +1688,9 @@ async function loadStudents(){
 
   const sheet =
     document
-      .getElementById("studentSheet")
+      .getElementById(
+        "studentSheet"
+      )
       .value;
 
 
@@ -1728,11 +1712,41 @@ async function loadStudents(){
     );
 
 
-  container.innerHTML =
-    '<div class="loading">Loading students...</div>';
+  container.innerHTML = `
+    <div class="loading">
+      🔄 Loading students...
+    </div>
+  `;
+
+
+  document.getElementById(
+    "studentCount"
+  ).textContent = "";
+
+
+  const pin =
+    document
+      .getElementById(
+        "adminPin"
+      )
+      .value
+      .trim();
 
 
   try{
+
+    /*
+     * IMPORTANT:
+     *
+     * We send all three names:
+     *
+     * sheet
+     * sheetName
+     * className
+     *
+     * This makes the frontend compatible
+     * with the Apps Script API.
+     */
 
     const data =
       await api(
@@ -1741,45 +1755,63 @@ async function loadStudents(){
 
           sheet:sheet,
 
-          adminPin:
-            document
-              .getElementById("adminPin")
-              .value
-              .trim()
+          sheetName:sheet,
+
+          className:sheet,
+
+          adminPin:pin
 
         }
       );
 
 
     console.log(
-      "GET_STUDENTS:",
+      "GET_STUDENTS RESPONSE:",
       data
     );
 
 
-    if(data && data.success){
+    if(data.success){
 
       students =
-        Array.isArray(data.students)
+        Array.isArray(
+          data.students
+        )
           ? data.students
           : [];
 
 
+      console.log(
+        "STUDENTS ARRAY:",
+        students
+      );
+
+
       renderStudents();
+
 
     }
     else{
 
-      container.innerHTML =
-        '<div class="empty">Unable to load students.</div>';
+      students = [];
+
+
+      container.innerHTML = `
+        <div class="empty">
+          ${
+            escapeHtml(
+              data.message ||
+              data.error ||
+              "Unable to load students."
+            )
+          }
+        </div>
+      `;
 
 
       showAlert(
-        data && (
-          data.message ||
-          data.error
-        )
-        ||
+        data.message ||
+        data.error ||
         "Unable to load students.",
         "error"
       );
@@ -1790,20 +1822,85 @@ async function loadStudents(){
   catch(error){
 
     console.error(
+      "LOAD STUDENTS ERROR:",
       error
     );
 
 
-    container.innerHTML =
-      '<div class="empty">Unable to load students.</div>';
+    students = [];
+
+
+    container.innerHTML = `
+      <div class="empty">
+        Unable to load students.
+      </div>
+    `;
 
 
     showAlert(
-      "Unable to load students. Check Apps Script.",
+      "Unable to load students. Check Code.gs.",
       "error"
     );
 
   }
+
+}
+
+
+/* =====================================================
+   GET STUDENT ID
+   ===================================================== */
+
+function getStudentId(student){
+
+  return (
+
+    student.studentId ||
+
+    student.studentID ||
+
+    student.StudentId ||
+
+    student.StudentID ||
+
+    student["Student ID"] ||
+
+    student.Student_ID ||
+
+    student.ID ||
+
+    student.id ||
+
+    ""
+
+  );
+
+}
+
+
+/* =====================================================
+   GET STUDENT NAME
+   ===================================================== */
+
+function getStudentName(student){
+
+  return (
+
+    student.name ||
+
+    student.Name ||
+
+    student.studentName ||
+
+    student.StudentName ||
+
+    student["Student Name"] ||
+
+    student["Name"] ||
+
+    ""
+
+  );
 
 }
 
@@ -1830,179 +1927,248 @@ function renderStudents(){
       .trim();
 
 
-  container.innerHTML = "";
+  console.log(
+    "Rendering students:",
+    students
+  );
 
 
   const filtered =
-    students.filter(function(student){
+    students.filter(
+      student=>{
 
-      const id =
-        String(
-          student["Student ID"] ||
-          student.Student_ID ||
-          student.ID ||
-          student["ID"] ||
-          ""
-        )
-        .toLowerCase();
-
-
-      const name =
-        String(
-          student.Name ||
-          student["Student Name"] ||
-          student["Name"] ||
-          ""
-        )
-        .toLowerCase();
+        const id =
+          String(
+            getStudentId(
+              student
+            )
+          )
+          .toLowerCase();
 
 
-      return(
-        !search ||
-        id.includes(search) ||
-        name.includes(search)
-      );
+        const name =
+          String(
+            getStudentName(
+              student
+            )
+          )
+          .toLowerCase();
 
-    });
+
+        return (
+
+          !search ||
+
+          id.includes(
+            search
+          ) ||
+
+          name.includes(
+            search
+          )
+
+        );
+
+      }
+    );
+
+
+  document.getElementById(
+    "studentCount"
+  ).textContent =
+
+    students.length +
+
+    " student" +
+
+    (
+      students.length === 1
+        ? ""
+        : "s"
+    ) +
+
+    (
+      search
+        ? " · " +
+          filtered.length +
+          " matching"
+        : ""
+    );
+
+
+  container.innerHTML = "";
 
 
   if(!filtered.length){
 
-    container.innerHTML =
-      '<div class="empty">No students found in this sheet.</div>';
+    if(
+      students.length &&
+      search
+    ){
+
+      container.innerHTML = `
+        <div class="empty">
+          No student matches
+          "<strong>${escapeHtml(search)}</strong>".
+        </div>
+      `;
+
+    }
+    else{
+
+      container.innerHTML = `
+        <div class="empty">
+          No students found in this sheet.
+        </div>
+      `;
+
+    }
 
     return;
 
   }
 
 
-  filtered.forEach(function(student){
+  filtered.forEach(
+    (student,index)=>{
 
-    const id =
-      student["Student ID"] ||
-      student.Student_ID ||
-      student.ID ||
-      student["ID"] ||
-      "";
-
-
-    const name =
-      student.Name ||
-      student["Student Name"] ||
-      "Student";
+      const id =
+        getStudentId(
+          student
+        );
 
 
-    const item =
-      document.createElement("div");
+      const name =
+        getStudentName(
+          student
+        ) ||
+        "Student";
 
 
-    item.className =
-      "student-item";
+      const item =
+        document.createElement(
+          "div"
+        );
 
 
-    const left =
-      document.createElement("div");
+      item.className =
+        "student-item";
 
 
-    const strong =
-      document.createElement("strong");
+      const left =
+        document.createElement(
+          "div"
+        );
 
 
-    strong.textContent =
-      name;
+      const strong =
+        document.createElement(
+          "strong"
+        );
+
+      strong.textContent =
+        name;
 
 
-    const small =
-      document.createElement("small");
+      const small =
+        document.createElement(
+          "small"
+        );
+
+      small.textContent =
+        "ID: " +
+        id;
 
 
-    small.textContent =
-      "ID: " + id;
+      left.appendChild(
+        strong
+      );
+
+      left.appendChild(
+        small
+      );
 
 
-    left.appendChild(
-      strong
-    );
+      const actions =
+        document.createElement(
+          "div"
+        );
 
 
-    left.appendChild(
-      small
-    );
+      actions.className =
+        "student-actions";
 
 
-    const actions =
-      document.createElement("div");
+      const edit =
+        document.createElement(
+          "button"
+        );
 
 
-    actions.className =
-      "student-actions";
+      edit.className =
+        "edit-btn";
+
+      edit.textContent =
+        "Edit";
 
 
-    const editButton =
-      document.createElement("button");
+      edit.onclick =
+        function(){
+
+          editStudent(
+            student
+          );
+
+        };
 
 
-    editButton.className =
-      "edit-btn";
+      const del =
+        document.createElement(
+          "button"
+        );
 
 
-    editButton.textContent =
-      "Edit";
+      del.className =
+        "delete-btn";
+
+      del.textContent =
+        "Delete";
 
 
-    editButton.onclick =
-      function(){
+      del.onclick =
+        function(){
 
-        editStudent(student);
+          deleteStudent(
+            id
+          );
 
-      };
-
-
-    const deleteButton =
-      document.createElement("button");
+        };
 
 
-    deleteButton.className =
-      "delete-btn";
+      actions.appendChild(
+        edit
+      );
+
+      actions.appendChild(
+        del
+      );
 
 
-    deleteButton.textContent =
-      "Delete";
+      item.appendChild(
+        left
+      );
+
+      item.appendChild(
+        actions
+      );
 
 
-    deleteButton.onclick =
-      function(){
+      container.appendChild(
+        item
+      );
 
-        deleteStudent(id);
-
-      };
-
-
-    actions.appendChild(
-      editButton
-    );
-
-
-    actions.appendChild(
-      deleteButton
-    );
-
-
-    item.appendChild(
-      left
-    );
-
-
-    item.appendChild(
-      actions
-    );
-
-
-    container.appendChild(
-      item
-    );
-
-  });
+    }
+  );
 
 }
 
@@ -2025,7 +2191,9 @@ function filterStudents(){
 function editStudent(student){
 
   document
-    .getElementById("editMode")
+    .getElementById(
+      "editMode"
+    )
     .value =
       "EDIT";
 
@@ -2033,117 +2201,149 @@ function editStudent(student){
   const fields = {
 
     studentId:
-      student["Student ID"] ||
-      student.Student_ID ||
-      student.ID ||
-      "",
+      getStudentId(
+        student
+      ),
 
 
     studentName:
-      student.Name ||
-      student["Student Name"] ||
-      "",
+      getStudentName(
+        student
+      ),
 
 
     studentPassword:
+      student.password ||
+
       student.Password ||
-      student["Password"] ||
+
+      student.studentPassword ||
+
       "",
 
 
     phone:
+      student.phone ||
+
       student.Phone ||
+
       "",
 
 
     village:
+      student.village ||
+
       student.Village ||
+
       "",
 
 
     father:
-      student["Father Name"] ||
+      student.father ||
+
       student.Father ||
+
+      student["Father Name"] ||
+
       "",
 
 
     mother:
-      student["Mother Name"] ||
+      student.mother ||
+
       student.Mother ||
+
+      student["Mother Name"] ||
+
       "",
 
 
     dob:
+      student.dob ||
+
       student.DOB ||
+
       "",
 
 
     attendance:
+      student.attendance ||
+
       student.Attendance ||
+
       student["Attendance%"] ||
-      student["Attendance %"] ||
+
       "",
 
 
     totalFees:
+      student.totalFees ||
+
       student["Total fees"] ||
+
       student["Total Fee"] ||
-      student["Total Fees"] ||
+
+      student.totalFee ||
+
       "",
 
 
     paidFees:
+      student.paidFees ||
+
       student.Paid ||
-      student["Paid Fees"] ||
+
+      student.paid ||
+
       ""
 
   };
 
 
-  Object.keys(fields)
-    .forEach(function(id){
+  Object.keys(
+    fields
+  )
+  .forEach(
+    id=>{
 
       const element =
-        document.getElementById(id);
+        document.getElementById(
+          id
+        );
 
 
       if(element){
 
         element.value =
-          formatInputValue(
-            fields[id],
-            id
-          );
+          fields[id];
 
       }
 
-    });
+    }
+  );
 
-
-  /*
-    Use currently selected student sheet.
-  */
 
   const sheet =
     document
-      .getElementById("studentSheet")
+      .getElementById(
+        "studentSheet"
+      )
       .value;
 
 
   document
-    .getElementById("className")
+    .getElementById(
+      "className"
+    )
     .value =
       sheet;
 
 
-  /*
-    Open Add/Edit panel.
-  */
-
   const addButton =
-    document.querySelectorAll(
-      ".nav button"
-    )[1];
+    document
+      .querySelectorAll(
+        ".nav button"
+      )[1];
 
 
   openPanel(
@@ -2153,10 +2353,8 @@ function editStudent(student){
 
 
   window.scrollTo(
-    {
-      top:0,
-      behavior:"smooth"
-    }
+    0,
+    0
   );
 
 }
@@ -2170,7 +2368,9 @@ async function saveStudent(){
 
   const pin =
     document
-      .getElementById("adminPin")
+      .getElementById(
+        "adminPin"
+      )
       .value
       .trim();
 
@@ -2189,7 +2389,9 @@ async function saveStudent(){
 
   const sheet =
     document
-      .getElementById("className")
+      .getElementById(
+        "className"
+      )
       .value;
 
 
@@ -2205,102 +2407,109 @@ async function saveStudent(){
   }
 
 
-  const studentId =
-    document
-      .getElementById("studentId")
-      .value
-      .trim();
-
-
-  const name =
-    document
-      .getElementById("studentName")
-      .value
-      .trim();
-
-
-  if(!studentId){
-
-    showAlert(
-      "Enter Student ID.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
-  if(!name){
-
-    showAlert(
-      "Enter Student Name.",
-      "error"
-    );
-
-    return;
-
-  }
-
-
   const dataToSend = {
 
     adminPin:pin,
 
     sheet:sheet,
 
-    studentId:studentId,
+    sheetName:sheet,
 
-    name:name,
+    className:sheet,
+
+
+    studentId:
+      document
+        .getElementById(
+          "studentId"
+        )
+        .value
+        .trim(),
+
+
+    name:
+      document
+        .getElementById(
+          "studentName"
+        )
+        .value
+        .trim(),
+
 
     password:
       document
-        .getElementById("studentPassword")
+        .getElementById(
+          "studentPassword"
+        )
         .value
         .trim(),
+
 
     phone:
       document
-        .getElementById("phone")
+        .getElementById(
+          "phone"
+        )
         .value
         .trim(),
+
 
     village:
       document
-        .getElementById("village")
+        .getElementById(
+          "village"
+        )
         .value
         .trim(),
+
 
     father:
       document
-        .getElementById("father")
+        .getElementById(
+          "father"
+        )
         .value
         .trim(),
+
 
     mother:
       document
-        .getElementById("mother")
+        .getElementById(
+          "mother"
+        )
         .value
         .trim(),
 
+
     dob:
       document
-        .getElementById("dob")
+        .getElementById(
+          "dob"
+        )
         .value,
+
 
     attendance:
       document
-        .getElementById("attendance")
+        .getElementById(
+          "attendance"
+        )
         .value,
+
 
     totalFees:
       document
-        .getElementById("totalFees")
+        .getElementById(
+          "totalFees"
+        )
         .value,
+
 
     paidFees:
       document
-        .getElementById("paidFees")
+        .getElementById(
+          "paidFees"
+        )
         .value
 
   };
@@ -2308,13 +2517,17 @@ async function saveStudent(){
 
   const mode =
     document
-      .getElementById("editMode")
+      .getElementById(
+        "editMode"
+      )
       .value;
 
 
   const action =
     mode === "EDIT"
+
       ? "UPDATE_STUDENT"
+
       : "ADD_STUDENT";
 
 
@@ -2333,7 +2546,7 @@ async function saveStudent(){
     );
 
 
-    if(data && data.success){
+    if(data.success){
 
       showAlert(
         data.message ||
@@ -2342,18 +2555,19 @@ async function saveStudent(){
       );
 
 
-      /*
-        Keep sheet selected so that
-        student list can refresh.
-      */
-
-      document
-        .getElementById("studentSheet")
-        .value =
-          sheet;
+      const currentSheet =
+        sheet;
 
 
       clearStudentForm();
+
+
+      document
+        .getElementById(
+          "studentSheet"
+        )
+        .value =
+          currentSheet;
 
 
       await loadStudents();
@@ -2362,11 +2576,8 @@ async function saveStudent(){
     else{
 
       showAlert(
-        data && (
-          data.message ||
-          data.error
-        )
-        ||
+        data.message ||
+        data.error ||
         "Unable to save student.",
         "error"
       );
@@ -2377,12 +2588,13 @@ async function saveStudent(){
   catch(error){
 
     console.error(
+      "SAVE STUDENT ERROR:",
       error
     );
 
 
     showAlert(
-      "Error saving student. Check Apps Script.",
+      "Error saving student. Check Code.gs.",
       "error"
     );
 
@@ -2424,14 +2636,18 @@ async function deleteStudent(id){
 
   const pin =
     document
-      .getElementById("adminPin")
+      .getElementById(
+        "adminPin"
+      )
       .value
       .trim();
 
 
   const sheet =
     document
-      .getElementById("studentSheet")
+      .getElementById(
+        "studentSheet"
+      )
       .value;
 
 
@@ -2470,6 +2686,10 @@ async function deleteStudent(id){
 
           sheet:sheet,
 
+          sheetName:sheet,
+
+          className:sheet,
+
           studentId:id
 
         }
@@ -2477,16 +2697,16 @@ async function deleteStudent(id){
 
 
     console.log(
-      "DELETE_STUDENT:",
+      "DELETE RESPONSE:",
       data
     );
 
 
-    if(data && data.success){
+    if(data.success){
 
       showAlert(
         data.message ||
-        "Student deleted successfully.",
+        "Student deleted.",
         "success"
       );
 
@@ -2497,11 +2717,8 @@ async function deleteStudent(id){
     else{
 
       showAlert(
-        data && (
-          data.message ||
-          data.error
-        )
-        ||
+        data.message ||
+        data.error ||
         "Delete failed.",
         "error"
       );
@@ -2512,12 +2729,13 @@ async function deleteStudent(id){
   catch(error){
 
     console.error(
+      "DELETE ERROR:",
       error
     );
 
 
     showAlert(
-      "Delete failed. Check Apps Script.",
+      "Delete failed. Check Code.gs.",
       "error"
     );
 
@@ -2533,41 +2751,55 @@ async function deleteStudent(id){
 function clearStudentForm(){
 
   document
-    .getElementById("editMode")
+    .getElementById(
+      "editMode"
+    )
     .value =
       "ADD";
 
 
-  const ids = [
+  [
 
     "studentId",
+
     "studentName",
+
     "studentPassword",
+
     "phone",
+
     "village",
+
     "father",
+
     "mother",
+
     "dob",
+
     "attendance",
+
     "totalFees",
+
     "paidFees"
 
-  ];
+  ]
+  .forEach(
+    id=>{
+
+      const el =
+        document.getElementById(
+          id
+        );
 
 
-  ids.forEach(function(id){
+      if(el){
 
-    const element =
-      document.getElementById(id);
+        el.value = "";
 
-
-    if(element){
-
-      element.value = "";
+      }
 
     }
-
-  });
+  );
 
 }
 
@@ -2580,7 +2812,9 @@ async function saveSettings(){
 
   const pin =
     document
-      .getElementById("adminPin")
+      .getElementById(
+        "adminPin"
+      )
       .value
       .trim();
 
@@ -2604,13 +2838,12 @@ async function saveSettings(){
     .querySelectorAll(
       ".hideField:checked"
     )
-    .forEach(function(cb){
-
-      hidden.push(
-        cb.value
-      );
-
-    });
+    .forEach(
+      cb =>
+        hidden.push(
+          cb.value
+        )
+    );
 
 
   const custom =
@@ -2626,24 +2859,28 @@ async function saveSettings(){
 
     custom
       .split(",")
-      .forEach(function(field){
+      .forEach(
+        field=>{
 
-        const clean =
-          field.trim();
+          const clean =
+            field.trim();
 
 
-        if(
-          clean &&
-          !hidden.includes(clean)
-        ){
+          if(
+            clean &&
+            !hidden.includes(
+              clean
+            )
+          ){
 
-          hidden.push(
-            clean
-          );
+            hidden.push(
+              clean
+            );
+
+          }
 
         }
-
-      });
+      );
 
   }
 
@@ -2658,23 +2895,19 @@ async function saveSettings(){
           adminPin:pin,
 
           hiddenFields:
-            JSON.stringify(hidden)
+            JSON.stringify(
+              hidden
+            )
 
         }
       );
 
 
-    console.log(
-      "SAVE_SETTINGS:",
-      data
-    );
-
-
-    if(data && data.success){
+    if(data.success){
 
       showAlert(
         data.message ||
-        "Settings saved successfully.",
+        "Settings saved.",
         "success"
       );
 
@@ -2682,11 +2915,8 @@ async function saveSettings(){
     else{
 
       showAlert(
-        data && (
-          data.message ||
-          data.error
-        )
-        ||
+        data.message ||
+        data.error ||
         "Unable to save settings.",
         "error"
       );
@@ -2697,12 +2927,13 @@ async function saveSettings(){
   catch(error){
 
     console.error(
+      "SETTINGS ERROR:",
       error
     );
 
 
     showAlert(
-      "Settings update failed. Check Apps Script.",
+      "Settings update failed. Check Code.gs.",
       "error"
     );
 
@@ -2712,56 +2943,13 @@ async function saveSettings(){
 
 
 /* =====================================================
-   FORMAT INPUT VALUE
-   ===================================================== */
-
-function formatInputValue(value,id){
-
-  if(
-    value === undefined ||
-    value === null
-  ){
-
-    return "";
-
-  }
-
-
-  let text =
-    String(value);
-
-
-  /*
-    Google Sheets may return a date
-    in a slightly different format.
-  */
-
-  if(id === "dob"){
-
-    if(
-      /^\d{4}-\d{2}-\d{2}/.test(text)
-    ){
-
-      return text.substring(
-        0,
-        10
-      );
-
-    }
-
-  }
-
-
-  return text;
-
-}
-
-
-/* =====================================================
    ALERT
    ===================================================== */
 
-function showAlert(message,type){
+function showAlert(
+  message,
+  type
+){
 
   const alert =
     document.getElementById(
@@ -2775,9 +2963,12 @@ function showAlert(message,type){
 
   alert.className =
     "alert " +
+
     (
       type === "success"
+
         ? "success"
+
         : "error"
     );
 
@@ -2786,18 +2977,15 @@ function showAlert(message,type){
     "block";
 
 
-  clearTimeout(
-    window.alertTimer
-  );
-
-
-  window.alertTimer =
-    setTimeout(function(){
+  setTimeout(
+    ()=>{
 
       alert.style.display =
         "none";
 
-    },5000);
+    },
+    5000
+  );
 
 }
 
@@ -2814,22 +3002,27 @@ function escapeHtml(value){
       ? ""
       : value
   )
+
   .replace(
     /&/g,
     "&amp;"
   )
+
   .replace(
     /</g,
     "&lt;"
   )
+
   .replace(
     />/g,
     "&gt;"
   )
+
   .replace(
     /"/g,
     "&quot;"
   )
+
   .replace(
     /'/g,
     "&#039;"
@@ -2837,7 +3030,39 @@ function escapeHtml(value){
 
 }
 
+
+/* =====================================================
+   JAVASCRIPT ESCAPE
+   ===================================================== */
+
+function escapeJs(value){
+
+  return String(
+    value === undefined ||
+    value === null
+      ? ""
+      : value
+  )
+
+  .replace(
+    /\\/g,
+    "\\\\"
+  )
+
+  .replace(
+    /"/g,
+    '\\"'
+  )
+
+  .replace(
+    /'/g,
+    "\\'"
+  );
+
+}
+
 </script>
 
 </body>
+
 </html>
