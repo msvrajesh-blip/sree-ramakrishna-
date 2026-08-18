@@ -53,10 +53,9 @@ a{
 }
 
 
-/* =====================================================
+/* =========================
    HOME PAGE
-   KEPT AS YOUR ORIGINAL
-===================================================== */
+========================= */
 
 header{
   display:flex;
@@ -391,10 +390,9 @@ footer{
 }
 
 
-/* =====================================================
+/* =========================
    LOGIN PAGE
-   KEPT AS YOUR ORIGINAL
-===================================================== */
+========================= */
 
 #loginView{
   display:none;
@@ -663,9 +661,7 @@ footer{
 }
 
 
-/* =====================================================
-   PROFILE TOP BAR
-===================================================== */
+/* TOP BAR */
 
 .profile-topbar{
   display:flex;
@@ -712,8 +708,6 @@ footer{
   display:flex;
   gap:8px;
   align-items:center;
-  flex-wrap:wrap;
-  justify-content:flex-end;
 }
 
 .profile-action-btn{
@@ -723,22 +717,14 @@ footer{
   font-weight:600;
   font-size:12px;
   cursor:pointer;
+  background:#fff;
+  color:#4b3bd4;
   box-shadow:0 5px 18px rgba(0,0,0,.06);
-}
-
-.print-btn{
-  background:#4b3bd4;
-  color:#fff;
-}
-
-.download-btn{
-  background:#eaf9f1;
-  color:#23965a;
 }
 
 .logout-btn{
   border:none;
-  background:#fff0ef;
+  background:#fff;
   color:#c0392b;
   padding:9px 14px;
   border-radius:10px;
@@ -748,26 +734,8 @@ footer{
   box-shadow:0 5px 18px rgba(0,0,0,.06);
 }
 
-@media(max-width:600px){
-  .profile-topbar{
-    align-items:flex-start;
-  }
 
-  .profile-actions{
-    flex-direction:column;
-    align-items:stretch;
-  }
-
-  .profile-action-btn,
-  .logout-btn{
-    white-space:nowrap;
-  }
-}
-
-
-/* =====================================================
-   PROFILE HERO
-===================================================== */
+/* HERO */
 
 .profile-hero{
   position:relative;
@@ -866,9 +834,7 @@ footer{
 }
 
 
-/* =====================================================
-   QUICK STATS
-===================================================== */
+/* QUICK STATS */
 
 .profile-stats{
   display:grid;
@@ -923,9 +889,7 @@ footer{
 }
 
 
-/* =====================================================
-   MAIN GRID
-===================================================== */
+/* MAIN GRID */
 
 .profile-grid{
   display:grid;
@@ -950,7 +914,6 @@ footer{
   align-items:center;
   justify-content:space-between;
   margin-bottom:16px;
-  gap:12px;
 }
 
 .card-title h2{
@@ -968,9 +931,7 @@ footer{
 }
 
 
-/* =====================================================
-   DETAILS
-===================================================== */
+/* DETAILS */
 
 .details-list{
   display:grid;
@@ -1012,9 +973,7 @@ footer{
 }
 
 
-/* =====================================================
-   ATTENDANCE
-===================================================== */
+/* ATTENDANCE */
 
 .attendance-box{
   display:flex;
@@ -1067,39 +1026,39 @@ footer{
 }
 
 
-/* =====================================================
-   EXAM DROPDOWN
-===================================================== */
+/* =========================
+   EXAM RESULTS
+========================= */
 
-.exam-selector-wrap{
+.exam-controls{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
 }
 
-.exam-selector{
-  min-width:125px;
-  border:1px solid #ded9ef;
-  background:#f8f7ff;
-  color:#3d3095;
-  border-radius:9px;
-  padding:8px 10px;
-  font-family:'Inter',sans-serif;
-  font-size:11px;
+.exam-controls label{
+  font-size:10px;
+  color:#8b86a0;
+  font-family:'IBM Plex Mono',monospace;
+  text-transform:uppercase;
+}
+
+.exam-select{
+  min-width:160px;
+  padding:10px 36px 10px 12px;
+  border:1px solid #ddd9ec;
+  border-radius:12px;
+  background:#f8f7fc;
+  color:#3c2e93;
+  font-size:13px;
   font-weight:700;
   outline:none;
   cursor:pointer;
 }
 
-.exam-selector:focus{
+.exam-select:focus{
   border-color:#6c5ce7;
-  box-shadow:0 0 0 3px rgba(108,92,231,.10);
 }
-
-
-/* =====================================================
-   MARKS
-===================================================== */
 
 .exam-list{
   display:flex;
@@ -1166,23 +1125,14 @@ footer{
   color:#3d3095;
 }
 
-.marks-total-row td{
-  background:#faf9ff;
-  font-weight:700;
-}
-
-.marks-total-label{
-  color:#77728e;
-}
-
-.marks-total-value{
-  color:#3d3095;
+.mark-empty{
+  color:#aaa6b8;
+  font-style:italic;
+  font-weight:500;
 }
 
 
-/* =====================================================
-   RESULT SUMMARY
-===================================================== */
+/* RESULT SUMMARY */
 
 .result-summary{
   display:grid;
@@ -1216,12 +1166,19 @@ footer{
   .result-summary{
     grid-template-columns:1fr;
   }
+
+  .exam-controls{
+    width:100%;
+  }
+
+  .exam-select{
+    flex:1;
+    min-width:0;
+  }
 }
 
 
-/* =====================================================
-   FEES
-===================================================== */
+/* FEES */
 
 .fee-grid{
   display:grid;
@@ -1271,9 +1228,7 @@ footer{
 }
 
 
-/* =====================================================
-   LOADING
-===================================================== */
+/* FOOTER */
 
 .profile-footer{
   text-align:center;
@@ -1305,9 +1260,9 @@ footer{
 }
 
 
-/* =====================================================
-   PRINT / PDF
-===================================================== */
+/* =========================
+   PRINT
+========================= */
 
 @media print{
 
@@ -1316,14 +1271,8 @@ footer{
     margin:12mm;
   }
 
-  html,
   body{
     background:#fff !important;
-  }
-
-  body{
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
   }
 
   #homeView,
@@ -1335,16 +1284,14 @@ footer{
     display:block !important;
     background:#fff !important;
     padding:0 !important;
-    min-height:auto !important;
   }
 
   .profile-shell{
     max-width:none !important;
-    width:100% !important;
   }
 
   .profile-topbar{
-    margin-bottom:12px;
+    margin-bottom:15px;
   }
 
   .profile-actions{
@@ -1353,42 +1300,35 @@ footer{
 
   .profile-hero{
     box-shadow:none !important;
-    margin-bottom:12px !important;
-    page-break-inside:avoid;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
   }
 
-  .profile-stats{
-    page-break-inside:avoid;
-  }
-
-  .profile-card{
+  .profile-card,
+  .stat-card{
     box-shadow:none !important;
-    border:1px solid #ddd !important;
-    page-break-inside:avoid;
-  }
-
-  .profile-card.full{
-    page-break-inside:auto;
-  }
-
-  .exam-card{
-    page-break-inside:avoid;
-  }
-
-  .profile-footer{
-    padding-bottom:0;
-  }
-
-  .exam-selector-wrap{
-    display:none !important;
-  }
-
-  .card-title{
-    margin-bottom:12px;
+    break-inside:avoid;
   }
 
   .profile-grid{
     gap:10px;
+  }
+
+  .exam-controls{
+    display:none !important;
+  }
+
+  .exam-list{
+    display:block !important;
+  }
+
+  .exam-card{
+    margin-bottom:12px;
+    break-inside:avoid;
+  }
+
+  .profile-footer{
+    padding-top:15px;
   }
 }
 </style>
@@ -1398,9 +1338,8 @@ footer{
 
 
 <!-- =====================================================
-     HOME PAGE
-     ORIGINAL
-===================================================== -->
+     HOME PAGE — UNCHANGED
+====================================================== -->
 
 <div id="homeView">
 
@@ -1668,9 +1607,8 @@ footer{
 
 
 <!-- =====================================================
-     LOGIN VIEW
-     ORIGINAL
-===================================================== -->
+     LOGIN VIEW — UNCHANGED
+====================================================== -->
 
 <div id="loginView">
 
@@ -1688,6 +1626,7 @@ footer{
     <div class="login-illustration">
 
       <div class="login-dots"></div>
+
 
       <svg width="220"
            height="150"
@@ -1802,6 +1741,7 @@ footer{
 
       </svg>
 
+
       <div class="login-badge"></div>
 
     </div>
@@ -1830,11 +1770,14 @@ footer{
 
       <div class="login-error"
            id="errorMsg">
+
         Invalid credentials.
+
       </div>
 
 
       <form id="loginForm">
+
 
         <div class="login-field">
 
@@ -1854,6 +1797,7 @@ footer{
             </svg>
 
           </div>
+
 
           <input
             type="text"
@@ -1932,7 +1876,9 @@ footer{
           <a href="#"
              class="login-forgot"
              onclick="return false;">
+
              Forgot Password?
+
           </a>
 
         </div>
@@ -1970,7 +1916,7 @@ footer{
 
 <!-- =====================================================
      STUDENT PROFILE VIEW
-===================================================== -->
+====================================================== -->
 
 <div id="dashboardView">
 
@@ -2002,23 +1948,15 @@ footer{
       </div>
 
 
-      <!-- NEW PROFILE ACTIONS -->
-
       <div class="profile-actions">
 
-        <button class="profile-action-btn print-btn"
+        <button class="profile-action-btn"
                 onclick="printStudentProfile()">
 
-          🖨️ Print Profile
+          🖨 Print / Save PDF
 
         </button>
 
-        <button class="profile-action-btn download-btn"
-                onclick="downloadProfile()">
-
-          📄 Save / Download
-
-        </button>
 
         <button class="logout-btn"
                 onclick="showHome()">
@@ -2040,8 +1978,11 @@ footer{
 
         <div class="profile-avatar"
              id="profileAvatar">
+
           S
+
         </div>
+
 
         <div>
 
@@ -2089,9 +2030,12 @@ footer{
 
         </div>
 
+
         <div class="stat-value"
              id="dashClass">
+
           --
+
         </div>
 
       </div>
@@ -2111,9 +2055,12 @@ footer{
 
         </div>
 
+
         <div class="stat-value"
              id="dashAttendance">
+
           --
+
         </div>
 
       </div>
@@ -2127,15 +2074,21 @@ footer{
             Result
           </div>
 
-          <div class="stat-note">
-            Percentage
+          <div class="stat-note"
+               id="resultExamNote">
+
+            Selected exam
+
           </div>
 
         </div>
 
+
         <div class="stat-value"
              id="dashPercentage">
+
           --
+
         </div>
 
       </div>
@@ -2143,7 +2096,7 @@ footer{
     </div>
 
 
-    <!-- MAIN GRID -->
+    <!-- MAIN PROFILE GRID -->
 
     <div class="profile-grid">
 
@@ -2167,6 +2120,7 @@ footer{
 
         <div class="details-list">
 
+
           <div class="detail-item">
 
             <span class="detail-label">
@@ -2175,7 +2129,9 @@ footer{
 
             <span class="detail-value"
                   id="detailId">
+
               --
+
             </span>
 
           </div>
@@ -2189,7 +2145,9 @@ footer{
 
             <span class="detail-value"
                   id="detailClass">
+
               --
+
             </span>
 
           </div>
@@ -2203,7 +2161,9 @@ footer{
 
             <span class="detail-value"
                   id="detailFather">
+
               --
+
             </span>
 
           </div>
@@ -2217,7 +2177,9 @@ footer{
 
             <span class="detail-value"
                   id="detailMother">
+
               --
+
             </span>
 
           </div>
@@ -2231,7 +2193,9 @@ footer{
 
             <span class="detail-value"
                   id="detailPhone">
+
               --
+
             </span>
 
           </div>
@@ -2245,10 +2209,13 @@ footer{
 
             <span class="detail-value"
                   id="detailVillage">
+
               --
+
             </span>
 
           </div>
+
 
         </div>
 
@@ -2280,7 +2247,9 @@ footer{
 
             <div class="attendance-number"
                  id="attendanceCircleText">
+
               0%
+
             </div>
 
           </div>
@@ -2293,8 +2262,10 @@ footer{
             </h3>
 
             <p id="attendanceMessage">
+
               Attendance information
               will appear here.
+
             </p>
 
           </div>
@@ -2305,7 +2276,7 @@ footer{
 
 
       <!-- =================================================
-           ACADEMIC RESULTS WITH EXAM DROPDOWN
+           EXAM RESULTS
       ================================================== -->
 
       <div class="profile-card full">
@@ -2317,14 +2288,18 @@ footer{
           </h2>
 
 
-          <div class="exam-selector-wrap">
+          <div class="exam-controls">
 
-            <span>
-              EXAM
-            </span>
+            <label for="examSelect">
+              Exam
+            </label>
 
-            <select id="examSelector"
-                    class="exam-selector">
+            <select id="examSelect"
+                    class="exam-select">
+
+              <option value="">
+                Select Exam
+              </option>
 
             </select>
 
@@ -2359,7 +2334,7 @@ footer{
             Performance
           </h2>
 
-          <span>
+          <span id="performanceExamLabel">
             SUMMARY
           </span>
 
@@ -2367,6 +2342,7 @@ footer{
 
 
         <div class="result-summary">
+
 
           <div class="result-box">
 
@@ -2406,6 +2382,7 @@ footer{
 
           </div>
 
+
         </div>
 
       </div>
@@ -2429,6 +2406,7 @@ footer{
 
 
         <div class="fee-grid">
+
 
           <div class="fee-box fee-total">
 
@@ -2468,6 +2446,7 @@ footer{
 
           </div>
 
+
         </div>
 
       </div>
@@ -2498,29 +2477,14 @@ const APPS_SCRIPT_URL =
 
 
 /* =====================================================
-   DEFAULT EXAMS
+   GLOBAL STUDENT DATA
 ===================================================== */
 
-const DEFAULT_EXAMS = [
-  "FA1",
-  "FA2",
-  "FA3",
-  "FA4",
-  "FA5",
-  "SA1",
-  "SA2"
-];
-
-
-/* =====================================================
-   STORE CURRENT STUDENT DATA
-===================================================== */
-
-let currentExamProfiles = [];
-
-let currentStudentProfile = null;
+let currentStudentProfiles = [];
 
 let currentStudentId = "";
+
+let currentMainProfile = null;
 
 
 /* =====================================================
@@ -2608,7 +2572,7 @@ if(toggleEye){
 
 
 /* =====================================================
-   SAFE VALUE FINDER
+   NORMALIZE KEY
 ===================================================== */
 
 function normalizeKey(value){
@@ -2619,6 +2583,10 @@ function normalizeKey(value){
 
 }
 
+
+/* =====================================================
+   SAFE VALUE FINDER
+===================================================== */
 
 function getValue(obj,...possibleKeys){
 
@@ -2654,7 +2622,7 @@ function getValue(obj,...possibleKeys){
 
 
 /* =====================================================
-   DEEP VALUE FINDER
+   DEEP GET
 ===================================================== */
 
 function deepGet(obj,possibleKeys,depth=0){
@@ -2707,14 +2675,103 @@ function numberValue(value){
     value===null ||
     value===""
   ){
+
     return 0;
+
   }
 
+  const text=
+    String(value)
+      .replace(/,/g,"")
+      .trim();
+
+
+  /*
+    Supports:
+    80
+    80%
+    ₹80
+    35/40
+  */
+
+  if(text.includes("/")){
+
+    const parts=text.split("/");
+
+    const n=parseFloat(
+      parts[0].replace(/[^0-9.-]/g,"")
+    );
+
+    return isNaN(n) ? 0 : n;
+
+  }
+
+
   const n=parseFloat(
-    String(value).replace(/[^0-9.-]/g,"")
+    text.replace(/[^0-9.-]/g,"")
   );
 
   return isNaN(n)?0:n;
+
+}
+
+
+/* =====================================================
+   CHECK WHETHER VALUE IS A NUMBER
+===================================================== */
+
+function isNumericMark(value){
+
+  if(
+    value===undefined ||
+    value===null ||
+    String(value).trim()===""
+  ){
+
+    return false;
+
+  }
+
+  const text=
+    String(value)
+      .replace(/,/g,"")
+      .trim();
+
+
+  /*
+    Ignore true/false.
+    This prevents API's "success:true"
+    from becoming a mark.
+  */
+
+  if(
+    text.toLowerCase()==="true" ||
+    text.toLowerCase()==="false"
+  ){
+
+    return false;
+
+  }
+
+
+  if(text.includes("/")){
+
+    const parts=text.split("/");
+
+    return (
+      parts.length===2 &&
+      !isNaN(parseFloat(parts[0])) &&
+      !isNaN(parseFloat(parts[1]))
+    );
+
+  }
+
+
+  return !isNaN(
+    parseFloat(
+      text.replace(/[^0-9.-]/g,"")
+    )
+  );
 
 }
 
@@ -2725,12 +2782,15 @@ function numberValue(value){
 
 async function apiRequest(params){
 
-  const query=new URLSearchParams(params);
+  const query=
+    new URLSearchParams(params);
+
 
   const response=
     await fetch(
       APPS_SCRIPT_URL+"?"+query.toString()
     );
+
 
   if(!response.ok){
 
@@ -2740,7 +2800,96 @@ async function apiRequest(params){
 
   }
 
+
   return await response.json();
+
+}
+
+
+/* =====================================================
+   EXTRACT ACTUAL STUDENT OBJECT
+===================================================== */
+
+/*
+   IMPORTANT FIX:
+
+   Your previous code sometimes received:
+
+   {
+      success:true,
+      student:{...}
+   }
+
+   and treated "success" as a subject.
+
+   This function unwraps the real student
+   object before displaying marks.
+*/
+
+function extractStudentObject(result){
+
+  if(!result){
+    return null;
+  }
+
+
+  if(
+    result.profile &&
+    typeof result.profile==="object"
+  ){
+
+    return result.profile;
+
+  }
+
+
+  if(
+    result.student &&
+    typeof result.student==="object"
+  ){
+
+    return result.student;
+
+  }
+
+
+  if(
+    result.data &&
+    typeof result.data==="object"
+  ){
+
+    return result.data;
+
+  }
+
+
+  if(
+    result.record &&
+    typeof result.record==="object"
+  ){
+
+    return result.record;
+
+  }
+
+
+  if(
+    result.result &&
+    typeof result.result==="object"
+  ){
+
+    return result.result;
+
+  }
+
+
+  /*
+    If the API itself is the profile,
+    remove API status fields later during
+    subject extraction.
+  */
+
+  return result;
 
 }
 
@@ -2758,38 +2907,48 @@ async function getExamNames(){
         action:"exams"
       });
 
+
     if(
       result &&
       result.success &&
       result.exams
     ){
 
-      let exams=[];
+      const exams=[];
 
-      if(Array.isArray(result.exams)){
 
-        exams=result.exams;
-
-      }else if(
-        typeof result.exams==="object"
+      if(
+        Array.isArray(result.exams)
       ){
 
-        exams=Object.keys(result.exams);
+        result.exams.forEach(function(name){
+
+          if(name){
+            exams.push(String(name));
+          }
+
+        });
+
+      }else{
+
+        Object.keys(result.exams)
+          .forEach(function(name){
+
+            if(
+              name &&
+              normalizeKey(name)!=="student"
+            ){
+
+              exams.push(name);
+
+            }
+
+          });
 
       }
 
 
-      exams=exams
-        .map(x=>String(x).trim())
-        .filter(x=>x)
-        .filter(
-          x=>normalizeKey(x)!=="student"
-        );
-
-
-      if(exams.length){
-        return exams;
-      }
+      return exams;
 
     }
 
@@ -2803,7 +2962,21 @@ async function getExamNames(){
   }
 
 
-  return DEFAULT_EXAMS.slice();
+  /*
+    Fallback if Apps Script does not
+    return an exam list.
+  */
+
+  return [
+    "FA1",
+    "FA2",
+    "FA3",
+    "SA1",
+    "FA4",
+    "FA5",
+    "FA6",
+    "SA2"
+  ];
 
 }
 
@@ -2819,33 +2992,45 @@ async function getStudentForExam(
 
   const result=
     await apiRequest({
+
       action:"student",
+
       studentId:studentId,
+
       exam:exam
+
     });
 
 
   if(!result){
+
     return null;
+
   }
 
 
   if(result.success===false){
+
     return null;
+
   }
+
+
+  const profile=
+    extractStudentObject(result);
 
 
   if(
-    result.profile &&
-    typeof result.profile==="object"
+    !profile ||
+    typeof profile!=="object"
   ){
 
-    return result.profile;
+    return null;
 
   }
 
 
-  return result;
+  return profile;
 
 }
 
@@ -2878,26 +3063,23 @@ document
 
 
     const errorMsg=
-      document.getElementById(
-        "errorMsg"
-      );
+      document.getElementById("errorMsg");
 
 
     const loginButton=
-      document.getElementById(
-        "loginButton"
-      );
+      document.getElementById("loginButton");
 
 
     errorMsg.classList.remove("show");
 
+
     loginButton.disabled=true;
 
-    loginButton.innerText=
-      "Verifying...";
+    loginButton.innerText="Verifying...";
 
 
     try{
+
 
       let exams=
         await getExamNames();
@@ -2905,7 +3087,7 @@ document
 
       if(!exams.length){
 
-        exams=DEFAULT_EXAMS.slice();
+        exams=["FA1"];
 
       }
 
@@ -2914,7 +3096,8 @@ document
 
 
       /*
-        Try every exam sheet.
+        Load student record from
+        every available exam.
       */
 
       for(const exam of exams){
@@ -2931,8 +3114,11 @@ document
           if(profile){
 
             profiles.push({
+
               exam:exam,
+
               data:profile
+
             });
 
           }
@@ -2959,7 +3145,7 @@ document
 
 
       /*
-        Check password.
+        PASSWORD CHECK
       */
 
       let passwordMatched=false;
@@ -2986,6 +3172,11 @@ document
           );
 
 
+        /*
+          If backend doesn't return password,
+          don't block login.
+        */
+
         if(
           !serverPassword ||
           serverPassword===password
@@ -3009,31 +3200,31 @@ document
       }
 
 
-      currentExamProfiles=
+      currentStudentProfiles=
         profiles;
 
-      currentStudentProfile=
-        profiles[0].data;
 
       currentStudentId=
         studentId;
 
 
+      currentMainProfile=
+        profiles[0].data;
+
+
       renderStudentProfile(
-        currentStudentProfile,
+        currentMainProfile,
         profiles,
         studentId
       );
 
 
-      document.getElementById(
-        "loginView"
-      ).style.display="none";
+      document.getElementById("loginView")
+        .style.display="none";
 
 
-      document.getElementById(
-        "dashboardView"
-      ).style.display="block";
+      document.getElementById("dashboardView")
+        .style.display="block";
 
 
       window.scrollTo(0,0);
@@ -3045,8 +3236,7 @@ document
 
 
       errorMsg.innerText=
-        error.message===
-        "Invalid credentials"
+        error.message==="Invalid credentials"
         ? "Invalid Student ID or Password."
         : "Unable to find the student record. Please check the Student ID.";
 
@@ -3187,82 +3377,42 @@ function renderStudentProfile(
     );
 
 
-  const total=
-    deepGet(
-      profile,
-      [
-        "Total",
-        "Total Marks",
-        "TotalMarks"
-      ]
-    );
-
-
-  const percentage=
-    deepGet(
-      profile,
-      [
-        "Percentage",
-        "Percent"
-      ]
-    );
-
-
-  const grade=
-    deepGet(
-      profile,
-      [
-        "Grade",
-        "Result Grade"
-      ]
-    );
-
-
   /* BASIC INFORMATION */
 
-  document.getElementById(
-    "dashName"
-  ).innerText=name;
+  document.getElementById("dashName")
+    .innerText=name;
 
 
-  document.getElementById(
-    "dashId"
-  ).innerText=id;
+  document.getElementById("dashId")
+    .innerText=id;
 
 
-  document.getElementById(
-    "detailId"
-  ).innerText=id;
+  document.getElementById("detailId")
+    .innerText=id;
 
 
-  document.getElementById(
-    "dashClass"
-  ).innerText=studentClass;
+  document.getElementById("dashClass")
+    .innerText=studentClass;
 
 
-  document.getElementById(
-    "detailClass"
-  ).innerText=studentClass;
+  document.getElementById("detailClass")
+    .innerText=studentClass;
 
 
-  document.getElementById(
-    "detailFather"
-  ).innerText=father;
+  document.getElementById("detailFather")
+    .innerText=father;
 
 
-  document.getElementById(
-    "detailMother"
-  ).innerText=mother;
+  document.getElementById("detailMother")
+    .innerText=mother;
 
 
-  document.getElementById(
-    "detailPhone"
-  ).innerText=phone;
+  document.getElementById("detailPhone")
+    .innerText=phone;
 
 
-  document.getElementById(
-    "detailVillage"
-  ).innerText=village;
+  document.getElementById("detailVillage")
+    .innerText=village;
 
 
   /* AVATAR */
@@ -3274,9 +3424,7 @@ function renderStudentProfile(
 
 
   avatar.innerText=
-    name.trim()
-      .charAt(0)
-      .toUpperCase() || "S";
+    name.trim().charAt(0).toUpperCase() || "S";
 
 
   /* ATTENDANCE */
@@ -3335,15 +3483,6 @@ function renderStudentProfile(
       "Attendance information is not available.";
 
   }
-
-
-  /* PERFORMANCE */
-
-  setPerformanceValues(
-    total,
-    percentage,
-    grade
-  );
 
 
   /* FEES */
@@ -3411,9 +3550,9 @@ function renderStudentProfile(
     "₹"+due;
 
 
-  /* EXAM DROPDOWN */
+  /* EXAMS */
 
-  setupExamSelector(
+  setupExamDropdown(
     examProfiles
   );
 
@@ -3421,66 +3560,20 @@ function renderStudentProfile(
 
 
 /* =====================================================
-   PERFORMANCE VALUES
+   SETUP EXAM DROPDOWN
 ===================================================== */
 
-function setPerformanceValues(
-  total,
-  percentage,
-  grade
-){
-
-  document.getElementById(
-    "dashTotal"
-  ).innerText=
-    total || "--";
-
-
-  const formattedPercentage=
-    percentage
-    ? (
-        String(percentage).includes("%")
-        ? percentage
-        : percentage+"%"
-      )
-    : "--";
-
-
-  document.getElementById(
-    "dashPercentage"
-  ).innerText=
-    formattedPercentage;
-
-
-  document.getElementById(
-    "dashPercentage2"
-  ).innerText=
-    formattedPercentage;
-
-
-  document.getElementById(
-    "dashGrade"
-  ).innerText=
-    grade || "--";
-
-}
-
-
-/* =====================================================
-   EXAM DROPDOWN
-===================================================== */
-
-function setupExamSelector(
+function setupExamDropdown(
   examProfiles
 ){
 
-  const selector=
+  const select=
     document.getElementById(
-      "examSelector"
+      "examSelect"
     );
 
 
-  selector.innerHTML="";
+  select.innerHTML="";
 
 
   if(
@@ -3488,17 +3581,16 @@ function setupExamSelector(
     !examProfiles.length
   ){
 
-    selector.innerHTML=
-      `<option value="">No exams</option>`;
-
-
-    document.getElementById(
-      "examList"
-    ).innerHTML=`
-      <div class="loading-profile">
-        No examination records available.
-      </div>
+    select.innerHTML=`
+      <option value="">
+        No exams available
+      </option>
     `;
+
+    renderSelectedExam(
+      null,
+      ""
+    );
 
     return;
 
@@ -3513,50 +3605,441 @@ function setupExamSelector(
           "option"
         );
 
-      option.value=index;
+
+      option.value=
+        String(index);
+
 
       option.textContent=
         item.exam;
 
-      selector.appendChild(
-        option
-      );
+
+      select.appendChild(option);
 
     }
   );
 
 
-  selector.value="0";
+  /*
+    First available exam is selected.
+  */
 
-
-  selector.onchange=
-    function(){
-
-      const index=
-        parseInt(
-          selector.value,
-          10
-        );
-
-
-      const selected=
-        examProfiles[index];
-
-
-      if(selected){
-
-        renderSelectedExam(
-          selected
-        );
-
-      }
-
-    };
+  select.value="0";
 
 
   renderSelectedExam(
-    examProfiles[0]
+    examProfiles[0],
+    examProfiles[0].exam
   );
+
+}
+
+
+/* =====================================================
+   EXAM DROPDOWN CHANGE
+===================================================== */
+
+document
+.getElementById("examSelect")
+.addEventListener(
+  "change",
+  function(){
+
+    const index=
+      parseInt(
+        this.value,
+        10
+      );
+
+
+    if(
+      isNaN(index) ||
+      !currentStudentProfiles[index]
+    ){
+
+      return;
+
+    }
+
+
+    renderSelectedExam(
+      currentStudentProfiles[index],
+      currentStudentProfiles[index].exam
+    );
+
+  }
+);
+
+
+/* =====================================================
+   GET MARK ROWS
+===================================================== */
+
+function getMarkRows(profile){
+
+  const rows=[];
+
+
+  if(
+    !profile ||
+    typeof profile!=="object"
+  ){
+
+    return rows;
+
+  }
+
+
+  /*
+    Metadata fields which must NEVER
+    appear as subjects.
+  */
+
+  const excluded=[
+
+    "success",
+
+    "status",
+
+    "message",
+
+    "error",
+
+    "studentid",
+
+    "id",
+
+    "name",
+
+    "studentname",
+
+    "classname",
+
+    "class",
+
+    "grade",
+
+    "standard",
+
+    "password",
+
+    "pass",
+
+    "pin",
+
+    "passcode",
+
+    "pwd",
+
+    "mother",
+
+    "mothername",
+
+    "father",
+
+    "fathername",
+
+    "phone",
+
+    "phonenumber",
+
+    "mobile",
+
+    "village",
+
+    "address",
+
+    "location",
+
+    "attendance",
+
+    "attendancepercentage",
+
+    "total",
+
+    "totalmarks",
+
+    "percentage",
+
+    "percent",
+
+    "resultgrade",
+
+    "paid",
+
+    "paidfee",
+
+    "feespaid",
+
+    "due",
+
+    "feedue",
+
+    "pending",
+
+    "pendingfee",
+
+    "totalfee",
+
+    "totalfees"
+
+  ];
+
+
+  /*
+    FIRST:
+    Look at ordinary sheet columns.
+  */
+
+  Object.keys(profile)
+    .forEach(function(key){
+
+      const normalized=
+        normalizeKey(key);
+
+
+      if(
+        excluded.includes(normalized)
+      ){
+
+        return;
+
+      }
+
+
+      /*
+        Do not treat obvious API wrapper
+        objects as subjects.
+      */
+
+      if(
+        profile[key] &&
+        typeof profile[key]==="object"
+      ){
+
+        return;
+
+      }
+
+
+      /*
+        Keep blank values too.
+
+        This is important because if the
+        teacher has not entered a mark yet,
+        the subject name still appears.
+      */
+
+      const value=
+        profile[key];
+
+
+      if(
+        value!==undefined &&
+        value!==null
+      ){
+
+        rows.push({
+
+          subject:key,
+
+          mark:String(value).trim()
+
+        });
+
+      }
+
+    });
+
+
+  /*
+    SECOND:
+    Support nested marks object.
+  */
+
+  const nestedMarks=
+    profile.marks ||
+    profile.Marks ||
+    profile.subjects ||
+    profile.Subjects ||
+    profile.scores ||
+    profile.Scores;
+
+
+  if(
+    nestedMarks &&
+    typeof nestedMarks==="object"
+  ){
+
+    /*
+      Object form:
+
+      {
+        Math: 80,
+        Science: 70
+      }
+    */
+
+    if(
+      !Array.isArray(nestedMarks)
+    ){
+
+      Object.keys(nestedMarks)
+        .forEach(function(key){
+
+          const normalized=
+            normalizeKey(key);
+
+
+          if(
+            excluded.includes(normalized)
+          ){
+
+            return;
+
+          }
+
+
+          const value=
+            nestedMarks[key];
+
+
+          if(
+            value!==undefined &&
+            value!==null &&
+            typeof value!=="object"
+          ){
+
+            /*
+              Prevent duplicate subjects.
+            */
+
+            const already=
+              rows.some(function(row){
+
+                return normalizeKey(
+                  row.subject
+                )===normalized;
+
+              });
+
+
+            if(!already){
+
+              rows.push({
+
+                subject:key,
+
+                mark:String(value).trim()
+
+              });
+
+            }
+
+          }
+
+        });
+
+    }
+
+
+    /*
+      Array form:
+
+      [
+        {subject:"Math", marks:80},
+        {subject:"Science", marks:70}
+      ]
+    */
+
+    if(
+      Array.isArray(nestedMarks)
+    ){
+
+      nestedMarks.forEach(
+        function(item){
+
+          if(
+            !item ||
+            typeof item!=="object"
+          ){
+
+            return;
+
+          }
+
+
+          const subject=
+            getValue(
+              item,
+              "Subject",
+              "Subject Name",
+              "SubjectName",
+              "Name"
+            );
+
+
+          const mark=
+            getValue(
+              item,
+              "Marks",
+              "Mark",
+              "Score",
+              "Value"
+            );
+
+
+          if(subject){
+
+            rows.push({
+
+              subject:subject,
+
+              mark:mark
+
+            });
+
+          }
+
+        }
+      );
+
+    }
+
+  }
+
+
+  /*
+    Remove duplicates.
+  */
+
+  const unique=[];
+
+
+  rows.forEach(function(row){
+
+    const exists=
+      unique.some(function(existing){
+
+        return normalizeKey(
+          existing.subject
+        )===normalizeKey(
+          row.subject
+        );
+
+      });
+
+
+    if(!exists){
+
+      unique.push(row);
+
+    }
+
+  });
+
+
+  return unique;
 
 }
 
@@ -3566,29 +4049,9 @@ function setupExamSelector(
 ===================================================== */
 
 function renderSelectedExam(
-  item
+  examItem,
+  examName
 ){
-
-  if(!item){
-
-    return;
-
-  }
-
-
-  const profile=
-    item.data;
-
-
-  const examName=
-    item.exam;
-
-
-  const rows=
-    collectMarkRows(
-      profile
-    );
-
 
   const container=
     document.getElementById(
@@ -3599,14 +4062,44 @@ function renderSelectedExam(
   container.innerHTML="";
 
 
+  if(
+    !examItem ||
+    !examItem.data
+  ){
+
+    container.innerHTML=`
+      <div class="loading-profile">
+        No examination records available.
+      </div>
+    `;
+
+
+    updatePerformance(
+      null,
+      ""
+    );
+
+
+    return;
+
+  }
+
+
+  const profile=
+    examItem.data;
+
+
+  const rows=
+    getMarkRows(profile);
+
+
   const card=
     document.createElement(
       "div"
     );
 
 
-  card.className=
-    "exam-card";
+  card.className="exam-card";
 
 
   const heading=
@@ -3619,6 +4112,16 @@ function renderSelectedExam(
     "exam-heading";
 
 
+  const numericCount=
+    rows.filter(function(row){
+
+      return isNumericMark(
+        row.mark
+      );
+
+    }).length;
+
+
   heading.innerHTML=`
 
     <strong>
@@ -3626,8 +4129,7 @@ function renderSelectedExam(
     </strong>
 
     <span>
-      ${rows.length}
-      subject${rows.length===1?"":"s"}
+      ${numericCount} subject${numericCount===1?"":"s"} with marks
     </span>
 
   `;
@@ -3644,32 +4146,6 @@ function renderSelectedExam(
 
 
   if(rows.length){
-
-    let totalMarks=0;
-
-    let numericCount=0;
-
-
-    rows.forEach(
-      function(row){
-
-        const n=
-          extractNumericMark(
-            row.mark
-          );
-
-
-        if(n!==null){
-
-          totalMarks+=n;
-
-          numericCount++;
-
-        }
-
-      }
-    );
-
 
     table.innerHTML=`
 
@@ -3692,23 +4168,42 @@ function renderSelectedExam(
       <tbody>
 
         ${
-
           rows.map(
             function(row){
+
+              const hasMark=
+                String(
+                  row.mark || ""
+                ).trim()!=="";
+
 
               return `
 
                 <tr>
 
                   <td>
-                    ${escapeHtml(row.subject)}
+                    ${escapeHtml(
+                      row.subject
+                    )}
                   </td>
 
                   <td>
 
-                    <span class="mark-value">
-                      ${escapeHtml(row.mark)}
-                    </span>
+                    ${
+                      hasMark
+                      ? `
+                        <span class="mark-value">
+                          ${escapeHtml(
+                            row.mark
+                          )}
+                        </span>
+                      `
+                      : `
+                        <span class="mark-empty">
+                          Not entered
+                        </span>
+                      `
+                    }
 
                   </td>
 
@@ -3718,27 +4213,6 @@ function renderSelectedExam(
 
             }
           ).join("")
-
-        }
-
-        ${
-          numericCount
-          ? `
-
-            <tr class="marks-total-row">
-
-              <td class="marks-total-label">
-                Total
-              </td>
-
-              <td class="marks-total-value">
-                ${totalMarks}
-              </td>
-
-            </tr>
-
-          `
-          : ""
         }
 
       </tbody>
@@ -3753,12 +4227,11 @@ function renderSelectedExam(
 
         <tr>
 
-          <td>
-            No subject marks available.
-          </td>
+          <td colspan="2"
+              style="text-align:center;color:#9994aa;">
 
-          <td>
-            -
+            No subjects found for this exam.
+
           </td>
 
         </tr>
@@ -3786,241 +4259,52 @@ function renderSelectedExam(
 
 
   /*
-    Update performance from the selected exam
-    if the exam contains those fields.
+    Automatically calculate
+    total and percentage.
   */
 
-  const examTotal=
-    deepGet(
-      profile,
-      [
-        "Total",
-        "Total Marks",
-        "TotalMarks"
-      ]
-    );
-
-
-  const examPercentage=
-    deepGet(
-      profile,
-      [
-        "Percentage",
-        "Percent"
-      ]
-    );
-
-
-  const examGrade=
-    deepGet(
-      profile,
-      [
-        "Grade",
-        "Result Grade"
-      ]
-    );
-
-
-  if(
-    examTotal ||
-    examPercentage ||
-    examGrade
-  ){
-
-    setPerformanceValues(
-      examTotal,
-      examPercentage,
-      examGrade
-    );
-
-  }
+  updatePerformance(
+    rows,
+    examName
+  );
 
 }
 
 
 /* =====================================================
-   COLLECT MARKS
+   AUTOMATIC TOTAL / PERCENTAGE / GRADE
 ===================================================== */
 
-function collectMarkRows(
-  profile
+function updatePerformance(
+  rows,
+  examName
 ){
 
-  const rows=[];
+  let total=0;
 
-  const used=
-    new Set();
-
-
-  /*
-    Metadata that should NEVER appear as a subject.
-  */
-
-  const excluded=new Set([
-
-    "studentid",
-    "id",
-    "name",
-    "studentname",
-    "student",
-    "class",
-    "classname",
-    "gradeclass",
-    "standard",
-    "section",
-
-    "password",
-    "pass",
-    "pin",
-    "passcode",
-    "pwd",
-
-    "mother",
-    "mothername",
-    "father",
-    "fathername",
-
-    "phone",
-    "phonenumber",
-    "mobile",
-    "mobilenumber",
-
-    "village",
-    "address",
-    "location",
-
-    "attendance",
-    "attendancepercentage",
-
-    "total",
-    "totalmarks",
-
-    "percentage",
-    "percent",
-
-    "grade",
-    "resultgrade",
-
-    "paid",
-    "paidfee",
-    "feespaid",
-
-    "due",
-    "feedue",
-    "pending",
-    "pendingfee",
-
-    "totalfee",
-    "totalfees",
-
-    "exam",
-    "examname",
-    "term",
-    "semester",
-
-    "date",
-    "timestamp",
-    "createdat",
-    "updatedat",
-
-    "status",
-    "remarks",
-    "remark",
-    "result",
-
-    "school",
-    "schoolname",
-
-    "rollno",
-    "rollnumber",
-    "serial",
-    "serialno"
-
-  ]);
+  let numericMarks=0;
 
 
-  function addScalar(
-    key,
-    value
+  if(
+    Array.isArray(rows)
   ){
 
-    const normalized=
-      normalizeKey(key);
+    rows.forEach(function(row){
 
+      if(
+        isNumericMark(
+          row.mark
+        )
+      ){
 
-    if(
-      excluded.has(normalized)
-    ){
+        total+=
+          numberValue(
+            row.mark
+          );
 
-      return;
+        numericMarks++;
 
-    }
-
-
-    if(
-      value===undefined ||
-      value===null ||
-      String(value).trim()===""
-    ){
-
-      return;
-
-    }
-
-
-    if(
-      typeof value==="object"
-    ){
-
-      return;
-
-    }
-
-
-    /*
-      Avoid passwords or other sensitive fields
-      that might be named slightly differently.
-    */
-
-    const lower=
-      normalized;
-
-
-    if(
-      lower.includes("password") ||
-      lower.includes("passcode") ||
-      lower==="pwd"
-    ){
-
-      return;
-
-    }
-
-
-    /*
-      Avoid duplicate fields.
-    */
-
-    const signature=
-      normalized+"|"+
-      String(value).trim();
-
-
-    if(used.has(signature)){
-
-      return;
-
-    }
-
-
-    used.add(signature);
-
-
-    rows.push({
-
-      subject:String(key),
-
-      mark:String(value).trim()
+      }
 
     });
 
@@ -4028,279 +4312,171 @@ function collectMarkRows(
 
 
   /*
-    First look for a dedicated Marks / Subjects object.
+    Assuming subject marks are out of 100.
+
+    Example:
+
+    Maths = 80
+    Science = 70
+    English = 90
+
+    Total = 240
+    Percentage = 80%
   */
 
-  const nestedCandidates=[
-
-    profile &&
-      profile.marks,
-
-    profile &&
-      profile.Marks,
-
-    profile &&
-      profile.subjects,
-
-    profile &&
-      profile.Subjects,
-
-    profile &&
-      profile.results,
-
-    profile &&
-      profile.Results
-
-  ];
+  let percentage=0;
 
 
-  nestedCandidates.forEach(
-    function(obj){
+  if(numericMarks>0){
 
-      if(
-        obj &&
-        typeof obj==="object"
-      ){
+    percentage=
+      total/numericMarks;
 
-        Object.keys(obj).forEach(
-          function(key){
-
-            const value=obj[key];
+  }
 
 
-            if(
-              value &&
-              typeof value==="object"
-            ){
-
-              /*
-                Example:
-                Marks: {
-                  Maths: { marks: 18 }
-                }
-              */
-
-              const nestedValue=
-                getValue(
-                  value,
-                  "Marks",
-                  "Mark",
-                  "Score",
-                  "Value"
-                );
+  let grade="--";
 
 
-              if(nestedValue){
+  if(numericMarks>0){
 
-                addScalar(
-                  key,
-                  nestedValue
-                );
+    if(percentage>=90){
 
-              }
+      grade="A+";
 
-            }else{
+    }else if(percentage>=80){
 
-              addScalar(
-                key,
-                value
-              );
+      grade="A";
 
-            }
+    }else if(percentage>=70){
 
-          }
-        );
+      grade="B+";
 
-      }
+    }else if(percentage>=60){
+
+      grade="B";
+
+    }else if(percentage>=50){
+
+      grade="C";
+
+    }else if(percentage>=40){
+
+      grade="D";
+
+    }else{
+
+      grade="F";
 
     }
-  );
-
-
-  /*
-    Now inspect the normal profile fields.
-  */
-
-  if(
-    profile &&
-    typeof profile==="object"
-  ){
-
-    Object.keys(profile).forEach(
-      function(key){
-
-        const value=
-          profile[key];
-
-
-        if(
-          value &&
-          typeof value==="object"
-        ){
-
-          /*
-            Support nested subject data.
-          */
-
-          const normalized=
-            normalizeKey(key);
-
-
-          if(
-            normalized==="marks" ||
-            normalized==="subjects" ||
-            normalized==="results"
-          ){
-
-            return;
-
-          }
-
-
-          /*
-            Example:
-            English: {
-              marks: 18
-            }
-          */
-
-          const nestedMark=
-            getValue(
-              value,
-              "Marks",
-              "Mark",
-              "Score"
-            );
-
-
-          if(nestedMark){
-
-            addScalar(
-              key,
-              nestedMark
-            );
-
-          }
-
-
-          return;
-
-        }
-
-
-        addScalar(
-          key,
-          value
-        );
-
-      }
-    );
 
   }
 
 
   /*
-    Sort alphabetically for a clean table.
+    Display total.
   */
 
-  rows.sort(
-    function(a,b){
-
-      return a.subject
-        .localeCompare(
-          b.subject
-        );
-
-    }
-  );
+  document.getElementById(
+    "dashTotal"
+  ).innerText=
+    numericMarks
+    ? formatNumber(total)
+    : "--";
 
 
-  return rows;
+  /*
+    Display percentage.
+  */
+
+  document.getElementById(
+    "dashPercentage"
+  ).innerText=
+    numericMarks
+    ? formatNumber(
+        percentage
+      )+"%"
+    : "--";
+
+
+  document.getElementById(
+    "dashPercentage2"
+  ).innerText=
+    numericMarks
+    ? formatNumber(
+        percentage
+      )+"%"
+    : "--";
+
+
+  /*
+    Display grade.
+  */
+
+  document.getElementById(
+    "dashGrade"
+  ).innerText=
+    grade;
+
+
+  /*
+    Update labels.
+  */
+
+  document.getElementById(
+    "performanceExamLabel"
+  ).innerText=
+    examName
+    ? examName
+    : "SUMMARY";
+
+
+  document.getElementById(
+    "resultExamNote"
+  ).innerText=
+    examName
+    ? examName
+    : "Selected exam";
 
 }
 
 
 /* =====================================================
-   EXTRACT NUMERIC MARK
+   NUMBER FORMAT
 ===================================================== */
 
-function extractNumericMark(
-  value
-){
+function formatNumber(value){
 
   if(
-    value===undefined ||
-    value===null
+    Number.isInteger(value)
   ){
 
-    return null;
+    return String(value);
 
   }
 
 
-  const match=
-    String(value)
-      .trim()
-      .match(
-        /^-?\d+(?:\.\d+)?/
-      );
-
-
-  if(!match){
-
-    return null;
-
-  }
-
-
-  const n=
-    parseFloat(
-      match[0]
-    );
-
-
-  return isNaN(n)
-    ? null
-    : n;
+  return Number(
+    value.toFixed(2)
+  ).toString();
 
 }
 
 
 /* =====================================================
-   PRINT PROFILE
+   PRINT / SAVE PDF
 ===================================================== */
 
 function printStudentProfile(){
 
   /*
-    Browser print dialog lets the user:
-      - Print directly
-      - Save as PDF
-      - Share/save the PDF on Android
-  */
+    Opens the browser's print screen.
 
-  window.print();
+    On Android/Chrome the user can select:
 
-}
+    "Save as PDF"
 
-
-/* =====================================================
-   DOWNLOAD / SAVE PROFILE
-===================================================== */
-
-function downloadProfile(){
-
-  /*
-    A normal website cannot silently create a PDF
-    in every mobile browser.
-
-    Opening the print dialog is the most reliable
-    way to save the profile as PDF on Android.
-
-    Choose:
-       Save as PDF
-       or
-       Print
+    or choose a printer.
   */
 
   window.print();
@@ -4312,9 +4488,7 @@ function downloadProfile(){
    HTML ESCAPE
 ===================================================== */
 
-function escapeHtml(
-  value
-){
+function escapeHtml(value){
 
   return String(
     value ?? ""
