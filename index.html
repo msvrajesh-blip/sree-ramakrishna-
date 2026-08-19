@@ -53,6 +53,352 @@ a{
 }
 
 
+/* =====================================================
+   PREMIUM SMOOTH LOADER
+===================================================== */
+
+#smoothLoader{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:999999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:var(--paper);
+  color:var(--ink);
+
+  overflow:hidden;
+  isolation:isolate;
+
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+
+  will-change:opacity,transform;
+
+  transition:
+    opacity 900ms cubic-bezier(.22,1,.36,1),
+    visibility 900ms;
+}
+
+
+/* very subtle background atmosphere */
+
+#smoothLoader::before{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+
+  background:radial-gradient(
+    circle,
+    rgba(198,154,46,.08) 0%,
+    rgba(198,154,46,.035) 35%,
+    transparent 70%
+  );
+
+  filter:blur(20px);
+
+  pointer-events:none;
+}
+
+
+/* loader content */
+
+.smooth-loader-content{
+  position:relative;
+  z-index:2;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  opacity:0;
+
+  transform:
+    translate3d(0,22px,0)
+    scale(.965);
+
+  filter:blur(8px);
+
+  will-change:
+    opacity,
+    transform,
+    filter;
+
+  animation:
+    smoothLoaderIntro
+    1100ms
+    cubic-bezier(.22,1,.36,1)
+    120ms
+    forwards;
+}
+
+
+/* title */
+
+.smooth-loader-title{
+  font-family:'IBM Plex Mono',monospace;
+
+  font-size:clamp(12px,2vw,17px);
+  font-weight:500;
+
+  letter-spacing:.30em;
+  text-indent:.30em;
+
+  white-space:nowrap;
+
+  color:var(--ink);
+
+  user-select:none;
+}
+
+
+/* tiny loading line */
+
+.smooth-loader-line{
+  position:relative;
+
+  width:120px;
+  height:1px;
+
+  margin-top:23px;
+
+  overflow:hidden;
+
+  background:rgba(23,38,74,.13);
+}
+
+
+/* moving gold indicator */
+
+.smooth-loader-line span{
+  position:absolute;
+
+  top:0;
+  left:-45%;
+
+  width:45%;
+  height:100%;
+
+  background:var(--gold);
+
+  will-change:left;
+
+  animation:
+    smoothLoaderProgress
+    1150ms
+    cubic-bezier(.22,1,.36,1)
+    250ms
+    infinite;
+}
+
+
+/* intro */
+
+@keyframes smoothLoaderIntro{
+
+  0%{
+    opacity:0;
+
+    transform:
+      translate3d(0,22px,0)
+      scale(.965);
+
+    filter:blur(8px);
+  }
+
+  55%{
+    opacity:1;
+
+    transform:
+      translate3d(0,-2px,0)
+      scale(1.005);
+
+    filter:blur(0);
+  }
+
+  100%{
+    opacity:1;
+
+    transform:
+      translate3d(0,0,0)
+      scale(1);
+
+    filter:blur(0);
+  }
+
+}
+
+
+/* loading line */
+
+@keyframes smoothLoaderProgress{
+
+  0%{
+    left:-45%;
+  }
+
+  100%{
+    left:110%;
+  }
+
+}
+
+
+/* loader exit */
+
+#smoothLoader.loader-exit{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+
+/* content exit */
+
+#smoothLoader.loader-exit .smooth-loader-content{
+
+  opacity:0;
+
+  transform:
+    translate3d(0,-24px,0)
+    scale(1.045);
+
+  filter:blur(10px);
+
+  transition:
+    opacity 650ms cubic-bezier(.22,1,.36,1),
+    transform 850ms cubic-bezier(.22,1,.36,1),
+    filter 650ms cubic-bezier(.22,1,.36,1);
+}
+
+
+/* =====================================================
+   HOMEPAGE ENTRANCE
+===================================================== */
+
+/*
+  Only the existing homepage gets this animation.
+  Login and dashboard are NOT affected.
+*/
+
+#homeView.homepage-loading{
+  opacity:0;
+  transform:
+    translate3d(0,18px,0)
+    scale(.995);
+
+  filter:blur(3px);
+}
+
+
+#homeView.homepage-ready{
+
+  animation:
+    homepageReveal
+    1050ms
+    cubic-bezier(.22,1,.36,1)
+    forwards;
+
+  will-change:
+    opacity,
+    transform,
+    filter;
+}
+
+
+@keyframes homepageReveal{
+
+  0%{
+    opacity:0;
+
+    transform:
+      translate3d(0,18px,0)
+      scale(.995);
+
+    filter:blur(3px);
+  }
+
+  45%{
+    opacity:.7;
+
+    filter:blur(1px);
+  }
+
+  100%{
+    opacity:1;
+
+    transform:
+      translate3d(0,0,0)
+      scale(1);
+
+    filter:blur(0);
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE LOADER
+===================================================== */
+
+@media(max-width:600px){
+
+  #smoothLoader::before{
+    width:300px;
+    height:300px;
+  }
+
+  .smooth-loader-title{
+    font-size:11px;
+    letter-spacing:.23em;
+    text-indent:.23em;
+  }
+
+  .smooth-loader-line{
+    width:100px;
+    margin-top:19px;
+  }
+
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+  #smoothLoader,
+  #smoothLoader .smooth-loader-content,
+  #smoothLoader .smooth-loader-line span,
+  #homeView{
+    animation:none !important;
+    transition:none !important;
+  }
+
+  #smoothLoader .smooth-loader-content{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+
+  #homeView.homepage-loading{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+
+}
+
+
 /* =========================
    HOME PAGE
 ========================= */
@@ -1275,6 +1621,10 @@ footer{
     background:#fff !important;
   }
 
+  #smoothLoader{
+    display:none !important;
+  }
+
   #homeView,
   #loginView{
     display:none !important;
@@ -1335,6 +1685,27 @@ footer{
 </head>
 
 <body>
+
+
+<!-- =====================================================
+     PREMIUM SMOOTH LOADER
+====================================================== -->
+
+<div id="smoothLoader" aria-hidden="true">
+
+  <div class="smooth-loader-content">
+
+    <div class="smooth-loader-title">
+      SMOOTH LOADER
+    </div>
+
+    <div class="smooth-loader-line">
+      <span></span>
+    </div>
+
+  </div>
+
+</div>
 
 
 <!-- =====================================================
@@ -1923,8 +2294,6 @@ footer{
   <div class="profile-shell">
 
 
-    <!-- TOP BAR -->
-
     <div class="profile-topbar">
 
       <div class="school-mini">
@@ -1970,8 +2339,6 @@ footer{
     </div>
 
 
-    <!-- PROFILE HERO -->
-
     <div class="profile-hero">
 
       <div class="profile-hero-content">
@@ -2011,8 +2378,6 @@ footer{
 
     </div>
 
-
-    <!-- QUICK STATS -->
 
     <div class="profile-stats">
 
@@ -2096,12 +2461,8 @@ footer{
     </div>
 
 
-    <!-- MAIN PROFILE GRID -->
-
     <div class="profile-grid">
 
-
-      <!-- STUDENT DETAILS -->
 
       <div class="profile-card">
 
@@ -2222,8 +2583,6 @@ footer{
       </div>
 
 
-      <!-- ATTENDANCE -->
-
       <div class="profile-card">
 
         <div class="card-title">
@@ -2275,10 +2634,6 @@ footer{
       </div>
 
 
-      <!-- =================================================
-           EXAM RESULTS
-      ================================================== -->
-
       <div class="profile-card full">
 
         <div class="card-title">
@@ -2323,8 +2678,6 @@ footer{
 
       </div>
 
-
-      <!-- RESULT SUMMARY -->
 
       <div class="profile-card">
 
@@ -2387,8 +2740,6 @@ footer{
 
       </div>
 
-
-      <!-- FEES -->
 
       <div class="profile-card">
 
@@ -2469,6 +2820,109 @@ footer{
 <script>
 
 /* =====================================================
+   PREMIUM SMOOTH LOADER
+===================================================== */
+
+(function(){
+
+  const loader=
+    document.getElementById(
+      "smoothLoader"
+    );
+
+  const home=
+    document.getElementById(
+      "homeView"
+    );
+
+
+  if(!loader || !home){
+
+    return;
+
+  }
+
+
+  /*
+    Keep homepage visually hidden while
+    the loader is displayed.
+  */
+
+  home.classList.add(
+    "homepage-loading"
+  );
+
+
+  /*
+    Start after browser has painted the
+    loader. This prevents flickering.
+  */
+
+  requestAnimationFrame(function(){
+
+    requestAnimationFrame(function(){
+
+      /*
+        Premium short loading duration.
+
+        It is long enough to feel intentional,
+        but short enough that the user doesn't
+        wait unnecessarily.
+      */
+
+      setTimeout(function(){
+
+        /*
+          Start loader exit.
+        */
+
+        loader.classList.add(
+          "loader-exit"
+        );
+
+
+        /*
+          Reveal homepage slightly before
+          loader completely disappears.
+
+          This creates the seamless overlap
+          instead of an abrupt transition.
+        */
+
+        setTimeout(function(){
+
+          home.classList.remove(
+            "homepage-loading"
+          );
+
+          home.classList.add(
+            "homepage-ready"
+          );
+
+        },350);
+
+
+        /*
+          Completely remove loader after
+          transition finishes.
+        */
+
+        setTimeout(function(){
+
+          loader.style.display="none";
+
+        },1000);
+
+      },1450);
+
+    });
+
+  });
+
+})();
+
+
+/* =====================================================
    APPS SCRIPT API
 ===================================================== */
 
@@ -2511,6 +2965,16 @@ function showHome(){
   document.getElementById("dashboardView").style.display="none";
 
   document.getElementById("homeView").style.display="block";
+
+  /*
+    Remove the initial loader animation
+    classes if the user returns home.
+  */
+
+  document.getElementById("homeView").classList.remove(
+    "homepage-loading",
+    "homepage-ready"
+  );
 
   document.getElementById("password").value="";
 
@@ -2686,14 +3150,6 @@ function numberValue(value){
       .trim();
 
 
-  /*
-    Supports:
-    80
-    80%
-    ₹80
-    35/40
-  */
-
   if(text.includes("/")){
 
     const parts=text.split("/");
@@ -2737,12 +3193,6 @@ function isNumericMark(value){
       .replace(/,/g,"")
       .trim();
 
-
-  /*
-    Ignore true/false.
-    This prevents API's "success:true"
-    from becoming a mark.
-  */
 
   if(
     text.toLowerCase()==="true" ||
@@ -2810,22 +3260,6 @@ async function apiRequest(params){
    EXTRACT ACTUAL STUDENT OBJECT
 ===================================================== */
 
-/*
-   IMPORTANT FIX:
-
-   Your previous code sometimes received:
-
-   {
-      success:true,
-      student:{...}
-   }
-
-   and treated "success" as a subject.
-
-   This function unwraps the real student
-   object before displaying marks.
-*/
-
 function extractStudentObject(result){
 
   if(!result){
@@ -2882,12 +3316,6 @@ function extractStudentObject(result){
 
   }
 
-
-  /*
-    If the API itself is the profile,
-    remove API status fields later during
-    subject extraction.
-  */
 
   return result;
 
@@ -2961,11 +3389,6 @@ async function getExamNames(){
 
   }
 
-
-  /*
-    Fallback if Apps Script does not
-    return an exam list.
-  */
 
   return [
     "FA1",
@@ -3095,11 +3518,6 @@ document
       const profiles=[];
 
 
-      /*
-        Load student record from
-        every available exam.
-      */
-
       for(const exam of exams){
 
         try{
@@ -3144,10 +3562,6 @@ document
       }
 
 
-      /*
-        PASSWORD CHECK
-      */
-
       let passwordMatched=false;
 
 
@@ -3171,11 +3585,6 @@ document
             ]
           );
 
-
-        /*
-          If backend doesn't return password,
-          don't block login.
-        */
 
         if(
           !serverPassword ||
@@ -3377,8 +3786,6 @@ function renderStudentProfile(
     );
 
 
-  /* BASIC INFORMATION */
-
   document.getElementById("dashName")
     .innerText=name;
 
@@ -3415,8 +3822,6 @@ function renderStudentProfile(
     .innerText=village;
 
 
-  /* AVATAR */
-
   const avatar=
     document.getElementById(
       "profileAvatar"
@@ -3426,8 +3831,6 @@ function renderStudentProfile(
   avatar.innerText=
     name.trim().charAt(0).toUpperCase() || "S";
 
-
-  /* ATTENDANCE */
 
   const att=
     numberValue(attendance);
@@ -3484,8 +3887,6 @@ function renderStudentProfile(
 
   }
 
-
-  /* FEES */
 
   const paid=
     deepGet(
@@ -3549,8 +3950,6 @@ function renderStudentProfile(
   ).innerText=
     "₹"+due;
 
-
-  /* EXAMS */
 
   setupExamDropdown(
     examProfiles
@@ -3620,10 +4019,6 @@ function setupExamDropdown(
   );
 
 
-  /*
-    First available exam is selected.
-  */
-
   select.value="0";
 
 
@@ -3689,11 +4084,6 @@ function getMarkRows(profile){
 
   }
 
-
-  /*
-    Metadata fields which must NEVER
-    appear as subjects.
-  */
 
   const excluded=[
 
@@ -3786,11 +4176,6 @@ function getMarkRows(profile){
   ];
 
 
-  /*
-    FIRST:
-    Look at ordinary sheet columns.
-  */
-
   Object.keys(profile)
     .forEach(function(key){
 
@@ -3807,11 +4192,6 @@ function getMarkRows(profile){
       }
 
 
-      /*
-        Do not treat obvious API wrapper
-        objects as subjects.
-      */
-
       if(
         profile[key] &&
         typeof profile[key]==="object"
@@ -3821,14 +4201,6 @@ function getMarkRows(profile){
 
       }
 
-
-      /*
-        Keep blank values too.
-
-        This is important because if the
-        teacher has not entered a mark yet,
-        the subject name still appears.
-      */
 
       const value=
         profile[key];
@@ -3852,11 +4224,6 @@ function getMarkRows(profile){
     });
 
 
-  /*
-    SECOND:
-    Support nested marks object.
-  */
-
   const nestedMarks=
     profile.marks ||
     profile.Marks ||
@@ -3870,15 +4237,6 @@ function getMarkRows(profile){
     nestedMarks &&
     typeof nestedMarks==="object"
   ){
-
-    /*
-      Object form:
-
-      {
-        Math: 80,
-        Science: 70
-      }
-    */
 
     if(
       !Array.isArray(nestedMarks)
@@ -3910,10 +4268,6 @@ function getMarkRows(profile){
             typeof value!=="object"
           ){
 
-            /*
-              Prevent duplicate subjects.
-            */
-
             const already=
               rows.some(function(row){
 
@@ -3942,15 +4296,6 @@ function getMarkRows(profile){
 
     }
 
-
-    /*
-      Array form:
-
-      [
-        {subject:"Math", marks:80},
-        {subject:"Science", marks:70}
-      ]
-    */
 
     if(
       Array.isArray(nestedMarks)
@@ -4008,10 +4353,6 @@ function getMarkRows(profile){
 
   }
 
-
-  /*
-    Remove duplicates.
-  */
 
   const unique=[];
 
@@ -4258,11 +4599,6 @@ function renderSelectedExam(
   );
 
 
-  /*
-    Automatically calculate
-    total and percentage.
-  */
-
   updatePerformance(
     rows,
     examName
@@ -4310,19 +4646,6 @@ function updatePerformance(
 
   }
 
-
-  /*
-    Assuming subject marks are out of 100.
-
-    Example:
-
-    Maths = 80
-    Science = 70
-    English = 90
-
-    Total = 240
-    Percentage = 80%
-  */
 
   let percentage=0;
 
@@ -4373,10 +4696,6 @@ function updatePerformance(
   }
 
 
-  /*
-    Display total.
-  */
-
   document.getElementById(
     "dashTotal"
   ).innerText=
@@ -4384,10 +4703,6 @@ function updatePerformance(
     ? formatNumber(total)
     : "--";
 
-
-  /*
-    Display percentage.
-  */
 
   document.getElementById(
     "dashPercentage"
@@ -4409,19 +4724,11 @@ function updatePerformance(
     : "--";
 
 
-  /*
-    Display grade.
-  */
-
   document.getElementById(
     "dashGrade"
   ).innerText=
     grade;
 
-
-  /*
-    Update labels.
-  */
 
   document.getElementById(
     "performanceExamLabel"
@@ -4468,16 +4775,6 @@ function formatNumber(value){
 ===================================================== */
 
 function printStudentProfile(){
-
-  /*
-    Opens the browser's print screen.
-
-    On Android/Chrome the user can select:
-
-    "Save as PDF"
-
-    or choose a printer.
-  */
 
   window.print();
 
