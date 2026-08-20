@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<!-- GSAP for Smooth Cinematic Easing & Staggering -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
 <style>
 :root{
   --ink:#17264a;
@@ -37,6 +40,12 @@ body{
   line-height:1.5;
 }
 
+/* Prevent layout shift during canvas transition */
+body.transition-active {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
 h1,h2,h3{
   font-family:'Fraunces',serif;
   color:var(--ink);
@@ -50,6 +59,22 @@ h1,h2,h3{
 
 a{
   color:inherit;
+}
+
+
+/* =====================================================
+   WATER DROPLET TRANSITION CANVAS
+===================================================== */
+
+#waterDropletCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999999;
+  pointer-events: none;
+  display: none;
+  will-change: transform, opacity;
 }
 
 
@@ -595,6 +620,7 @@ footer{
   border-radius:28px;
   overflow:hidden;
   box-shadow:0 30px 60px rgba(75,59,212,.18);
+  will-change: transform, opacity, filter;
 }
 
 .login-illustration{
@@ -1706,7 +1732,7 @@ footer{
     background:#fff !important;
   }
 
-  #smoothLoader{
+  #smoothLoader, #waterDropletCanvas{
     display:none !important;
   }
 
@@ -1775,6 +1801,12 @@ footer{
 <body>
 
 <!-- =====================================================
+     WATER DROPLET CANVAS TRANSITION OVERLAY
+===================================================== -->
+<canvas id="waterDropletCanvas"></canvas>
+
+
+<!-- =====================================================
      PREMIUM SMOOTH LOADER
 ===================================================== -->
 
@@ -1835,7 +1867,7 @@ footer{
 
     <a href="#"
        class="portal-btn"
-       onclick="showLogin(); return false;">
+       onclick="triggerWaterDropletLogin(); return false;">
        Student Portal
     </a>
 
@@ -1865,7 +1897,7 @@ footer{
 
       <a href="#"
          class="sub-item"
-         onclick="showLogin(); return false;">
+         onclick="triggerWaterDropletLogin(); return false;">
          Student Login
       </a>
 
@@ -1896,7 +1928,7 @@ footer{
 
     <a href="#"
        class="btn-primary"
-       onclick="showLogin(); return false;">
+       onclick="triggerWaterDropletLogin(); return false;">
        Open student portal
     </a>
 
@@ -2869,19 +2901,237 @@ let currentMainProfile=null;
 
 
 /* =====================================================
-   PAGE SWITCHING
+   PAGE SWITCHING & WATER DROPLET TRANSITION
 ===================================================== */
 
-function showLogin(){
+let isWaterTransitioning = false;
 
+function triggerWaterDropletLogin() {
+  if (isWaterTransitioning) return;
+
+  // Respect prefers-reduced-motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    showLogin();
+    return;
+  }
+
+  isWaterTransitioning = true;
+  document.body.classList.add('transition-active');
+
+  const canvas = document.getElementById('waterDropletCanvas');
+  const ctx = canvas.getContext('2d');
+  
+  // Setup canvas resolution
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let w = window.innerWidth;
+  let h = window.innerHeight;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  canvas.style.width = w + 'px';
+  canvas.style.height = h + 'px';
+  ctx.scale(dpr, dpr);
+
+  canvas.style.display = 'block';
+
+  // Animation parameters
+  const state = {
+    x: w / 2,
+    y: h * 0.12,
+    radius: 12,
+    scaleX: 0.82,
+    scaleY: 1.25,
+    opacity: 1,
+    landingY: h * 0.72,
+    ripple1Radius: 0,
+    ripple1Alpha: 0,
+    ripple2Radius: 0,
+    ripple2Alpha: 0,
+    expandRadius: 0,
+    overlayAlpha: 0,
+    lensZoom: 0,
+    loginRevealed: false
+  };
+
+  const timeline = gsap.timeline({
+    onComplete: () => {
+      canvas.style.display = 'none';
+      document.body.classList.remove('transition-active');
+      isWaterTransitioning = false;
+    }
+  });
+
+  // Phase 1: Droplet falls downward with realistic acceleration
+  timeline.to(state, {
+    y: state.landingY,
+    scaleX: 0.88,
+    scaleY: 1.18,
+    duration: 0.62,
+    ease: "power2.in"
+  });
+
+  // Phase 2: Impact bounce + Liquid ripples
+  timeline.to(state, {
+    scaleX: 1.48,
+    scaleY: 0.58,
+    duration: 0.14,
+    ease: "power1.out"
+  });
+
+  // Ripple emission
+  timeline.to(state, {
+    ripple1Radius: 85,
+    ripple1Alpha: 0.65,
+    ripple2Radius: 130,
+    ripple2Alpha: 0.45,
+    scaleX: 1.05,
+    scaleY: 0.95,
+    duration: 0.28,
+    ease: "power1.out"
+  }, "<");
+
+  // Phase 3: Droplet swells and expands toward center/view
+  const targetMaxRadius = Math.sqrt(w * w + h * h) * 1.2;
+
+  timeline.to(state, {
+    x: w / 2,
+    y: h / 2,
+    radius: targetMaxRadius,
+    scaleX: 1,
+    scaleY: 1,
+    overlayAlpha: 1,
+    duration: 0.85,
+    ease: "power3.inOut",
+    onUpdate: () => {
+      // Reveal login page when water droplet reaches critical threshold
+      if (state.radius > w * 0.35 && !state.loginRevealed) {
+        state.loginRevealed = true;
+        showLoginDirect();
+        
+        // Animate login components smoothly
+        if (typeof gsap !== 'undefined') {
+          gsap.fromTo('.login-card', 
+            { scale: 0.88, opacity: 0, y: 30, filter: 'blur(10px)' },
+            { scale: 1, opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.65, ease: 'power3.out' }
+          );
+
+          gsap.fromTo('.login-field, .login-row, .login-btn', 
+            { y: 15, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: 'power2.out', delay: 0.15 }
+          );
+        }
+      }
+    }
+  });
+
+  // Phase 4: Dissolve water layer smoothly revealing login page
+  timeline.to(state, {
+    opacity: 0,
+    duration: 0.4,
+    ease: "power2.out"
+  }, "-=0.25");
+
+  // Main Render Loop
+  function render() {
+    ctx.clearRect(0, 0, w, h);
+
+    if (state.opacity <= 0) return;
+
+    ctx.save();
+    ctx.globalAlpha = state.opacity;
+
+    // Render ripples on impact ground
+    if (state.ripple1Alpha > 0.01) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(w / 2, state.landingY + 12, state.ripple1Radius, state.ripple1Radius * 0.35, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(108, 92, 231, ${state.ripple1Alpha * 0.5})`;
+      ctx.lineWidth = 3;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.ellipse(w / 2, state.landingY + 12, state.ripple2Radius, state.ripple2Radius * 0.35, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(75, 59, 212, ${state.ripple2Alpha * 0.3})`;
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+      ctx.restore();
+
+      state.ripple1Alpha *= 0.94;
+      state.ripple2Alpha *= 0.94;
+    }
+
+    // Render Water Droplet / Expanding Surface
+    ctx.save();
+    ctx.translate(state.x, state.y);
+    ctx.scale(state.scaleX, state.scaleY);
+
+    const r = state.radius;
+
+    // Outer Ambient Glow
+    const glowGrad = ctx.createRadialGradient(0, 0, r * 0.2, 0, 0, r * 1.5);
+    glowGrad.addColorStop(0, 'rgba(108, 92, 231, 0.35)');
+    glowGrad.addColorStop(0.5, 'rgba(75, 59, 212, 0.15)');
+    glowGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 1.4, 0, Math.PI * 2);
+    ctx.fillStyle = glowGrad;
+    ctx.fill();
+
+    // Main Droplet Liquid Body
+    const dropGrad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, r * 0.05, 0, 0, r);
+    dropGrad.addColorStop(0, 'rgba(239, 234, 255, 0.92)');
+    dropGrad.addColorStop(0.35, 'rgba(167, 155, 234, 0.75)');
+    dropGrad.addColorStop(0.7, 'rgba(108, 92, 231, 0.85)');
+    dropGrad.addColorStop(1, 'rgba(43, 27, 100, 0.95)');
+
+    ctx.beginPath();
+    // Shape morphing for falling tear vs round expanding bubble
+    if (r < 30) {
+      ctx.moveTo(0, -r * 1.3);
+      ctx.bezierCurveTo(r * 1.1, -r * 0.2, r * 1.2, r, 0, r * 1.1);
+      ctx.bezierCurveTo(-r * 1.2, r, -r * 1.1, -r * 0.2, 0, -r * 1.3);
+    } else {
+      ctx.arc(0, 0, r, 0, Math.PI * 2);
+    }
+    ctx.fillStyle = dropGrad;
+    ctx.fill();
+
+    // Refractive Inner Rim / Edge
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.75)';
+    ctx.lineWidth = Math.max(1.5, r * 0.03);
+    ctx.stroke();
+
+    // Top Glossy Specular Highlight
+    const highlightGrad = ctx.createRadialGradient(-r * 0.35, -r * 0.38, 1, -r * 0.2, -r * 0.2, r * 0.5);
+    highlightGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+    highlightGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.3)');
+    highlightGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+    ctx.beginPath();
+    ctx.ellipse(-r * 0.28, -r * 0.3, r * 0.32, r * 0.18, -Math.PI / 6, 0, Math.PI * 2);
+    ctx.fillStyle = highlightGrad;
+    ctx.fill();
+
+    ctx.restore();
+    ctx.restore();
+
+    if (timeline.isActive() || state.opacity > 0) {
+      requestAnimationFrame(render);
+    }
+  }
+
+  requestAnimationFrame(render);
+}
+
+function showLoginDirect() {
   document.getElementById("homeView").style.display="none";
-
   document.getElementById("dashboardView").style.display="none";
-
   document.getElementById("loginView").style.display="block";
-
   window.scrollTo(0,0);
+}
 
+function showLogin(){
+  triggerWaterDropletLogin();
 }
 
 
@@ -4571,3 +4821,4 @@ function escapeHtml(value){
 
 </body>
 </html>
+
