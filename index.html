@@ -63,30 +63,21 @@ a{
   width:100%;
   height:100%;
   z-index:999999;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   background:var(--paper);
   color:var(--ink);
-
   overflow:hidden;
   isolation:isolate;
-
   opacity:1;
   visibility:visible;
   pointer-events:auto;
-
   will-change:opacity,transform;
-
   transition:
     opacity 900ms cubic-bezier(.22,1,.36,1),
     visibility 900ms;
 }
-
-
-/* very subtle background atmosphere */
 
 #smoothLoader::before{
   content:"";
@@ -94,44 +85,27 @@ a{
   width:420px;
   height:420px;
   border-radius:50%;
-
   background:radial-gradient(
     circle,
     rgba(198,154,46,.08) 0%,
     rgba(198,154,46,.035) 35%,
     transparent 70%
   );
-
   filter:blur(20px);
-
   pointer-events:none;
 }
-
-
-/* loader content */
 
 .smooth-loader-content{
   position:relative;
   z-index:2;
-
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-
   opacity:0;
-
-  transform:
-    translate3d(0,22px,0)
-    scale(.965);
-
+  transform:translate3d(0,22px,0) scale(.965);
   filter:blur(8px);
-
-  will-change:
-    opacity,
-    transform,
-    filter;
-
+  will-change:opacity,transform,filter;
   animation:
     smoothLoaderIntro
     1100ms
@@ -140,57 +114,33 @@ a{
     forwards;
 }
 
-
-/* title */
-
 .smooth-loader-title{
   font-family:'IBM Plex Mono',monospace;
-
   font-size:clamp(12px,2vw,17px);
   font-weight:500;
-
   letter-spacing:.30em;
   text-indent:.30em;
-
   white-space:nowrap;
-
   color:var(--ink);
-
   user-select:none;
 }
 
-
-/* tiny loading line */
-
 .smooth-loader-line{
   position:relative;
-
   width:120px;
   height:1px;
-
   margin-top:23px;
-
   overflow:hidden;
-
   background:rgba(23,38,74,.13);
 }
 
-
-/* moving gold indicator */
-
 .smooth-loader-line span{
   position:absolute;
-
   top:0;
   left:-45%;
-
   width:45%;
   height:100%;
-
   background:var(--gold);
-
-  will-change:left;
-
   animation:
     smoothLoaderProgress
     1150ms
@@ -199,60 +149,28 @@ a{
     infinite;
 }
 
-
-/* intro */
-
 @keyframes smoothLoaderIntro{
-
   0%{
     opacity:0;
-
-    transform:
-      translate3d(0,22px,0)
-      scale(.965);
-
+    transform:translate3d(0,22px,0) scale(.965);
     filter:blur(8px);
   }
-
   55%{
     opacity:1;
-
-    transform:
-      translate3d(0,-2px,0)
-      scale(1.005);
-
+    transform:translate3d(0,-2px,0) scale(1.005);
     filter:blur(0);
   }
-
   100%{
     opacity:1;
-
-    transform:
-      translate3d(0,0,0)
-      scale(1);
-
+    transform:translate3d(0,0,0) scale(1);
     filter:blur(0);
   }
-
 }
-
-
-/* loading line */
 
 @keyframes smoothLoaderProgress{
-
-  0%{
-    left:-45%;
-  }
-
-  100%{
-    left:110%;
-  }
-
+  0%{left:-45%;}
+  100%{left:110%;}
 }
-
-
-/* loader exit */
 
 #smoothLoader.loader-exit{
   opacity:0;
@@ -260,19 +178,10 @@ a{
   pointer-events:none;
 }
 
-
-/* content exit */
-
 #smoothLoader.loader-exit .smooth-loader-content{
-
   opacity:0;
-
-  transform:
-    translate3d(0,-24px,0)
-    scale(1.045);
-
+  transform:translate3d(0,-24px,0) scale(1.045);
   filter:blur(10px);
-
   transition:
     opacity 650ms cubic-bezier(.22,1,.36,1),
     transform 850ms cubic-bezier(.22,1,.36,1),
@@ -281,127 +190,39 @@ a{
 
 
 /* =====================================================
-   HOMEPAGE ENTRANCE
+   HOMEPAGE
 ===================================================== */
-
-/*
-  Only the existing homepage gets this animation.
-  Login and dashboard are NOT affected.
-*/
 
 #homeView.homepage-loading{
   opacity:0;
-  transform:
-    translate3d(0,18px,0)
-    scale(.995);
-
+  transform:translate3d(0,18px,0) scale(.995);
   filter:blur(3px);
 }
 
-
 #homeView.homepage-ready{
-
   animation:
     homepageReveal
     1050ms
     cubic-bezier(.22,1,.36,1)
     forwards;
-
-  will-change:
-    opacity,
-    transform,
-    filter;
 }
-
 
 @keyframes homepageReveal{
-
   0%{
     opacity:0;
-
-    transform:
-      translate3d(0,18px,0)
-      scale(.995);
-
+    transform:translate3d(0,18px,0) scale(.995);
     filter:blur(3px);
   }
-
   45%{
     opacity:.7;
-
     filter:blur(1px);
   }
-
   100%{
     opacity:1;
-
-    transform:
-      translate3d(0,0,0)
-      scale(1);
-
+    transform:translate3d(0,0,0) scale(1);
     filter:blur(0);
   }
-
 }
-
-
-/* =====================================================
-   MOBILE LOADER
-===================================================== */
-
-@media(max-width:600px){
-
-  #smoothLoader::before{
-    width:300px;
-    height:300px;
-  }
-
-  .smooth-loader-title{
-    font-size:11px;
-    letter-spacing:.23em;
-    text-indent:.23em;
-  }
-
-  .smooth-loader-line{
-    width:100px;
-    margin-top:19px;
-  }
-
-}
-
-
-/* =====================================================
-   REDUCED MOTION
-===================================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-  #smoothLoader,
-  #smoothLoader .smooth-loader-content,
-  #smoothLoader .smooth-loader-line span,
-  #homeView{
-    animation:none !important;
-    transition:none !important;
-  }
-
-  #smoothLoader .smooth-loader-content{
-    opacity:1;
-    transform:none;
-    filter:none;
-  }
-
-  #homeView.homepage-loading{
-    opacity:1;
-    transform:none;
-    filter:none;
-  }
-
-}
-
-
-/* =========================
-   HOME PAGE
-========================= */
 
 header{
   display:flex;
@@ -471,9 +292,7 @@ nav a:hover{
 }
 
 @media(max-width:760px){
-  nav{
-    display:none;
-  }
+  nav{display:none;}
 }
 
 .menu-wrap{
@@ -670,9 +489,7 @@ section.block{
 }
 
 @media(max-width:700px){
-  .grid3{
-    grid-template-columns:1fr;
-  }
+  .grid3{grid-template-columns:1fr;}
 }
 
 .feature{
@@ -736,9 +553,9 @@ footer{
 }
 
 
-/* =========================
-   LOGIN PAGE
-========================= */
+/* =====================================================
+   LOGIN
+===================================================== */
 
 #loginView{
   display:none;
@@ -1006,9 +823,6 @@ footer{
   margin:auto;
 }
 
-
-/* TOP BAR */
-
 .profile-topbar{
   display:flex;
   justify-content:space-between;
@@ -1056,7 +870,8 @@ footer{
   align-items:center;
 }
 
-.profile-action-btn{
+.profile-action-btn,
+.logout-btn{
   border:none;
   padding:9px 13px;
   border-radius:10px;
@@ -1064,24 +879,17 @@ footer{
   font-size:12px;
   cursor:pointer;
   background:#fff;
-  color:#4b3bd4;
   box-shadow:0 5px 18px rgba(0,0,0,.06);
+}
+
+.profile-action-btn{
+  color:#4b3bd4;
 }
 
 .logout-btn{
-  border:none;
-  background:#fff;
   color:#c0392b;
   padding:9px 14px;
-  border-radius:10px;
-  font-weight:600;
-  font-size:12px;
-  cursor:pointer;
-  box-shadow:0 5px 18px rgba(0,0,0,.06);
 }
-
-
-/* HERO */
 
 .profile-hero{
   position:relative;
@@ -1163,25 +971,6 @@ footer{
   text-transform:uppercase;
 }
 
-@media(max-width:500px){
-  .profile-hero{
-    padding:21px;
-  }
-
-  .profile-avatar{
-    width:65px;
-    height:65px;
-    border-radius:18px;
-  }
-
-  .profile-hero h1{
-    font-size:23px;
-  }
-}
-
-
-/* QUICK STATS */
-
 .profile-stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -1217,25 +1006,6 @@ footer{
   color:#9691a7;
   margin-top:2px;
 }
-
-@media(max-width:600px){
-  .profile-stats{
-    grid-template-columns:1fr;
-  }
-
-  .stat-card{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-  }
-
-  .stat-value{
-    margin-top:0;
-  }
-}
-
-
-/* MAIN GRID */
 
 .profile-grid{
   display:grid;
@@ -1276,9 +1046,6 @@ footer{
   text-transform:uppercase;
 }
 
-
-/* DETAILS */
-
 .details-list{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -1307,19 +1074,6 @@ footer{
   font-weight:600;
   word-break:break-word;
 }
-
-@media(max-width:600px){
-  .profile-grid{
-    grid-template-columns:1fr;
-  }
-
-  .details-list{
-    grid-template-columns:1fr;
-  }
-}
-
-
-/* ATTENDANCE */
 
 .attendance-box{
   display:flex;
@@ -1371,11 +1125,6 @@ footer{
   font-size:11px;
 }
 
-
-/* =========================
-   EXAM RESULTS
-========================= */
-
 .exam-controls{
   display:flex;
   align-items:center;
@@ -1410,6 +1159,7 @@ footer{
   display:flex;
   flex-direction:column;
   gap:12px;
+  position:relative;
 }
 
 .exam-card{
@@ -1477,9 +1227,6 @@ footer{
   font-weight:500;
 }
 
-
-/* RESULT SUMMARY */
-
 .result-summary{
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -1507,24 +1254,6 @@ footer{
   font-size:18px;
   color:#30266f;
 }
-
-@media(max-width:500px){
-  .result-summary{
-    grid-template-columns:1fr;
-  }
-
-  .exam-controls{
-    width:100%;
-  }
-
-  .exam-select{
-    flex:1;
-    min-width:0;
-  }
-}
-
-
-/* FEES */
 
 .fee-grid{
   display:grid;
@@ -1567,15 +1296,6 @@ footer{
   color:#c0392b;
 }
 
-@media(max-width:500px){
-  .fee-grid{
-    grid-template-columns:1fr;
-  }
-}
-
-
-/* FOOTER */
-
 .profile-footer{
   text-align:center;
   padding:22px 8px 5px;
@@ -1600,15 +1320,380 @@ footer{
 }
 
 @keyframes spin{
-  to{
-    transform:rotate(360deg);
+  to{transform:rotate(360deg);}
+}
+
+
+/* =====================================================
+   ✨ STUDENT PROFILE MORPHING TRANSITION
+   ONLY #dashboardView IS AFFECTED
+===================================================== */
+
+#dashboardView.profile-morph-enter{
+  opacity:0;
+  transform:
+    scale(.94)
+    translateY(24px);
+  filter:blur(10px);
+  transform-origin:50% 8%;
+  will-change:
+    opacity,
+    transform,
+    filter;
+}
+
+#dashboardView.profile-morph-enter.profile-morph-active{
+  animation:
+    studentProfileMorphIn
+    950ms
+    cubic-bezier(.22,1,.36,1)
+    forwards;
+}
+
+@keyframes studentProfileMorphIn{
+
+  0%{
+    opacity:0;
+    transform:
+      scale(.94)
+      translateY(24px);
+    filter:blur(10px);
+  }
+
+  35%{
+    opacity:.55;
+    transform:
+      scale(.975)
+      translateY(8px);
+    filter:blur(4px);
+  }
+
+  70%{
+    opacity:.92;
+    transform:
+      scale(1.008)
+      translateY(-2px);
+    filter:blur(1px);
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      scale(1)
+      translateY(0);
+    filter:blur(0);
   }
 }
 
 
-/* =========================
+/* Profile content stagger */
+
+#dashboardView.profile-morph-active .profile-topbar{
+  animation:
+    profileContentReveal
+    700ms
+    cubic-bezier(.22,1,.36,1)
+    80ms
+    both;
+}
+
+#dashboardView.profile-morph-active .profile-hero{
+  animation:
+    profileHeroReveal
+    850ms
+    cubic-bezier(.22,1,.36,1)
+    130ms
+    both;
+}
+
+#dashboardView.profile-morph-active .profile-stats{
+  animation:
+    profileContentReveal
+    750ms
+    cubic-bezier(.22,1,.36,1)
+    240ms
+    both;
+}
+
+#dashboardView.profile-morph-active .profile-card{
+  animation:
+    profileCardReveal
+    700ms
+    cubic-bezier(.22,1,.36,1)
+    both;
+}
+
+#dashboardView.profile-morph-active .profile-card:nth-child(1){
+  animation-delay:320ms;
+}
+
+#dashboardView.profile-morph-active .profile-card:nth-child(2){
+  animation-delay:380ms;
+}
+
+#dashboardView.profile-morph-active .profile-card:nth-child(3){
+  animation-delay:440ms;
+}
+
+#dashboardView.profile-morph-active .profile-card:nth-child(4){
+  animation-delay:500ms;
+}
+
+#dashboardView.profile-morph-active .profile-card:nth-child(5){
+  animation-delay:560ms;
+}
+
+@keyframes profileContentReveal{
+
+  from{
+    opacity:0;
+    transform:
+      translateY(18px)
+      scale(.98);
+    filter:blur(4px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
+    filter:blur(0);
+  }
+}
+
+@keyframes profileHeroReveal{
+
+  0%{
+    opacity:0;
+    transform:
+      translateY(25px)
+      scale(.94);
+    border-radius:40px;
+    filter:blur(6px);
+  }
+
+  55%{
+    opacity:1;
+    transform:
+      translateY(-3px)
+      scale(1.015);
+    border-radius:27px;
+    filter:blur(1px);
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
+    border-radius:24px;
+    filter:blur(0);
+  }
+}
+
+@keyframes profileCardReveal{
+
+  from{
+    opacity:0;
+    transform:
+      translateY(20px)
+      scale(.97);
+    filter:blur(4px);
+  }
+
+  to{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
+    filter:blur(0);
+  }
+}
+
+
+/* =====================================================
+   ✨ EXAM RESULTS MORPH
+===================================================== */
+
+#examList{
+  position:relative;
+  min-height:70px;
+}
+
+#examList.exam-morph-out{
+  opacity:0;
+  transform:
+    translateY(12px)
+    scale(.97);
+  filter:blur(5px);
+  transition:
+    opacity 260ms ease,
+    transform 420ms cubic-bezier(.22,1,.36,1),
+    filter 260ms ease;
+}
+
+#examList.exam-morph-in{
+  animation:
+    examMorphIn
+    620ms
+    cubic-bezier(.22,1,.36,1)
+    both;
+}
+
+@keyframes examMorphIn{
+
+  0%{
+    opacity:0;
+    transform:
+      translateY(-12px)
+      scale(.975);
+    filter:blur(6px);
+  }
+
+  55%{
+    opacity:1;
+    transform:
+      translateY(2px)
+      scale(1.008);
+    filter:blur(1px);
+  }
+
+  100%{
+    opacity:1;
+    transform:
+      translateY(0)
+      scale(1);
+    filter:blur(0);
+  }
+}
+
+
+/* =====================================================
+   MOBILE PROFILE MORPH
+===================================================== */
+
+@media(max-width:600px){
+
+  .profile-stats{
+    grid-template-columns:1fr;
+  }
+
+  .stat-card{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .stat-value{
+    margin-top:0;
+  }
+
+  .profile-grid{
+    grid-template-columns:1fr;
+  }
+
+  .details-list{
+    grid-template-columns:1fr;
+  }
+
+  .result-summary{
+    grid-template-columns:1fr;
+  }
+
+  .fee-grid{
+    grid-template-columns:1fr;
+  }
+
+  .exam-controls{
+    width:100%;
+  }
+
+  .exam-select{
+    flex:1;
+    min-width:0;
+  }
+
+  #dashboardView.profile-morph-enter{
+    transform:
+      scale(.965)
+      translateY(18px);
+    filter:blur(7px);
+  }
+
+  #dashboardView.profile-morph-enter.profile-morph-active{
+    animation-duration:800ms;
+  }
+
+  #dashboardView.profile-morph-active .profile-card{
+    animation-duration:600ms;
+  }
+}
+
+@media(max-width:500px){
+
+  .profile-hero{
+    padding:21px;
+  }
+
+  .profile-avatar{
+    width:65px;
+    height:65px;
+    border-radius:18px;
+  }
+
+  .profile-hero h1{
+    font-size:23px;
+  }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media(prefers-reduced-motion:reduce){
+
+  #smoothLoader,
+  #smoothLoader .smooth-loader-content,
+  #smoothLoader .smooth-loader-line span,
+  #homeView{
+    animation:none !important;
+    transition:none !important;
+  }
+
+  #smoothLoader .smooth-loader-content{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+
+  #homeView.homepage-loading{
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+
+  #dashboardView.profile-morph-enter,
+  #dashboardView.profile-morph-enter.profile-morph-active,
+  #dashboardView.profile-morph-active .profile-topbar,
+  #dashboardView.profile-morph-active .profile-hero,
+  #dashboardView.profile-morph-active .profile-stats,
+  #dashboardView.profile-morph-active .profile-card,
+  #examList.exam-morph-in,
+  #examList.exam-morph-out{
+    animation:none !important;
+    transition:none !important;
+    opacity:1 !important;
+    transform:none !important;
+    filter:none !important;
+  }
+}
+
+
+/* =====================================================
    PRINT
-========================= */
+===================================================== */
 
 @media print{
 
@@ -1634,6 +1719,9 @@ footer{
     display:block !important;
     background:#fff !important;
     padding:0 !important;
+    opacity:1 !important;
+    transform:none !important;
+    filter:none !important;
   }
 
   .profile-shell{
@@ -1686,10 +1774,9 @@ footer{
 
 <body>
 
-
 <!-- =====================================================
      PREMIUM SMOOTH LOADER
-====================================================== -->
+===================================================== -->
 
 <div id="smoothLoader" aria-hidden="true">
 
@@ -1709,8 +1796,8 @@ footer{
 
 
 <!-- =====================================================
-     HOME PAGE — UNCHANGED
-====================================================== -->
+     HOME PAGE
+===================================================== -->
 
 <div id="homeView">
 
@@ -1736,19 +1823,13 @@ footer{
 
   </div>
 
-
   <nav>
 
-    <a href="#about">
-      About
-    </a>
+    <a href="#about">About</a>
 
-    <a href="#academics">
-      Academics
-    </a>
+    <a href="#academics">Academics</a>
 
   </nav>
-
 
   <div class="menu-wrap">
 
@@ -1757,7 +1838,6 @@ footer{
        onclick="showLogin(); return false;">
        Student Portal
     </a>
-
 
     <button class="hamburger"
             id="hamburgerBtn"
@@ -1770,17 +1850,12 @@ footer{
 
     </button>
 
-
     <div class="dropdown"
          id="dropdownMenu">
 
-      <a href="#about">
-        About
-      </a>
+      <a href="#about">About</a>
 
-      <a href="#academics">
-        Academics
-      </a>
+      <a href="#academics">Academics</a>
 
       <hr>
 
@@ -1835,14 +1910,11 @@ footer{
 </section>
 
 
-<section class="block"
-         id="academics">
+<section class="block" id="academics">
 
   <div class="block-head">
 
-    <h2>
-      What the portal shows
-    </h2>
+    <h2>What the portal shows</h2>
 
     <span class="tag">
       PIN + password login
@@ -1850,18 +1922,13 @@ footer{
 
   </div>
 
-
   <div class="grid3">
 
     <div class="feature">
 
-      <span class="mark">
-        01
-      </span>
+      <span class="mark">01</span>
 
-      <h3>
-        Marks
-      </h3>
+      <h3>Marks</h3>
 
       <p>
         Subject-wise scores for every exam,
@@ -1870,16 +1937,11 @@ footer{
 
     </div>
 
-
     <div class="feature">
 
-      <span class="mark">
-        02
-      </span>
+      <span class="mark">02</span>
 
-      <h3>
-        Attendance
-      </h3>
+      <h3>Attendance</h3>
 
       <p>
         Daily attendance percentage by term,
@@ -1888,16 +1950,11 @@ footer{
 
     </div>
 
-
     <div class="feature">
 
-      <span class="mark">
-        03
-      </span>
+      <span class="mark">03</span>
 
-      <h3>
-        Fees
-      </h3>
+      <h3>Fees</h3>
 
       <p>
         Total, paid, and pending amounts by term,
@@ -1911,14 +1968,11 @@ footer{
 </section>
 
 
-<section class="block"
-         id="about">
+<section class="block" id="about">
 
   <div class="block-head">
 
-    <h2>
-      About the school
-    </h2>
+    <h2>About the school</h2>
 
     <span class="tag">
       Est. Angara
@@ -1926,14 +1980,11 @@ footer{
 
   </div>
 
-
   <div class="about-row">
 
     <div class="col">
 
-      <h3>
-        Our school
-      </h3>
+      <h3>Our school</h3>
 
       <p>
         Sree Ramakrishna Public School serves students
@@ -1943,12 +1994,9 @@ footer{
 
     </div>
 
-
     <div class="col">
 
-      <h3>
-        Principal
-      </h3>
+      <h3>Principal</h3>
 
       <p>
         Torati Veerannababu leads the school and its academic staff.
@@ -1978,8 +2026,8 @@ footer{
 
 
 <!-- =====================================================
-     LOGIN VIEW — UNCHANGED
-====================================================== -->
+     LOGIN PAGE
+===================================================== -->
 
 <div id="loginView">
 
@@ -1991,13 +2039,11 @@ footer{
 
   </div>
 
-
   <div class="login-card">
 
     <div class="login-illustration">
 
       <div class="login-dots"></div>
-
 
       <svg width="220"
            height="150"
@@ -2112,7 +2158,6 @@ footer{
 
       </svg>
 
-
       <div class="login-badge"></div>
 
     </div>
@@ -2138,17 +2183,12 @@ footer{
 
       </div>
 
-
       <div class="login-error"
            id="errorMsg">
-
         Invalid credentials.
-
       </div>
 
-
       <form id="loginForm">
-
 
         <div class="login-field">
 
@@ -2168,7 +2208,6 @@ footer{
             </svg>
 
           </div>
-
 
           <input
             type="text"
@@ -2201,14 +2240,12 @@ footer{
 
           </div>
 
-
           <input
             type="password"
             id="password"
             placeholder="Password"
             autocomplete="current-password"
             required>
-
 
           <button type="button"
                   class="toggle-eye"
@@ -2242,7 +2279,6 @@ footer{
             Remember me
 
           </label>
-
 
           <a href="#"
              class="login-forgot"
@@ -2286,13 +2322,12 @@ footer{
 
 
 <!-- =====================================================
-     STUDENT PROFILE VIEW
-====================================================== -->
+     STUDENT PROFILE
+===================================================== -->
 
 <div id="dashboardView">
 
   <div class="profile-shell">
-
 
     <div class="profile-topbar">
 
@@ -2326,7 +2361,6 @@ footer{
 
         </button>
 
-
         <button class="logout-btn"
                 onclick="showHome()">
 
@@ -2345,11 +2379,8 @@ footer{
 
         <div class="profile-avatar"
              id="profileAvatar">
-
           S
-
         </div>
-
 
         <div>
 
@@ -2370,7 +2401,6 @@ footer{
         </div>
 
       </div>
-
 
       <div class="profile-school">
         Student Academic Profile
@@ -2395,12 +2425,9 @@ footer{
 
         </div>
 
-
         <div class="stat-value"
              id="dashClass">
-
           --
-
         </div>
 
       </div>
@@ -2420,12 +2447,9 @@ footer{
 
         </div>
 
-
         <div class="stat-value"
              id="dashAttendance">
-
           --
-
         </div>
 
       </div>
@@ -2441,19 +2465,14 @@ footer{
 
           <div class="stat-note"
                id="resultExamNote">
-
             Selected exam
-
           </div>
 
         </div>
 
-
         <div class="stat-value"
              id="dashPercentage">
-
           --
-
         </div>
 
       </div>
@@ -2478,9 +2497,7 @@ footer{
 
         </div>
 
-
         <div class="details-list">
-
 
           <div class="detail-item">
 
@@ -2490,13 +2507,10 @@ footer{
 
             <span class="detail-value"
                   id="detailId">
-
               --
-
             </span>
 
           </div>
-
 
           <div class="detail-item">
 
@@ -2506,13 +2520,10 @@ footer{
 
             <span class="detail-value"
                   id="detailClass">
-
               --
-
             </span>
 
           </div>
-
 
           <div class="detail-item">
 
@@ -2522,13 +2533,10 @@ footer{
 
             <span class="detail-value"
                   id="detailFather">
-
               --
-
             </span>
 
           </div>
-
 
           <div class="detail-item">
 
@@ -2538,13 +2546,10 @@ footer{
 
             <span class="detail-value"
                   id="detailMother">
-
               --
-
             </span>
 
           </div>
-
 
           <div class="detail-item">
 
@@ -2554,13 +2559,10 @@ footer{
 
             <span class="detail-value"
                   id="detailPhone">
-
               --
-
             </span>
 
           </div>
-
 
           <div class="detail-item">
 
@@ -2570,13 +2572,10 @@ footer{
 
             <span class="detail-value"
                   id="detailVillage">
-
               --
-
             </span>
 
           </div>
-
 
         </div>
 
@@ -2597,7 +2596,6 @@ footer{
 
         </div>
 
-
         <div class="attendance-box">
 
           <div class="attendance-circle"
@@ -2606,13 +2604,10 @@ footer{
 
             <div class="attendance-number"
                  id="attendanceCircleText">
-
               0%
-
             </div>
 
           </div>
-
 
           <div class="attendance-text">
 
@@ -2621,10 +2616,8 @@ footer{
             </h3>
 
             <p id="attendanceMessage">
-
               Attendance information
               will appear here.
-
             </p>
 
           </div>
@@ -2641,7 +2634,6 @@ footer{
           <h2>
             Academic Results
           </h2>
-
 
           <div class="exam-controls">
 
@@ -2661,7 +2653,6 @@ footer{
           </div>
 
         </div>
-
 
         <div class="exam-list"
              id="examList">
@@ -2693,9 +2684,7 @@ footer{
 
         </div>
 
-
         <div class="result-summary">
-
 
           <div class="result-box">
 
@@ -2709,7 +2698,6 @@ footer{
 
           </div>
 
-
           <div class="result-box">
 
             <span>
@@ -2722,7 +2710,6 @@ footer{
 
           </div>
 
-
           <div class="result-box">
 
             <span>
@@ -2734,7 +2721,6 @@ footer{
             </strong>
 
           </div>
-
 
         </div>
 
@@ -2755,9 +2741,7 @@ footer{
 
         </div>
 
-
         <div class="fee-grid">
-
 
           <div class="fee-box fee-total">
 
@@ -2771,7 +2755,6 @@ footer{
 
           </div>
 
-
           <div class="fee-box fee-paid">
 
             <span>
@@ -2783,7 +2766,6 @@ footer{
             </strong>
 
           </div>
-
 
           <div class="fee-box fee-due">
 
@@ -2797,11 +2779,9 @@ footer{
 
           </div>
 
-
         </div>
 
       </div>
-
 
     </div>
 
@@ -2821,91 +2801,38 @@ footer{
 
 /* =====================================================
    PREMIUM SMOOTH LOADER
+   HOMEPAGE CODE
 ===================================================== */
 
 (function(){
 
   const loader=
-    document.getElementById(
-      "smoothLoader"
-    );
+    document.getElementById("smoothLoader");
 
   const home=
-    document.getElementById(
-      "homeView"
-    );
-
+    document.getElementById("homeView");
 
   if(!loader || !home){
-
     return;
-
   }
 
-
-  /*
-    Keep homepage visually hidden while
-    the loader is displayed.
-  */
-
-  home.classList.add(
-    "homepage-loading"
-  );
-
-
-  /*
-    Start after browser has painted the
-    loader. This prevents flickering.
-  */
+  home.classList.add("homepage-loading");
 
   requestAnimationFrame(function(){
 
     requestAnimationFrame(function(){
 
-      /*
-        Premium short loading duration.
-
-        It is long enough to feel intentional,
-        but short enough that the user doesn't
-        wait unnecessarily.
-      */
-
       setTimeout(function(){
 
-        /*
-          Start loader exit.
-        */
-
-        loader.classList.add(
-          "loader-exit"
-        );
-
-
-        /*
-          Reveal homepage slightly before
-          loader completely disappears.
-
-          This creates the seamless overlap
-          instead of an abrupt transition.
-        */
+        loader.classList.add("loader-exit");
 
         setTimeout(function(){
 
-          home.classList.remove(
-            "homepage-loading"
-          );
+          home.classList.remove("homepage-loading");
 
-          home.classList.add(
-            "homepage-ready"
-          );
+          home.classList.add("homepage-ready");
 
         },350);
-
-
-        /*
-          Completely remove loader after
-          transition finishes.
-        */
 
         setTimeout(function(){
 
@@ -2934,11 +2861,11 @@ const APPS_SCRIPT_URL =
    GLOBAL STUDENT DATA
 ===================================================== */
 
-let currentStudentProfiles = [];
+let currentStudentProfiles=[];
 
-let currentStudentId = "";
+let currentStudentId="";
 
-let currentMainProfile = null;
+let currentMainProfile=null;
 
 
 /* =====================================================
@@ -2966,11 +2893,6 @@ function showHome(){
 
   document.getElementById("homeView").style.display="block";
 
-  /*
-    Remove the initial loader animation
-    classes if the user returns home.
-  */
-
   document.getElementById("homeView").classList.remove(
     "homepage-loading",
     "homepage-ready"
@@ -2987,10 +2909,10 @@ function showHome(){
    HAMBURGER
 ===================================================== */
 
-const hamburgerBtn =
+const hamburgerBtn=
 document.getElementById("hamburgerBtn");
 
-const dropdownMenu =
+const dropdownMenu=
 document.getElementById("dropdownMenu");
 
 if(hamburgerBtn){
@@ -3010,10 +2932,10 @@ if(hamburgerBtn){
    PASSWORD EYE
 ===================================================== */
 
-const toggleEye =
+const toggleEye=
 document.getElementById("toggleEye");
 
-const passwordInput =
+const passwordInput=
 document.getElementById("password");
 
 if(toggleEye){
@@ -3041,7 +2963,7 @@ if(toggleEye){
 
 function normalizeKey(value){
 
-  return String(value || "")
+  return String(value||"")
     .toLowerCase()
     .replace(/[^a-z0-9]/g,"");
 
@@ -3070,9 +2992,11 @@ function getValue(obj,...possibleKeys){
 
     });
 
-    if(found!==undefined &&
-       obj[found]!==undefined &&
-       obj[found]!==null){
+    if(
+      found!==undefined &&
+      obj[found]!==undefined &&
+      obj[found]!==null
+    ){
 
       return String(obj[found]).trim();
 
@@ -3139,16 +3063,13 @@ function numberValue(value){
     value===null ||
     value===""
   ){
-
     return 0;
-
   }
 
   const text=
     String(value)
       .replace(/,/g,"")
       .trim();
-
 
   if(text.includes("/")){
 
@@ -3158,10 +3079,9 @@ function numberValue(value){
       parts[0].replace(/[^0-9.-]/g,"")
     );
 
-    return isNaN(n) ? 0 : n;
+    return isNaN(n)?0:n;
 
   }
-
 
   const n=parseFloat(
     text.replace(/[^0-9.-]/g,"")
@@ -3183,9 +3103,7 @@ function isNumericMark(value){
     value===null ||
     String(value).trim()===""
   ){
-
     return false;
-
   }
 
   const text=
@@ -3193,29 +3111,24 @@ function isNumericMark(value){
       .replace(/,/g,"")
       .trim();
 
-
   if(
     text.toLowerCase()==="true" ||
     text.toLowerCase()==="false"
   ){
-
     return false;
-
   }
-
 
   if(text.includes("/")){
 
     const parts=text.split("/");
 
-    return (
+    return(
       parts.length===2 &&
       !isNaN(parseFloat(parts[0])) &&
       !isNaN(parseFloat(parts[1]))
     );
 
   }
-
 
   return !isNaN(
     parseFloat(
@@ -3235,12 +3148,10 @@ async function apiRequest(params){
   const query=
     new URLSearchParams(params);
 
-
   const response=
     await fetch(
       APPS_SCRIPT_URL+"?"+query.toString()
     );
-
 
   if(!response.ok){
 
@@ -3249,7 +3160,6 @@ async function apiRequest(params){
     );
 
   }
-
 
   return await response.json();
 
@@ -3266,56 +3176,40 @@ function extractStudentObject(result){
     return null;
   }
 
-
   if(
     result.profile &&
     typeof result.profile==="object"
   ){
-
     return result.profile;
-
   }
-
 
   if(
     result.student &&
     typeof result.student==="object"
   ){
-
     return result.student;
-
   }
-
 
   if(
     result.data &&
     typeof result.data==="object"
   ){
-
     return result.data;
-
   }
-
 
   if(
     result.record &&
     typeof result.record==="object"
   ){
-
     return result.record;
-
   }
-
 
   if(
     result.result &&
     typeof result.result==="object"
   ){
-
     return result.result;
-
   }
-
 
   return result;
 
@@ -3335,7 +3229,6 @@ async function getExamNames(){
         action:"exams"
       });
 
-
     if(
       result &&
       result.success &&
@@ -3344,10 +3237,7 @@ async function getExamNames(){
 
       const exams=[];
 
-
-      if(
-        Array.isArray(result.exams)
-      ){
+      if(Array.isArray(result.exams)){
 
         result.exams.forEach(function(name){
 
@@ -3366,15 +3256,12 @@ async function getExamNames(){
               name &&
               normalizeKey(name)!=="student"
             ){
-
               exams.push(name);
-
             }
 
           });
 
       }
-
 
       return exams;
 
@@ -3389,8 +3276,7 @@ async function getExamNames(){
 
   }
 
-
-  return [
+  return[
     "FA1",
     "FA2",
     "FA3",
@@ -3424,34 +3310,23 @@ async function getStudentForExam(
 
     });
 
-
   if(!result){
-
     return null;
-
   }
-
 
   if(result.success===false){
-
     return null;
-
   }
-
 
   const profile=
     extractStudentObject(result);
-
 
   if(
     !profile ||
     typeof profile!=="object"
   ){
-
     return null;
-
   }
-
 
   return profile;
 
@@ -3470,13 +3345,11 @@ document
 
     e.preventDefault();
 
-
     const studentId=
       document
       .getElementById("studentId")
       .value
       .trim();
-
 
     const password=
       document
@@ -3484,39 +3357,28 @@ document
       .value
       .trim();
 
-
     const errorMsg=
       document.getElementById("errorMsg");
-
 
     const loginButton=
       document.getElementById("loginButton");
 
-
     errorMsg.classList.remove("show");
-
 
     loginButton.disabled=true;
 
     loginButton.innerText="Verifying...";
 
-
     try{
-
 
       let exams=
         await getExamNames();
 
-
       if(!exams.length){
-
         exams=["FA1"];
-
       }
 
-
       const profiles=[];
-
 
       for(const exam of exams){
 
@@ -3528,15 +3390,11 @@ document
               exam
             );
 
-
           if(profile){
 
             profiles.push({
-
               exam:exam,
-
               data:profile
-
             });
 
           }
@@ -3552,7 +3410,6 @@ document
 
       }
 
-
       if(!profiles.length){
 
         throw new Error(
@@ -3561,16 +3418,11 @@ document
 
       }
 
-
       let passwordMatched=false;
 
-
-      for(
-        const item of profiles
-      ){
+      for(const item of profiles){
 
         const profile=item.data;
-
 
         const serverPassword=
           deepGet(
@@ -3585,7 +3437,6 @@ document
             ]
           );
 
-
         if(
           !serverPassword ||
           serverPassword===password
@@ -3599,7 +3450,6 @@ document
 
       }
 
-
       if(!passwordMatched){
 
         throw new Error(
@@ -3608,18 +3458,19 @@ document
 
       }
 
-
       currentStudentProfiles=
         profiles;
-
 
       currentStudentId=
         studentId;
 
-
       currentMainProfile=
         profiles[0].data;
 
+
+      /* ==============================================
+         RENDER STUDENT PROFILE
+      ============================================== */
 
       renderStudentProfile(
         currentMainProfile,
@@ -3628,35 +3479,75 @@ document
       );
 
 
-      document.getElementById("loginView")
-        .style.display="none";
+      /* ==============================================
+         STUDENT PROFILE MORPHING TRANSITION
+
+         ONLY DASHBOARD IS ANIMATED
+         HOME + LOGIN ARE NOT TOUCHED
+      ============================================== */
+
+      const loginView=
+        document.getElementById("loginView");
+
+      const dashboardView=
+        document.getElementById("dashboardView");
 
 
-      document.getElementById("dashboardView")
-        .style.display="block";
+      loginView.style.display="none";
+
+
+      dashboardView.classList.remove(
+        "profile-morph-active"
+      );
+
+      dashboardView.classList.add(
+        "profile-morph-enter"
+      );
+
+
+      dashboardView.style.display="block";
 
 
       window.scrollTo(0,0);
+
+
+      requestAnimationFrame(function(){
+
+        requestAnimationFrame(function(){
+
+          dashboardView.classList.add(
+            "profile-morph-active"
+          );
+
+        });
+
+      });
+
+
+      setTimeout(function(){
+
+        dashboardView.classList.remove(
+          "profile-morph-enter",
+          "profile-morph-active"
+        );
+
+      },1100);
 
 
     }catch(error){
 
       console.error(error);
 
-
       errorMsg.innerText=
         error.message==="Invalid credentials"
         ? "Invalid Student ID or Password."
         : "Unable to find the student record. Please check the Student ID.";
 
-
       errorMsg.classList.add("show");
-
 
     }finally{
 
       loginButton.disabled=false;
-
 
       loginButton.innerHTML=`
 
@@ -3704,7 +3595,6 @@ function renderStudentProfile(
       ]
     ) || "Student";
 
-
   const id=
     deepGet(
       profile,
@@ -3715,7 +3605,6 @@ function renderStudentProfile(
         "ID"
       ]
     ) || fallbackId;
-
 
   const studentClass=
     deepGet(
@@ -3728,7 +3617,6 @@ function renderStudentProfile(
       ]
     ) || "--";
 
-
   const father=
     deepGet(
       profile,
@@ -3739,7 +3627,6 @@ function renderStudentProfile(
       ]
     ) || "--";
 
-
   const mother=
     deepGet(
       profile,
@@ -3749,7 +3636,6 @@ function renderStudentProfile(
         "MotherName"
       ]
     ) || "--";
-
 
   const phone=
     deepGet(
@@ -3762,7 +3648,6 @@ function renderStudentProfile(
       ]
     ) || "--";
 
-
   const village=
     deepGet(
       profile,
@@ -3772,7 +3657,6 @@ function renderStudentProfile(
         "Location"
       ]
     ) || "--";
-
 
   const attendance=
     deepGet(
@@ -3785,56 +3669,43 @@ function renderStudentProfile(
       ]
     );
 
-
   document.getElementById("dashName")
     .innerText=name;
-
 
   document.getElementById("dashId")
     .innerText=id;
 
-
   document.getElementById("detailId")
     .innerText=id;
-
 
   document.getElementById("dashClass")
     .innerText=studentClass;
 
-
   document.getElementById("detailClass")
     .innerText=studentClass;
-
 
   document.getElementById("detailFather")
     .innerText=father;
 
-
   document.getElementById("detailMother")
     .innerText=mother;
-
 
   document.getElementById("detailPhone")
     .innerText=phone;
 
-
   document.getElementById("detailVillage")
     .innerText=village;
-
 
   const avatar=
     document.getElementById(
       "profileAvatar"
     );
 
-
   avatar.innerText=
     name.trim().charAt(0).toUpperCase() || "S";
 
-
   const att=
     numberValue(attendance);
-
 
   document.getElementById(
     "dashAttendance"
@@ -3847,7 +3718,6 @@ function renderStudentProfile(
       )
     : "--";
 
-
   document.getElementById(
     "attendanceCircleText"
   ).innerText=
@@ -3855,14 +3725,12 @@ function renderStudentProfile(
     ? Math.round(att)+"%"
     : "--";
 
-
   document.getElementById(
     "attendanceCircle"
   ).style.setProperty(
     "--att",
     Math.min(att,100)*3.6+"deg"
   );
-
 
   if(att>=75){
 
@@ -3887,7 +3755,6 @@ function renderStudentProfile(
 
   }
 
-
   const paid=
     deepGet(
       profile,
@@ -3898,7 +3765,6 @@ function renderStudentProfile(
         "Fees Paid"
       ]
     ) || "0";
-
 
   const due=
     deepGet(
@@ -3912,7 +3778,6 @@ function renderStudentProfile(
       ]
     ) || "0";
 
-
   const explicitTotal=
     deepGet(
       profile,
@@ -3924,7 +3789,6 @@ function renderStudentProfile(
       ]
     );
 
-
   const totalFee=
     explicitTotal ||
     (
@@ -3932,24 +3796,20 @@ function renderStudentProfile(
       numberValue(due)
     );
 
-
   document.getElementById(
     "dashTotalFee"
   ).innerText=
     "₹"+totalFee;
-
 
   document.getElementById(
     "dashPaid"
   ).innerText=
     "₹"+paid;
 
-
   document.getElementById(
     "dashDue"
   ).innerText=
     "₹"+due;
-
 
   setupExamDropdown(
     examProfiles
@@ -3971,9 +3831,7 @@ function setupExamDropdown(
       "examSelect"
     );
 
-
   select.innerHTML="";
-
 
   if(
     !examProfiles ||
@@ -3995,7 +3853,6 @@ function setupExamDropdown(
 
   }
 
-
   examProfiles.forEach(
     function(item,index){
 
@@ -4004,23 +3861,18 @@ function setupExamDropdown(
           "option"
         );
 
-
       option.value=
         String(index);
 
-
       option.textContent=
         item.exam;
-
 
       select.appendChild(option);
 
     }
   );
 
-
   select.value="0";
-
 
   renderSelectedExam(
     examProfiles[0],
@@ -4031,7 +3883,8 @@ function setupExamDropdown(
 
 
 /* =====================================================
-   EXAM DROPDOWN CHANGE
+   EXAM CHANGE
+   MORPHING TRANSITION
 ===================================================== */
 
 document
@@ -4046,21 +3899,62 @@ document
         10
       );
 
-
     if(
       isNaN(index) ||
       !currentStudentProfiles[index]
     ){
-
       return;
-
     }
 
+    const examList=
+      document.getElementById(
+        "examList"
+      );
 
-    renderSelectedExam(
-      currentStudentProfiles[index],
-      currentStudentProfiles[index].exam
+
+    /* Morph old exam OUT */
+
+    examList.classList.remove(
+      "exam-morph-in"
     );
+
+    examList.classList.add(
+      "exam-morph-out"
+    );
+
+
+    /* Wait for outgoing animation */
+
+    setTimeout(function(){
+
+      renderSelectedExam(
+        currentStudentProfiles[index],
+        currentStudentProfiles[index].exam
+      );
+
+
+      /* Morph new exam IN */
+
+      examList.classList.remove(
+        "exam-morph-out"
+      );
+
+      void examList.offsetWidth;
+
+      examList.classList.add(
+        "exam-morph-in"
+      );
+
+
+      setTimeout(function(){
+
+        examList.classList.remove(
+          "exam-morph-in"
+        );
+
+      },700);
+
+    },280);
 
   }
 );
@@ -4074,107 +3968,60 @@ function getMarkRows(profile){
 
   const rows=[];
 
-
   if(
     !profile ||
     typeof profile!=="object"
   ){
-
     return rows;
-
   }
-
 
   const excluded=[
 
     "success",
-
     "status",
-
     "message",
-
     "error",
-
     "studentid",
-
     "id",
-
     "name",
-
     "studentname",
-
     "classname",
-
     "class",
-
     "grade",
-
     "standard",
-
     "password",
-
     "pass",
-
     "pin",
-
     "passcode",
-
     "pwd",
-
     "mother",
-
     "mothername",
-
     "father",
-
     "fathername",
-
     "phone",
-
     "phonenumber",
-
     "mobile",
-
     "village",
-
     "address",
-
     "location",
-
     "attendance",
-
     "attendancepercentage",
-
     "total",
-
     "totalmarks",
-
     "percentage",
-
     "percent",
-
     "resultgrade",
-
     "paid",
-
     "paidfee",
-
     "feespaid",
-
     "due",
-
     "feedue",
-
     "pending",
-
     "pendingfee",
-
     "totalfee",
-
     "totalfees"
 
   ];
-
 
   Object.keys(profile)
     .forEach(function(key){
@@ -4182,29 +4029,21 @@ function getMarkRows(profile){
       const normalized=
         normalizeKey(key);
 
-
       if(
         excluded.includes(normalized)
       ){
-
         return;
-
       }
-
 
       if(
         profile[key] &&
         typeof profile[key]==="object"
       ){
-
         return;
-
       }
-
 
       const value=
         profile[key];
-
 
       if(
         value!==undefined &&
@@ -4212,11 +4051,8 @@ function getMarkRows(profile){
       ){
 
         rows.push({
-
           subject:key,
-
           mark:String(value).trim()
-
         });
 
       }
@@ -4238,9 +4074,7 @@ function getMarkRows(profile){
     typeof nestedMarks==="object"
   ){
 
-    if(
-      !Array.isArray(nestedMarks)
-    ){
+    if(!Array.isArray(nestedMarks)){
 
       Object.keys(nestedMarks)
         .forEach(function(key){
@@ -4248,19 +4082,14 @@ function getMarkRows(profile){
           const normalized=
             normalizeKey(key);
 
-
           if(
             excluded.includes(normalized)
           ){
-
             return;
-
           }
-
 
           const value=
             nestedMarks[key];
-
 
           if(
             value!==undefined &&
@@ -4277,15 +4106,11 @@ function getMarkRows(profile){
 
               });
 
-
             if(!already){
 
               rows.push({
-
                 subject:key,
-
                 mark:String(value).trim()
-
               });
 
             }
@@ -4297,9 +4122,7 @@ function getMarkRows(profile){
     }
 
 
-    if(
-      Array.isArray(nestedMarks)
-    ){
+    if(Array.isArray(nestedMarks)){
 
       nestedMarks.forEach(
         function(item){
@@ -4308,11 +4131,8 @@ function getMarkRows(profile){
             !item ||
             typeof item!=="object"
           ){
-
             return;
-
           }
-
 
           const subject=
             getValue(
@@ -4323,7 +4143,6 @@ function getMarkRows(profile){
               "Name"
             );
 
-
           const mark=
             getValue(
               item,
@@ -4333,15 +4152,11 @@ function getMarkRows(profile){
               "Value"
             );
 
-
           if(subject){
 
             rows.push({
-
               subject:subject,
-
               mark:mark
-
             });
 
           }
@@ -4356,7 +4171,6 @@ function getMarkRows(profile){
 
   const unique=[];
 
-
   rows.forEach(function(row){
 
     const exists=
@@ -4370,15 +4184,11 @@ function getMarkRows(profile){
 
       });
 
-
     if(!exists){
-
       unique.push(row);
-
     }
 
   });
-
 
   return unique;
 
@@ -4399,9 +4209,7 @@ function renderSelectedExam(
       "examList"
     );
 
-
   container.innerHTML="";
-
 
   if(
     !examItem ||
@@ -4414,44 +4222,35 @@ function renderSelectedExam(
       </div>
     `;
 
-
     updatePerformance(
       null,
       ""
     );
 
-
     return;
 
   }
 
-
   const profile=
     examItem.data;
 
-
   const rows=
     getMarkRows(profile);
-
 
   const card=
     document.createElement(
       "div"
     );
 
-
   card.className="exam-card";
-
 
   const heading=
     document.createElement(
       "div"
     );
 
-
   heading.className=
     "exam-heading";
-
 
   const numericCount=
     rows.filter(function(row){
@@ -4461,7 +4260,6 @@ function renderSelectedExam(
       );
 
     }).length;
-
 
   heading.innerHTML=`
 
@@ -4475,16 +4273,13 @@ function renderSelectedExam(
 
   `;
 
-
   const table=
     document.createElement(
       "table"
     );
 
-
   table.className=
     "mark-table";
-
 
   if(rows.length){
 
@@ -4516,7 +4311,6 @@ function renderSelectedExam(
                 String(
                   row.mark || ""
                 ).trim()!=="";
-
 
               return `
 
@@ -4583,21 +4377,17 @@ function renderSelectedExam(
 
   }
 
-
   card.appendChild(
     heading
   );
-
 
   card.appendChild(
     table
   );
 
-
   container.appendChild(
     card
   );
-
 
   updatePerformance(
     rows,
@@ -4620,10 +4410,7 @@ function updatePerformance(
 
   let numericMarks=0;
 
-
-  if(
-    Array.isArray(rows)
-  ){
+  if(Array.isArray(rows)){
 
     rows.forEach(function(row){
 
@@ -4646,9 +4433,7 @@ function updatePerformance(
 
   }
 
-
   let percentage=0;
-
 
   if(numericMarks>0){
 
@@ -4657,44 +4442,27 @@ function updatePerformance(
 
   }
 
-
   let grade="--";
-
 
   if(numericMarks>0){
 
     if(percentage>=90){
-
       grade="A+";
-
     }else if(percentage>=80){
-
       grade="A";
-
     }else if(percentage>=70){
-
       grade="B+";
-
     }else if(percentage>=60){
-
       grade="B";
-
     }else if(percentage>=50){
-
       grade="C";
-
     }else if(percentage>=40){
-
       grade="D";
-
     }else{
-
       grade="F";
-
     }
 
   }
-
 
   document.getElementById(
     "dashTotal"
@@ -4703,32 +4471,24 @@ function updatePerformance(
     ? formatNumber(total)
     : "--";
 
-
   document.getElementById(
     "dashPercentage"
   ).innerText=
     numericMarks
-    ? formatNumber(
-        percentage
-      )+"%"
+    ? formatNumber(percentage)+"%"
     : "--";
-
 
   document.getElementById(
     "dashPercentage2"
   ).innerText=
     numericMarks
-    ? formatNumber(
-        percentage
-      )+"%"
+    ? formatNumber(percentage)+"%"
     : "--";
-
 
   document.getElementById(
     "dashGrade"
   ).innerText=
     grade;
-
 
   document.getElementById(
     "performanceExamLabel"
@@ -4736,7 +4496,6 @@ function updatePerformance(
     examName
     ? examName
     : "SUMMARY";
-
 
   document.getElementById(
     "resultExamNote"
@@ -4754,14 +4513,9 @@ function updatePerformance(
 
 function formatNumber(value){
 
-  if(
-    Number.isInteger(value)
-  ){
-
+  if(Number.isInteger(value)){
     return String(value);
-
   }
-
 
   return Number(
     value.toFixed(2)
